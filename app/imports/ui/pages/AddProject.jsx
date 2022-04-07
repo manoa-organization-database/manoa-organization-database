@@ -11,9 +11,9 @@ import PropTypes from 'prop-types';
 import MultiSelectField from '../forms/controllers/MultiSelectField';
 import { addProjectMethod } from '../../startup/both/Methods';
 import { Interests } from '../../api/interests/Interests';
-import { Profiles } from '../../api/profiles/Profiles';
-import { ProfilesInterests } from '../../api/profiles/ProfilesInterests';
-import { ProfilesProjects } from '../../api/profiles/ProfilesProjects';
+import { Users } from '../../api/users/Users';
+import { ProfilesInterests } from '../../api/users/ProfilesInterests';
+import { ProfilesProjects } from '../../api/users/ProfilesProjects';
 import { Projects } from '../../api/projects/Projects';
 
 /** Create a schema to specify the structure of the data to appear in the form. */
@@ -46,7 +46,7 @@ class AddProject extends React.Component {
   render() {
     let fRef = null;
     const allInterests = _.pluck(Interests.collection.find().fetch(), 'name');
-    const allParticipants = _.pluck(Profiles.collection.find().fetch(), 'email');
+    const allParticipants = _.pluck(Users.collection.find().fetch(), 'email');
     const formSchema = makeSchema(allInterests, allParticipants);
     const bridge = new SimpleSchema2Bridge(formSchema);
     return (
@@ -83,7 +83,7 @@ AddProject.propTypes = {
 export default withTracker(() => {
   // Ensure that minimongo is populated with all collections prior to running render().
   const sub1 = Meteor.subscribe(Interests.userPublicationName);
-  const sub2 = Meteor.subscribe(Profiles.userPublicationName);
+  const sub2 = Meteor.subscribe(Users.userPublicationName);
   const sub3 = Meteor.subscribe(ProfilesInterests.userPublicationName);
   const sub4 = Meteor.subscribe(ProfilesProjects.userPublicationName);
   const sub5 = Meteor.subscribe(Projects.userPublicationName);

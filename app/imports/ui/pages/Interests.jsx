@@ -5,16 +5,16 @@ import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
 import { Interests } from '../../api/interests/Interests';
-import { Profiles } from '../../api/profiles/Profiles';
-import { ProfilesInterests } from '../../api/profiles/ProfilesInterests';
-import { ProfilesProjects } from '../../api/profiles/ProfilesProjects';
+import { Users } from '../../api/users/Users';
+import { ProfilesInterests } from '../../api/users/ProfilesInterests';
+import { ProfilesProjects } from '../../api/users/ProfilesProjects';
 import { Projects } from '../../api/projects/Projects';
 import { ProjectsInterests } from '../../api/projects/ProjectsInterests';
 
-/** Returns the Profiles and Projects associated with the passed Interest. */
+/** Returns the Users and Projects associated with the passed Interest. */
 function getInterestData(name) {
   const profiles = _.pluck(ProfilesInterests.collection.find({ interest: name }).fetch(), 'profile');
-  const profilePictures = profiles.map(profile => Profiles.collection.findOne({ email: profile }).picture);
+  const profilePictures = profiles.map(profile => Users.collection.findOne({ email: profile }).picture);
   const projects = _.pluck(ProjectsInterests.collection.find({ interest: name }).fetch(), 'project');
   const projectPictures = projects.map(project => Projects.collection.findOne({ name: project }).picture);
   // console.log(_.extend({ }, data, { interests, projects: projectPictures }));
@@ -70,7 +70,7 @@ export default withTracker(() => {
   const sub1 = Meteor.subscribe(ProfilesProjects.userPublicationName);
   const sub2 = Meteor.subscribe(Projects.userPublicationName);
   const sub3 = Meteor.subscribe(ProjectsInterests.userPublicationName);
-  const sub4 = Meteor.subscribe(Profiles.userPublicationName);
+  const sub4 = Meteor.subscribe(Users.userPublicationName);
   const sub5 = Meteor.subscribe(Interests.userPublicationName);
   const sub6 = Meteor.subscribe(ProfilesInterests.userPublicationName);
   return {

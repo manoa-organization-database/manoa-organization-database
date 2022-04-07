@@ -11,7 +11,7 @@ import { Interests } from '../../api/interests/Interests';
 import { Profiles } from '../../api/profiles/Profiles';
 import { ProfilesInterests } from '../../api/profiles/ProfilesInterests';
 import { ProfilesProjects } from '../../api/profiles/ProfilesProjects';
-import { Projects } from '../../api/projects/Projects';
+import { Clubs } from '../../api/clubs/Clubs';
 import MultiSelectField from '../forms/controllers/MultiSelectField';
 
 /** Create a schema to specify the structure of the data to appear in the form. */
@@ -24,7 +24,7 @@ function getProfileData(email) {
   const data = Profiles.collection.findOne({ email });
   const interests = _.pluck(ProfilesInterests.collection.find({ profile: email }).fetch(), 'interest');
   const projects = _.pluck(ProfilesProjects.collection.find({ profile: email }).fetch(), 'project');
-  const projectPictures = projects.map(project => Projects.collection.findOne({ name: project }).picture);
+  const projectPictures = projects.map(project => Clubs.collection.findOne({ name: project }).picture);
   return _.extend({ }, data, { interests, projects: projectPictures });
 }
 
@@ -108,7 +108,7 @@ export default withTracker(() => {
   const sub1 = Meteor.subscribe(Profiles.userPublicationName);
   const sub2 = Meteor.subscribe(ProfilesInterests.userPublicationName);
   const sub3 = Meteor.subscribe(ProfilesProjects.userPublicationName);
-  const sub4 = Meteor.subscribe(Projects.userPublicationName);
+  const sub4 = Meteor.subscribe(Clubs.userPublicationName);
   const sub5 = Meteor.subscribe(Interests.userPublicationName);
   return {
     ready: sub1.ready() && sub2.ready() && sub3.ready() && sub4.ready() && sub5.ready(),

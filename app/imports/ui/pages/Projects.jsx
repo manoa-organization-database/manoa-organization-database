@@ -6,12 +6,12 @@ import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
 import { Profiles } from '../../api/profiles/Profiles';
 import { ProfilesProjects } from '../../api/profiles/ProfilesProjects';
-import { Projects } from '../../api/projects/Projects';
-import { ProjectsInterests } from '../../api/projects/ProjectsInterests';
+import { Clubs } from '../../api/clubs/Clubs';
+import { ProjectsInterests } from '../../api/clubs/ProjectsInterests';
 
 /** Gets the Project data as well as Profiles and Interests associated with the passed Project name. */
 function getProjectData(name) {
-  const data = Projects.collection.findOne({ name });
+  const data = Clubs.collection.findOne({ name });
   const interests = _.pluck(ProjectsInterests.collection.find({ project: name }).fetch(), 'interest');
   const profiles = _.pluck(ProfilesProjects.collection.find({ project: name }).fetch(), 'profile');
   const profilePictures = profiles.map(profile => Profiles.collection.findOne({ email: profile }).picture);
@@ -55,7 +55,7 @@ class ProjectsPage extends React.Component {
 
   /** Render the page once subscriptions have been received. */
   renderPage() {
-    const projects = _.pluck(Projects.collection.find().fetch(), 'name');
+    const projects = _.pluck(Clubs.collection.find().fetch(), 'name');
     const projectData = projects.map(project => getProjectData(project));
     return (
       <Container id="projects-page">
@@ -75,7 +75,7 @@ ProjectsPage.propTypes = {
 export default withTracker(() => {
   // Ensure that minimongo is populated with all collections prior to running render().
   const sub1 = Meteor.subscribe(ProfilesProjects.userPublicationName);
-  const sub2 = Meteor.subscribe(Projects.userPublicationName);
+  const sub2 = Meteor.subscribe(Clubs.userPublicationName);
   const sub3 = Meteor.subscribe(ProjectsInterests.userPublicationName);
   const sub4 = Meteor.subscribe(Profiles.userPublicationName);
   return {

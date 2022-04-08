@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Image, Container, Header, Divider } from 'semantic-ui-react';
+import { Image, Container, Header, Divider } from 'semantic-ui-react';
 
 /** Renders a color-blocked static landing page. */
 class Landing extends React.Component {
@@ -18,9 +18,9 @@ class Landing extends React.Component {
         </div>
         <div className='landing-white-background'>
           <Divider horizontal>
-            <Header style={{ color: '#376551' }} as='h2' textAlign='center'>Club Officers</Header>
+            <Header style={{ color: '#024731' }} as='h2' textAlign='center'>Club Officers</Header>
           </Divider>
-          <Header as="h3" style={{ color: '#376551' }} textAlign="center">Showcase your clubs by providing descriptions,
+          <Header as="h3" style={{ color: '#024731' }} textAlign="center">Showcase your clubs by providing descriptions,
             location and contact information, and other promotional information.</Header>
           <Container>
             <Image src="/images/club-admin-home-page.png" bordered alt="Club admin home page"/>
@@ -44,9 +44,9 @@ class Landing extends React.Component {
         </div>
         <div className='landing-white-background'>
           <Divider horizontal>
-            <Header style={{ color: '#376551' }} as='h2' textAlign='center'>Admin Users</Header>
+            <Header style={{ color: '#024731' }} as='h2' textAlign='center'>Admin Users</Header>
           </Divider>
-          <Header as="h3" style={{ color: '#376551' }} textAlign="center">Admins may grant club officers club admin powers,
+          <Header as="h3" style={{ color: '#024731' }} textAlign="center">Admins may grant club officers club admin powers,
             and can add and remove new interests for club admins and users to use.</Header>
           <Container>
             <Image src="/images/admin-home-page-mockup.png" bordered alt="Admin home page"/>

@@ -25,24 +25,24 @@ function addInterest(interest) {
 }
 
 /** Defines a new user and associated profile. Error if user already exists. */
-function addProfile({ firstName, lastName, bio, title, interests, projects, picture, email, role }) {
+function addUser({ firstName, lastName, email, picture, interests, clubs, role }) {
   console.log(`Defining profile ${email}`);
   // Define the user in the Meteor accounts package.
   createUser(email, role);
   // Create the profile.
-  Users.collection.insert({ firstName, lastName, bio, title, picture, email });
+  Users.collection.insert({ firstName, lastName, email, picture, role });
   // Add interests and projects.
-  interests.map(interest => ProfilesInterests.collection.insert({ profile: email, interest }));
-  projects.map(project => ProfilesProjects.collection.insert({ profile: email, project }));
+  interests.map(interest => ProfilesInterests.collection.insert({ user: email, interest }));
+  clubs.map(club => ProfilesProjects.collection.insert({ user: email, club }));
   // Make sure interests are defined in the Interests collection if they weren't already.
   interests.map(interest => addInterest(interest));
 }
 
 /** Define a new project. Error if project already exists.  */
-function addProject({ name, homepage, description, interests, picture }) {
+function addClubs({ name, homepage, description, interests, picture }) {
   console.log(`Defining project ${name}`);
   Projects.collection.insert({ name, homepage, description, picture });
-  interests.map(interest => ProjectsInterests.collection.insert({ project: name, interest }));
+  interests.map(interest => ProjectsInterests.collection.insert({ club: name, interest }));
   // Make sure interests are defined in the Interests collection if they weren't already.
   interests.map(interest => addInterest(interest));
 }
@@ -51,9 +51,9 @@ function addProject({ name, homepage, description, interests, picture }) {
 if (Meteor.users.find().count() === 0) {
   if (Meteor.settings.defaultProjects && Meteor.settings.defaultProfiles) {
     console.log('Creating the default profiles');
-    Meteor.settings.defaultProfiles.map(profile => addProfile(profile));
+    Meteor.settings.defaultProfiles.map(user => addUser(user));
     console.log('Creating the default projects');
-    Meteor.settings.defaultProjects.map(project => addProject(project));
+    Meteor.settings.defaultProjects.map(club => addClubs(club));
   } else {
     console.log('Cannot initialize the database!  Please invoke meteor with a settings file.');
   }
@@ -71,6 +71,6 @@ if ((Meteor.settings.loadAssetsFile) && (Meteor.users.find().count() < 7)) {
   const assetsFileName = 'data.json';
   console.log(`Loading data from private/${assetsFileName}`);
   const jsonData = JSON.parse(Assets.getText(assetsFileName));
-  jsonData.profiles.map(profile => addProfile(profile));
-  jsonData.projects.map(project => addProject(project));
+  jsonData.users.map(user => addUser(user));
+  jsonData.clubs.map(club => addClubs(club));
 }

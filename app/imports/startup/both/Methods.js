@@ -1,9 +1,9 @@
 import { Meteor } from 'meteor/meteor';
 import { Clubs } from '../../api/clubs/Clubs';
-import { Profiles } from '../../api/profiles/Profiles';
-import { ProfilesInterests } from '../../api/profiles/ProfilesInterests';
-import { ProfilesProjects } from '../../api/profiles/ProfilesProjects';
+import { ProfilesInterests } from '../../api/users/ProfilesInterests';
+import { ProfilesProjects } from '../../api/users/ProfilesProjects';
 import { ProjectsInterests } from '../../api/clubs/ProjectsInterests';
+import { Users } from '../../api/users/Users';
 
 /**
  * In Bowfolios, insecure mode is enabled, so it is possible to update the server's Mongo database by making
@@ -32,13 +32,13 @@ import { ProjectsInterests } from '../../api/clubs/ProjectsInterests';
 const updateProfileMethod = 'Profiles.update';
 
 /**
- * The server-side Profiles.update Meteor Method is called by the client-side Home page after pushing the update button.
- * Its purpose is to update the Profiles, ProfilesInterests, and ProfilesProjects collections to reflect the
+ * The server-side Users.update Meteor Method is called by the client-side Home page after pushing the update button.
+ * Its purpose is to update the Users, ProfilesInterests, and ProfilesProjects collections to reflect the
  * updated situation specified by the user.
  */
 Meteor.methods({
   'Profiles.update'({ email, firstName, lastName, bio, title, picture, interests, projects }) {
-    Profiles.collection.update({ email }, { $set: { email, firstName, lastName, bio, title, picture } });
+    Users.collection.update({ email }, { $set: { email, firstName, lastName, bio, title, picture } });
     ProfilesInterests.collection.remove({ profile: email });
     ProfilesProjects.collection.remove({ profile: email });
     interests.map((interest) => ProfilesInterests.collection.insert({ profile: email, interest }));

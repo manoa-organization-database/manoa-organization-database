@@ -1,16 +1,16 @@
 import { Meteor } from 'meteor/meteor';
 import { Interests } from '../../api/interests/Interests';
-import { Profiles } from '../../api/profiles/Profiles';
-import { ProfilesInterests } from '../../api/profiles/ProfilesInterests';
-import { ProfilesProjects } from '../../api/profiles/ProfilesProjects';
+import { ProfilesInterests } from '../../api/users/ProfilesInterests';
+import { ProfilesProjects } from '../../api/users/ProfilesProjects';
 import { Clubs } from '../../api/clubs/Clubs';
 import { ProjectsInterests } from '../../api/clubs/ProjectsInterests';
+import { Users } from '../../api/users/Users';
 
 /** Define a publication to publish all interests. */
 Meteor.publish(Interests.userPublicationName, () => Interests.collection.find());
 
 /** Define a publication to publish all profiles. */
-Meteor.publish(Profiles.userPublicationName, () => Profiles.collection.find());
+Meteor.publish(Users.userPublicationName, () => Users.collection.find());
 
 /** Define a publication to publish this collection. */
 Meteor.publish(ProfilesInterests.userPublicationName, () => ProfilesInterests.collection.find());

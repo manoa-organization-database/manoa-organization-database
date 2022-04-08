@@ -4,17 +4,17 @@ import { Container, Loader, Card, Image, Label, Header } from 'semantic-ui-react
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
-import { Users } from '../../api/users/Users';
 import { ProfilesInterests } from '../../api/users/ProfilesInterests';
 import { ProfilesProjects } from '../../api/users/ProfilesProjects';
-import { Projects } from '../../api/projects/Projects';
+import { Clubs } from '../../api/clubs/Clubs';
+import { Users } from '../../api/users/Users';
 
-/** Returns the Profile and associated Projects and Interests associated with the passed user email. */
+/** Returns the Profile and associated Clubs and Interests associated with the passed user email. */
 function getProfileData(email) {
   const data = Users.collection.findOne({ email });
   const interests = _.pluck(ProfilesInterests.collection.find({ profile: email }).fetch(), 'interest');
   const projects = _.pluck(ProfilesProjects.collection.find({ profile: email }).fetch(), 'project');
-  const projectPictures = projects.map(project => Projects.collection.findOne({ name: project }).picture);
+  const projectPictures = projects.map(project => Clubs.collection.findOne({ name: project }).picture);
   // console.log(_.extend({ }, data, { interests, projects: projectPictures }));
   return _.extend({ }, data, { interests, projects: projectPictures });
 }
@@ -79,7 +79,7 @@ export default withTracker(() => {
   const sub1 = Meteor.subscribe(Users.userPublicationName);
   const sub2 = Meteor.subscribe(ProfilesInterests.userPublicationName);
   const sub3 = Meteor.subscribe(ProfilesProjects.userPublicationName);
-  const sub4 = Meteor.subscribe(Projects.userPublicationName);
+  const sub4 = Meteor.subscribe(Clubs.userPublicationName);
   return {
     ready: sub1.ready() && sub2.ready() && sub3.ready() && sub4.ready(),
   };

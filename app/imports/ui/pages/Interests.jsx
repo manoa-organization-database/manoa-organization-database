@@ -8,15 +8,15 @@ import { Interests } from '../../api/interests/Interests';
 import { Users } from '../../api/users/Users';
 import { ProfilesInterests } from '../../api/users/ProfilesInterests';
 import { ProfilesProjects } from '../../api/users/ProfilesProjects';
-import { Projects } from '../../api/projects/Projects';
-import { ProjectsInterests } from '../../api/projects/ProjectsInterests';
+import { Clubs } from '../../api/clubs/Clubs';
+import { ProjectsInterests } from '../../api/clubs/ProjectsInterests';
 
 /** Returns the Users and Projects associated with the passed Interest. */
 function getInterestData(name) {
   const profiles = _.pluck(ProfilesInterests.collection.find({ interest: name }).fetch(), 'profile');
   const profilePictures = profiles.map(profile => Users.collection.findOne({ email: profile }).picture);
   const projects = _.pluck(ProjectsInterests.collection.find({ interest: name }).fetch(), 'project');
-  const projectPictures = projects.map(project => Projects.collection.findOne({ name: project }).picture);
+  const projectPictures = projects.map(project => Clubs.collection.findOne({ name: project }).picture);
   // console.log(_.extend({ }, data, { interests, projects: projectPictures }));
   return _.extend({ }, { name, profiles: profilePictures, projects: projectPictures });
 }
@@ -68,7 +68,7 @@ InterestsPage.propTypes = {
 export default withTracker(() => {
   // Ensure that minimongo is populated with all collections prior to running render().
   const sub1 = Meteor.subscribe(ProfilesProjects.userPublicationName);
-  const sub2 = Meteor.subscribe(Projects.userPublicationName);
+  const sub2 = Meteor.subscribe(Clubs.userPublicationName);
   const sub3 = Meteor.subscribe(ProjectsInterests.userPublicationName);
   const sub4 = Meteor.subscribe(Users.userPublicationName);
   const sub5 = Meteor.subscribe(Interests.userPublicationName);

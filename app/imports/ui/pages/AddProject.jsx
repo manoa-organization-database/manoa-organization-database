@@ -14,7 +14,7 @@ import { Interests } from '../../api/interests/Interests';
 import { Users } from '../../api/users/Users';
 import { ProfilesInterests } from '../../api/users/ProfilesInterests';
 import { ProfilesProjects } from '../../api/users/ProfilesProjects';
-import { Projects } from '../../api/projects/Projects';
+import { Clubs } from '../../api/clubs/Clubs';
 
 /** Create a schema to specify the structure of the data to appear in the form. */
 const makeSchema = (allInterests, allParticipants) => new SimpleSchema({
@@ -86,7 +86,7 @@ export default withTracker(() => {
   const sub2 = Meteor.subscribe(Users.userPublicationName);
   const sub3 = Meteor.subscribe(ProfilesInterests.userPublicationName);
   const sub4 = Meteor.subscribe(ProfilesProjects.userPublicationName);
-  const sub5 = Meteor.subscribe(Projects.userPublicationName);
+  const sub5 = Meteor.subscribe(Clubs.userPublicationName);
   return {
     ready: sub1.ready() && sub2.ready() && sub3.ready() && sub4.ready() && sub5.ready(),
   };

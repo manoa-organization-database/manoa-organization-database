@@ -1,9 +1,9 @@
 import { Meteor } from 'meteor/meteor';
-import { Projects } from '../../api/projects/Projects';
-import { Users } from '../../api/users/Users';
+import { Clubs } from '../../api/clubs/Clubs';
 import { ProfilesInterests } from '../../api/users/ProfilesInterests';
 import { ProfilesProjects } from '../../api/users/ProfilesProjects';
-import { ProjectsInterests } from '../../api/projects/ProjectsInterests';
+import { ProjectsInterests } from '../../api/clubs/ProjectsInterests';
+import { Users } from '../../api/users/Users';
 
 /**
  * In Bowfolios, insecure mode is enabled, so it is possible to update the server's Mongo database by making
@@ -48,10 +48,10 @@ Meteor.methods({
 
 const addProjectMethod = 'Projects.add';
 
-/** Creates a new project in the Projects collection, and also updates ProfilesProjects and ProjectsInterests. */
+/** Creates a new project in the Clubs collection, and also updates ProfilesProjects and ProjectsInterests. */
 Meteor.methods({
   'Projects.add'({ name, description, picture, interests, participants, homepage }) {
-    Projects.collection.insert({ name, description, picture, homepage });
+    Clubs.collection.insert({ name, description, picture, homepage });
     ProfilesProjects.collection.remove({ project: name });
     ProjectsInterests.collection.remove({ project: name });
     if (interests) {

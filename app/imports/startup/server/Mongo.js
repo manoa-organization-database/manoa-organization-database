@@ -3,9 +3,9 @@ import { Accounts } from 'meteor/accounts-base';
 import { Roles } from 'meteor/alanning:roles';
 import { Projects } from '../../api/projects/Projects';
 import { ProjectsInterests } from '../../api/projects/ProjectsInterests';
-import { Profiles } from '../../api/profiles/Profiles';
-import { ProfilesProjects } from '../../api/profiles/ProfilesProjects';
-import { ProfilesInterests } from '../../api/profiles/ProfilesInterests';
+import { Users } from '../../api/users/Users';
+import { ProfilesProjects } from '../../api/users/ProfilesProjects';
+import { ProfilesInterests } from '../../api/users/ProfilesInterests';
 import { Interests } from '../../api/interests/Interests';
 
 /* eslint-disable no-console */
@@ -30,7 +30,7 @@ function addProfile({ firstName, lastName, bio, title, interests, projects, pict
   // Define the user in the Meteor accounts package.
   createUser(email, role);
   // Create the profile.
-  Profiles.collection.insert({ firstName, lastName, bio, title, picture, email });
+  Users.collection.insert({ firstName, lastName, bio, title, picture, email });
   // Add interests and projects.
   interests.map(interest => ProfilesInterests.collection.insert({ profile: email, interest }));
   projects.map(project => ProfilesProjects.collection.insert({ profile: email, project }));

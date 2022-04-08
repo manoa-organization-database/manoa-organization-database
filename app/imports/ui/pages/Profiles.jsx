@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Container, Loader, Card, Image, Label, Header } from 'semantic-ui-react';
+import { Container, Loader, Card, Image, Label, Header, Button } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
@@ -16,14 +16,14 @@ function getProfileData(email) {
   const projects = _.pluck(ProfilesProjects.collection.find({ profile: email }).fetch(), 'project');
   const projectPictures = projects.map(project => Clubs.collection.findOne({ name: project }).picture);
   // console.log(_.extend({ }, data, { interests, projects: projectPictures }));
-  return _.extend({ }, data, { interests, projects: projectPictures });
+  return _.extend({}, data, { interests, projects: projectPictures });
 }
 
 /** Component for layout out a Profile Card. */
 const MakeCard = (props) => (
   <Card>
     <Card.Content>
-      <Image floated='right' size='mini' src={props.profile.picture} />
+      <Image floated='right' size='mini' src={props.profile.picture}/>
       <Card.Header>{props.profile.firstName} {props.profile.lastName}</Card.Header>
       <Card.Meta>
         <span className='date'>{props.profile.title}</span>
@@ -38,7 +38,8 @@ const MakeCard = (props) => (
     </Card.Content>
     <Card.Content extra>
       <Header as='h5'>Projects</Header>
-      {_.map(props.profile.projects, (project, index) => <Image key={index} size='mini' src={project}/>)}
+      {_.map(props.profile.projects,
+        (project, index) => <Image key={index} size='mini' src={project}/>)}
     </Card.Content>
   </Card>
 );
@@ -60,10 +61,34 @@ class ProfilesPage extends React.Component {
     const emails = _.pluck(Users.collection.find().fetch(), 'email');
     const profileData = emails.map(email => getProfileData(email));
     return (
-      <Container id="profiles-page">
-        <Card.Group>
-          {_.map(profileData, (profile, index) => <MakeCard key={index} profile={profile}/>)}
-        </Card.Group>
+      <Container>
+        <Card centered fluid>
+          <Card.Content>
+            <Image
+              floated='left'
+              size='tiny'
+              src='https://manoa.hawaii.edu/speakers/wp-content/uploads/logo-1.png'
+            />
+            <Card.Header>John Doe</Card.Header>
+            <Card.Meta>
+              <span>john@foo.com</span>
+            </Card.Meta>
+          </Card.Content>
+          <Card.Content>
+            <p>Clubs:</p>
+            <Label>Mockup Club</Label>
+          </Card.Content>
+          <Card.Content>
+            <p>Interests:</p>
+            <Label>Photography</Label>
+            <Label>Sports</Label>
+            <Label>Programming</Label>
+          </Card.Content>
+          <Card.Content>
+            <Button color='blue'>Edit</Button>
+            <Button color='red'>Delete</Button>
+          </Card.Content>
+        </Card>
       </Container>
     );
   }

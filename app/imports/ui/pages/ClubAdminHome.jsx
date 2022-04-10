@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, Container, Header, Button, Label, Icon, Card } from 'semantic-ui-react';
+import { Image, Container, Header, Button, Label, Card } from 'semantic-ui-react';
 
 /** Renders a color-blocked static ClubAdminHome page. */
 class ClubAdminHome extends React.Component {
@@ -14,13 +14,17 @@ class ClubAdminHome extends React.Component {
     return (
       <div>
         <div className="club-admin-margin">
-          <Container textAlign='center'>
-            <Header as="h1" style={{ display: 'inline-flex', alignItems: 'center' }}>Mockup Club<Button size='mini' >Edit</Button></Header>
+          <Container>
+            <Button fluid className="club-admin-button">Edit Club Profile</Button>
           </Container>
         </div>
         <div className="club-admin-margin">
-          <Image src="https://media.istockphoto.com/photos/in-progress-square-red-grunge-stamp-picture-id460917967?k=20&m=460917967&s=612x612&w=0&h=aj
-          CaVf-QUvfCdSgBcWVixBzJrfT4tV-kObbhC04sgPU=" size='large' centered/>
+          <Container textAlign='center'>
+            <Header as="h1">Mockup Club</Header>
+          </Container>
+        </div>
+        <div className="club-admin-margin">
+          <Image src="https://react.semantic-ui.com/images/wireframe/image.png" size='large' centered/>
         </div>
         <div className="club-admin-margin">
           <Container textAlign='center'>
@@ -33,20 +37,14 @@ class ClubAdminHome extends React.Component {
           <Container textAlign='center'>
             <Header as="h1">Club Interests</Header>
             <div>
-              <Label>
-                Clubs
-                <Icon name='delete' />
-              </Label>
-              <Label>
-                Mockups
-                <Icon name='delete' />
-              </Label>
+              <Label className="club-admin-label">Clubs</Label>
+              <Label className="club-admin-label">Mockups</Label>
             </div>
           </Container>
         </div>
         <div className="club-admin-margin">
           <Container textAlign="center">
-            <Header as="h1" style={{ display: 'inline-flex', alignItems: 'center' }}>Members<Button size='mini' >Add</Button></Header>
+            <Header as="h1">Members</Header>
             <Card.Group centered>
               <Card>
                 <Image src='https://react.semantic-ui.com/images/avatar/large/matthew.png' wrapped ui={false} />
@@ -61,16 +59,10 @@ class ClubAdminHome extends React.Component {
                 </Card.Content>
                 <Card.Content extra>
                   <div>
-                    <Label>
-                      Clubs
-                    </Label>
-                    <Label>
-                      Mockups
-                    </Label>
+                    <p>Interests:</p>
+                    <Label className="club-admin-label">Clubs</Label>
+                    <Label className="club-admin-label">Mockups</Label>
                   </div>
-                </Card.Content>
-                <Card.Content extra>
-                  Remove
                 </Card.Content>
               </Card>
               <Card>
@@ -86,19 +78,11 @@ class ClubAdminHome extends React.Component {
                 </Card.Content>
                 <Card.Content extra>
                   <div>
-                    <Label>
-                      Clubs
-                    </Label>
-                    <Label>
-                      Mockups
-                    </Label>
-                    <Label>
-                      Sports
-                    </Label>
+                    <p>Interests:</p>
+                    <Label className="club-admin-label">Clubs</Label>
+                    <Label className="club-admin-label">Mockups</Label>
+                    <Label className="club-admin-label">Sports</Label>
                   </div>
-                </Card.Content>
-                <Card.Content extra>
-                  Remove
                 </Card.Content>
               </Card>
             </Card.Group>

@@ -22,5 +22,15 @@
 }
 
 .club-admin-margin {
-  margin-bottom: 50px;
+  margin-bottom: 30px;
+}
+
+.ui.club-admin-label.label {
+  background-color: #376551;
+  color: white
+}
+
+.ui.club-admin-button.button {
+  background-color: #376551;
+  color: white
 }

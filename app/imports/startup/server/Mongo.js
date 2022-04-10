@@ -25,17 +25,19 @@ function addInterest(interest) {
 }
 
 /** Defines a new user and associated profile. Error if user already exists. */
-function addUser({ firstName, lastName, email, picture, interests, clubs, role }) {
+function addUser({ firstName, lastName, email, picture, role }) {
   console.log(`Defining profile ${email}`);
   // Define the user in the Meteor accounts package.
   createUser(email, role);
   // Create the profile.
   Users.collection.insert({ firstName, lastName, email, picture, role });
+  /*
   // Add interests and projects.
   interests.map(interest => ProfilesInterests.collection.insert({ user: email, interest }));
   clubs.map(club => ProfilesProjects.collection.insert({ user: email, club }));
   // Make sure interests are defined in the Interests collection if they weren't already.
   interests.map(interest => addInterest(interest));
+  */
 }
 
 /** Define a new project. Error if project already exists.  */
@@ -49,11 +51,18 @@ function addClubs({ name, homepage, description, interests, picture }) {
 
 /** Initialize DB if it appears to be empty (i.e. no users defined.) */
 if (Meteor.users.find().count() === 0) {
-  if (Meteor.settings.defaultProjects && Meteor.settings.defaultProfiles) {
+  /*
+  if (Meteor.settings.defaultProjects && Meteor.settings.defaultProfiles)
+  */
+  if (Meteor.settings.defaultAccounts) {
+    /*
     console.log('Creating the default profiles');
     Meteor.settings.defaultProfiles.map(user => addUser(user));
     console.log('Creating the default projects');
     Meteor.settings.defaultProjects.map(club => addClubs(club));
+         */
+    Meteor.settings.defaultAccounts.map(user => addUser(user));
+    console.log('Creating the default users');
   } else {
     console.log('Cannot initialize the database!  Please invoke meteor with a settings file.');
   }

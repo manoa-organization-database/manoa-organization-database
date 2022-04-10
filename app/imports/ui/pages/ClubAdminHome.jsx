@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, Container, Header, Button, Label, Card } from 'semantic-ui-react';
+import { Image, Container, Header, Button, Label, Card, Divider } from 'semantic-ui-react';
 
 /** Renders a color-blocked static ClubAdminHome page. */
 class ClubAdminHome extends React.Component {
@@ -20,7 +20,9 @@ class ClubAdminHome extends React.Component {
         </div>
         <div className="club-admin-margin">
           <Container textAlign='center'>
+            <Divider />
             <Header as="h1">Mockup Club</Header>
+            <Divider />
           </Container>
         </div>
         <div className="club-admin-margin">
@@ -28,9 +30,12 @@ class ClubAdminHome extends React.Component {
         </div>
         <div className="club-admin-margin">
           <Container textAlign='center'>
+            <Divider />
             <Header as="h3">Do you like making mockups of clubs? Then this is the club for you. The Mockup Club focuses on
               teaching members how to create their own mockups of clubs. Activites include coming up with clubs ideas and
               writing their own club descriptions such as this one.</Header>
+            <p>Location: POST 319</p>
+            <Divider />
           </Container>
         </div>
         <div className="club-admin-margin">
@@ -40,12 +45,32 @@ class ClubAdminHome extends React.Component {
               <Label className="club-admin-label">Clubs</Label>
               <Label className="club-admin-label">Mockups</Label>
             </div>
+            <Divider />
           </Container>
         </div>
         <div className="club-admin-margin">
           <Container textAlign="center">
             <Header as="h1">Members</Header>
             <Card.Group centered>
+              <Card>
+                <Image src='https://react.semantic-ui.com/images/avatar/large/matthew.png' wrapped ui={false} />
+                <Card.Content>
+                  <Card.Header>Admin</Card.Header>
+                  <Card.Meta>
+                    <span className='email'>clubadmin@foo.com</span>
+                  </Card.Meta>
+                  <Card.Meta>
+                    <span className='date'>Club Admin</span>
+                  </Card.Meta>
+                </Card.Content>
+                <Card.Content extra>
+                  <div>
+                    <p>Interests:</p>
+                    <Label className="club-admin-label">Clubs</Label>
+                    <Label className="club-admin-label">Mockups</Label>
+                  </div>
+                </Card.Content>
+              </Card>
               <Card>
                 <Image src='https://react.semantic-ui.com/images/avatar/large/matthew.png' wrapped ui={false} />
                 <Card.Content>
@@ -86,6 +111,13 @@ class ClubAdminHome extends React.Component {
                 </Card.Content>
               </Card>
             </Card.Group>
+            <Divider />
+          </Container>
+        </div>
+        <div className="club-admin-margin">
+          <Container textAlign="center">
+            <Header as="h1">Contact Info</Header>
+            <p>Email: clubadmin@foo.com</p>
           </Container>
         </div>
       </div>

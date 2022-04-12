@@ -8,10 +8,10 @@ class Footer extends React.Component {
       <div className='landing-green-background' style={divStyle}>
         <footer>
           <div className="ui center aligned container">
-              The Bowfolios Project <br />
+            Manoa Organization Database <br />
               University of Hawaii<br />
               Honolulu, HI 96822 <br />
-            <a style={{ color: 'white' }} href="https://bowfolios.github.io">https://bowfolios.github.io</a>
+            <a style={{ color: 'white' }} href="https://manoa-organization-database.github.io/">https://manoa-organization-database.github.io/</a>
           </div>
         </footer>
       </div>

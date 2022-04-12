@@ -14,7 +14,7 @@ class NavBar extends React.Component {
       <Menu style={menuStyle} attached="top" borderless>
         <Menu.Item as={NavLink} activeClassName="" exact to="/">
           <Image size='mini' src="/images/logo.png"/>
-          <span className='bowfolio-green' style={{ fontWeight: 800, fontSize: '24px', color: 'white' }}>Manoa Organization Database</span>
+          <span className='bowfolio-green' style={{ fontWeight: 800, fontSize: '24px', color: 'white' }}>MOD</span>
         </Menu.Item>
         {this.props.currentUser ? (
           <Menu.Item as={NavLink} id="homeMenuItem" activeClassName="active" exact to="/home" key='home'>Home</Menu.Item>
@@ -35,12 +35,14 @@ class NavBar extends React.Component {
           <Menu.Item as={NavLink} id="adminMenuItem" activeClassName="active" exact to="/admin" key='admin'
             style={{ color: 'white' }}>Admin</Menu.Item>
         ) : ''}
-        {/*
-        {Roles.userIsInRole(Meteor.userId(), 'club-admin') ? (
-          <Menu.Item as={NavLink} id="adminMenuItem" activeClassName="active" exact to="/admin" key='admin'
-                     style={{ color: 'white' }}>Club Profile</Menu.Item>
-        ) : ''}
-        */}
+
+        {
+          Roles.userIsInRole(Meteor.userId(), 'club-admin') ? (
+            <Menu.Item as={NavLink} id="adminMenuItem" activeClassName="active" exact to="/admin" key='admin'
+              style={{ color: 'white' }}>Club Profile</Menu.Item>
+          ) : ''
+        }
+
         <Menu.Item position="right">
           {this.props.currentUser === '' ? (
             <Dropdown id="login-dropdown" style={{ color: 'white' }} text="Login" pointing="top right" icon={'user'}>

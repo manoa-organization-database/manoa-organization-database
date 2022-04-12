@@ -31,26 +31,19 @@ const sampleClubData = [
   { club: 'Admin Club', email: 'admin@foo.com' },
 ];
 
-/** Returns the Profile and associated Clubs and Interests associated with the passed user email. */
+/** Returns the User and associated Clubs and Interests associated with the passed user email. */
 function getProfileData(email) {
   const data = _.find(sampleUserData, (user) => user.email === email);
-  // const interests = _.pluck(ProfilesInterests.collection.find({ profile: email }).fetch(),
-  // 'interest');
-  /** Replace ProfilesInterests & ProfilesProjects with UserInterests and UserClubs
-   * Once paired collections are implemented, come back to update this */
   const interests = _.pluck(_.filter(sampleInterestData, (interest) => interest.email === email), 'interest');
-  // const projects = _.pluck(ProfilesProjects.collection.find({ profile: email }).fetch(),
-  // 'project');
   const clubs = _.pluck(_.filter(sampleClubData, (interest) => interest.email === email), 'club');
-  // console.log(_.extend({ }, data, { interests, projects: projectPictures }));
   return _.extend({}, data, { interests, clubs });
 }
 
-/** Component for layout out a Profile Card. */
+/** Component for layout out a User Card. */
 const MakeCard = (props) => (
   <Card centered fluid>
     <Card.Content>
-      <Image floated='left' size='mini' src={props.user.picture}/>
+      <Image floated='left' size='small' src={props.user.picture}/>
       <Card.Header>
         {props.user.firstName} {props.user.lastName}
       </Card.Header>
@@ -69,6 +62,9 @@ const MakeCard = (props) => (
     <Card.Content extra>
       <Button color='blue'>
         Edit
+      </Button>
+      <Button color='red'>
+        Delete
       </Button>
     </Card.Content>
   </Card>

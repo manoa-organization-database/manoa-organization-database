@@ -9,47 +9,85 @@ import { ProfilesProjects } from '../../api/users/ProfilesProjects';
 import { Clubs } from '../../api/clubs/Clubs';
 import { Users } from '../../api/users/Users';
 
+const sampleUserData = [
+  {
+    firstName: 'John', lastName: 'Doe', email: 'john@foo.com', role: 'User',
+    picture: 'https://manoa.hawaii.edu/speakers/wp-content/uploads/logo-1.png',
+  },
+  {
+    firstName: 'Test', lastName: 'Me', email: 'admin@foo.com', role: 'Admin',
+    picture: 'https://manoa.hawaii.edu/speakers/wp-content/uploads/logo-1.png',
+  },
+];
+
+const sampleInterestData = [
+  { interest: 'Sports', email: 'john@foo.com' },
+  { interest: 'Photography', email: 'john@foo.com' },
+  { interest: 'Sleeping', email: 'admin@foo.com' },
+];
+
+const sampleClubData = [
+  { club: 'Mockup Club', email: 'john@foo.com' },
+  { club: 'Admin Club', email: 'admin@foo.com' },
+];
+
 /** Returns the Profile and associated Clubs and Interests associated with the passed user email. */
 function getProfileData(email) {
-  const data = Users.collection.findOne({ email });
-  const interests = _.pluck(ProfilesInterests.collection.find({ profile: email }).fetch(), 'interest');
-  const projects = _.pluck(ProfilesProjects.collection.find({ profile: email }).fetch(), 'project');
-  const projectPictures = projects.map(project => Clubs.collection.findOne({ name: project }).picture);
+  const data = _.find(sampleUserData, (user) => user.email === email);
+  // const interests = _.pluck(ProfilesInterests.collection.find({ profile: email }).fetch(),
+  // 'interest');
+  /** Replace ProfilesInterests & ProfilesProjects with UserInterests and UserClubs
+   * Once paired collections are implemented, come back to update this */
+  const interests = _.pluck(_.filter(sampleInterestData, (interest) => interest.email === email), 'interest');
+  // const projects = _.pluck(ProfilesProjects.collection.find({ profile: email }).fetch(),
+  // 'project');
+  const clubs = _.pluck(_.filter(sampleClubData, (interest) => interest.email === email), 'club');
   // console.log(_.extend({ }, data, { interests, projects: projectPictures }));
-  return _.extend({}, data, { interests, projects: projectPictures });
+  return _.extend({}, data, { interests, clubs });
 }
 
 /** Component for layout out a Profile Card. */
 const MakeCard = (props) => (
-  <Card>
+  <Card centered fluid>
     <Card.Content>
-      <Image floated='right' size='mini' src={props.profile.picture}/>
-      <Card.Header>{props.profile.firstName} {props.profile.lastName}</Card.Header>
+      <Image floated='left' size='mini' src={props.user.picture}/>
+      <Card.Header>
+        {props.user.firstName} {props.user.lastName}
+      </Card.Header>
       <Card.Meta>
-        <span className='date'>{props.profile.title}</span>
+        <span>{props.user.email}</span>
       </Card.Meta>
-      <Card.Description>
-        {props.profile.bio}
-      </Card.Description>
     </Card.Content>
     <Card.Content extra>
-      {_.map(props.profile.interests,
-        (interest, index) => <Label key={index} size='tiny' color='teal'>{interest}</Label>)}
+      <Header as='h5'>Clubs</Header>
+      {_.map(props.user.clubs, (club, index) => <Label key={index}>{club}</Label>)}
     </Card.Content>
     <Card.Content extra>
-      <Header as='h5'>Projects</Header>
-      {_.map(props.profile.projects,
-        (project, index) => <Image key={index} size='mini' src={project}/>)}
+      <Header as='h5'>Interests</Header>
+      {_.map(props.user.interests, (interest, index) => <Label key={index}>{interest}</Label>)}
+    </Card.Content>
+    <Card.Content extra>
+      <Button color='blue'>
+        Edit
+      </Button>
     </Card.Content>
   </Card>
 );
 
 MakeCard.propTypes = {
-  profile: PropTypes.object.isRequired,
+  user: PropTypes.shape({
+    firstName: PropTypes.string,
+    lastName: PropTypes.string,
+    email: PropTypes.string,
+    role: PropTypes.string,
+    interests: PropTypes.array,
+    clubs: PropTypes.array,
+    picture: PropTypes.string,
+  }).isRequired,
 };
 
 /** Renders the Profile Collection as a set of Cards. */
-class ProfilesPage extends React.Component {
+class UserHomePage extends React.Component {
 
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   render() {
@@ -58,43 +96,17 @@ class ProfilesPage extends React.Component {
 
   /** Render the page once subscriptions have been received. */
   renderPage() {
-    const emails = _.pluck(Users.collection.find().fetch(), 'email');
-    const profileData = emails.map(email => getProfileData(email));
+    const emails = ['john@foo.com'];
+    const userData = emails.map(email => getProfileData(email));
     return (
       <Container>
-        <Card centered fluid>
-          <Card.Content>
-            <Image
-              floated='left'
-              size='tiny'
-              src='https://manoa.hawaii.edu/speakers/wp-content/uploads/logo-1.png'
-            />
-            <Card.Header>John Doe</Card.Header>
-            <Card.Meta>
-              <span>john@foo.com</span>
-            </Card.Meta>
-          </Card.Content>
-          <Card.Content>
-            <p>Clubs:</p>
-            <Label>Mockup Club</Label>
-          </Card.Content>
-          <Card.Content>
-            <p>Interests:</p>
-            <Label>Photography</Label>
-            <Label>Sports</Label>
-            <Label>Programming</Label>
-          </Card.Content>
-          <Card.Content>
-            <Button color='blue'>Edit</Button>
-            <Button color='red'>Delete</Button>
-          </Card.Content>
-        </Card>
+        {_.map(userData, (user, index) => <MakeCard key={index} user={user}/>)}
       </Container>
     );
   }
 }
 
-ProfilesPage.propTypes = {
+UserHomePage.propTypes = {
   ready: PropTypes.bool.isRequired,
 };
 
@@ -108,4 +120,4 @@ export default withTracker(() => {
   return {
     ready: sub1.ready() && sub2.ready() && sub3.ready() && sub4.ready(),
   };
-})(ProfilesPage);
+})(UserHomePage);

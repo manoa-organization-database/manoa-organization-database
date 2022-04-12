@@ -14,6 +14,7 @@ const sampleMemberData = [
 const sampleInterests = [
   { email: 'clubadmin@foo.com', interest: 'Clubs' },
   { email: 'clubadmin@foo.com', interest: 'Mockups' },
+  { email: 'clubadmin@foo.com', interest: 'Websites' },
   { email: 'matthew@foo.com', interest: 'Clubs' },
   { email: 'matthew@foo.com', interest: 'Mockups' },
   { email: 'david@foo.com', interest: 'Clubs' },
@@ -113,64 +114,6 @@ class ClubAdminHome extends React.Component {
             <Header as="h1">Members</Header>
             <Card.Group centered>
               {_.map(memberData, (profile, index) => <ClubCard key={index} member={profile}/>)}
-              { /* <Card>
-                <Image src='https://react.semantic-ui.com/images/avatar/large/matthew.png' wrapped ui={false} />
-                <Card.Content>
-                  <Card.Header>Admin</Card.Header>
-                  <Card.Meta>
-                    <span className='email'>clubadmin@foo.com</span>
-                  </Card.Meta>
-                  <Card.Meta>
-                    <span className='date'>Club Admin</span>
-                  </Card.Meta>
-                </Card.Content>
-                <Card.Content extra>
-                  <div>
-                    <p>Interests:</p>
-                    <Label className="club-admin-label">Clubs</Label>
-                    <Label className="club-admin-label">Mockups</Label>
-                  </div>
-                </Card.Content>
-              </Card>
-              <Card>
-                <Image src='https://react.semantic-ui.com/images/avatar/large/matthew.png' wrapped ui={false} />
-                <Card.Content>
-                  <Card.Header>Matthew</Card.Header>
-                  <Card.Meta>
-                    <span className='email'>matthew@foo.com</span>
-                  </Card.Meta>
-                  <Card.Meta>
-                    <span className='date'>Joined in 2021</span>
-                  </Card.Meta>
-                </Card.Content>
-                <Card.Content extra>
-                  <div>
-                    <p>Interests:</p>
-                    <Label className="club-admin-label">Clubs</Label>
-                    <Label className="club-admin-label">Mockups</Label>
-                  </div>
-                </Card.Content>
-              </Card>
-              <Card>
-                <Image src='https://react.semantic-ui.com/images/avatar/large/matthew.png' wrapped ui={false} />
-                <Card.Content>
-                  <Card.Header>Elliot</Card.Header>
-                  <Card.Meta>
-                    <span className='email'>elliot@foo.com</span>
-                  </Card.Meta>
-                  <Card.Meta>
-                    <span className='date'>Joined in 2020</span>
-                  </Card.Meta>
-                </Card.Content>
-                <Card.Content extra>
-                  <div>
-                    <p>Interests:</p>
-                    <Label className="club-admin-label">Clubs</Label>
-                    <Label className="club-admin-label">Mockups</Label>
-                    <Label className="club-admin-label">Sports</Label>
-                  </div>
-                </Card.Content>
-              </Card> */}
             </Card.Group>
             <Divider />
           </Container>

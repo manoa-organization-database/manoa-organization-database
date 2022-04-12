@@ -17,7 +17,7 @@ class NavBar extends React.Component {
           <span className='bowfolio-green' style={{ fontWeight: 800, fontSize: '24px', color: 'white' }}>MOD</span>
         </Menu.Item>
         {this.props.currentUser ? (
-          <Menu.Item as={NavLink} id="homeMenuItem" activeClassName="active" exact to="/home" key='home'>Home</Menu.Item>
+          <Menu.Item as={NavLink} id="homeMenuItem" activeClassName="active" exact to="/home" key='home' style={{ color: 'white' }}>Home</Menu.Item>
         ) : ''}
         <Menu.Item as={NavLink} id="profilesMenuItem" activeClassName="active" exact to="/profiles" key='profiles'
           style={{ color: 'white' }}>Profile</Menu.Item>
@@ -52,7 +52,7 @@ class NavBar extends React.Component {
               </Dropdown.Menu>
             </Dropdown>
           ) : (
-            <Dropdown id="navbar-current-user" text={this.props.currentUser} pointing="top right" icon={'user'}>
+            <Dropdown id="navbar-current-user" style={{ color: 'white' }} text={this.props.currentUser} pointing="top right" icon={'user'}>
               <Dropdown.Menu>
                 <Dropdown.Item id="navbar-sign-out" icon="sign out" text="Sign Out" as={NavLink} exact to="/signout"/>
               </Dropdown.Menu>

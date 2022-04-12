@@ -1,10 +1,18 @@
 {
-  "defaultAccounts": [
-    { "firstName": "Admin",
-      "lastName": "Foo", "email": "admin@foo.com", "picture": "https://www.pngitem.com/pimgs/m/30-307416_profile-icon-png-image-free-download-searchpng-employee.png","password": "changeme", "role": "admin" },
-    { "firstName": "John",
-      "lastName": "Foo", "email": "john@foo.com", "picture": "https://www.pngitem.com/pimgs/m/30-307416_profile-icon-png-image-free-download-searchpng-employee.png","password": "changeme" }
-  ],
-
-  "loadAssetsFile":  false
+  "defaultProfiles": [
+    {
+      "firstName": "John",
+      "lastName": "Doe",
+      "email": "john@foo.com",
+      "role": "User",
+      "interests": [
+        "Sports",
+        "Photography"
+      ],
+      "clubs":[
+        "Mockup Club"
+      ],
+      "picture": "https://manoa.hawaii.edu/speakers/wp-content/uploads/logo-1.png"
+    }
+  ]
 }

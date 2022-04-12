@@ -8,7 +8,7 @@ import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 import Landing from '../pages/Landing';
 import Home from '../pages/Home';
-import Profiles from '../pages/Profiles';
+import Profiles from '../pages/UserHomePage';
 import AddProject from '../pages/AddProject';
 import Projects from '../pages/Projects';
 import Filter from '../pages/Filter';

@@ -7,6 +7,7 @@ import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 import Landing from '../pages/Landing';
+import Search from '../pages/Search';
 import Home from '../pages/Home';
 import Profiles from '../pages/Profiles';
 import AddProject from '../pages/AddProject';
@@ -32,6 +33,7 @@ class App extends React.Component {
               <Route path="/profiles" component={Profiles}/>
               <Route path="/projects" component={Projects}/>
               <Route path="/interests" component={Interests}/>
+              <Route path="/search" component={Search}/>
               <ProtectedRoute path="/addproject" component={AddProject}/>
               <ProtectedRoute path="/filter" component={Filter}/>
               <Route path="/signin" component={Signin}/>

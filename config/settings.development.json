@@ -14,7 +14,8 @@
         "Open Power Quality"
       ],
       "picture": "https://philipmjohnson.github.io/images/philip2.jpeg",
-      "email": "johnson@hawaii.edu"
+      "email": "johnson@hawaii.edu",
+      "role": "user"
     },
     {
       "firstName": "Henri",
@@ -29,7 +30,8 @@
         "WRENCH"
       ],
       "picture": "http://www.ics.hawaii.edu/wp-content/uploads/2013/08/Henri_Casanova1.jpg",
-      "email": "henric@hawaii.edu"
+      "email": "henric@hawaii.edu",
+      "role": "user"
     },
     {
       "firstName": "Carleton",
@@ -44,7 +46,8 @@
         "RadGrad"
       ],
       "picture": "https://cammoore.github.io/images/cam-moore.jpg",
-      "email": "cmoore@hawaii.edu"
+      "email": "cmoore@hawaii.edu",
+      "role": "user"
     },
     {
       "firstName": "Anthony",
@@ -59,7 +62,8 @@
         "Open Power Quality"
       ],
       "picture": "https://anthonyjchriste.github.io/images/me.png",
-      "email": "achriste@hawaii.edu"
+      "email": "achriste@hawaii.edu",
+      "role": "user"
     },
     {
       "firstName": "Jason",
@@ -73,7 +77,8 @@
         "Cyber Canoe"
       ],
       "picture": "http://www.ics.hawaii.edu/wp-content/uploads/2013/08/Jason_Leigh-2014.jpg",
-      "email": "leighj@hawaii.edu"
+      "email": "leighj@hawaii.edu",
+      "role": "user"
     },
     {
       "firstName": "Serge",
@@ -87,7 +92,8 @@
         "Open Power Quality"
       ],
       "picture": "https://sergey-negrashov.github.io/images/serge.jpg",
-      "email": "sin8@hawaii.edu"
+      "email": "sin8@hawaii.edu",
+      "role": "user"
     }
   ],
   "defaultProjects": [

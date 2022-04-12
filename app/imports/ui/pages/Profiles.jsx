@@ -12,11 +12,9 @@ import { Users } from '../../api/users/Users';
 /** Returns the Profile and associated Clubs and Interests associated with the passed user email. */
 function getProfileData(email) {
   const data = Users.collection.findOne({ email });
-  const interests = _.pluck(ProfilesInterests.collection.find({ profile: email }).fetch(), 'interest');
-  const projects = _.pluck(ProfilesProjects.collection.find({ profile: email }).fetch(), 'project');
-  const projectPictures = projects.map(project => Clubs.collection.findOne({ name: project }).picture);
+  const interests = _.pluck(ProfilesInterests.collection.find({ user: email }).fetch(), 'interest');
   // console.log(_.extend({ }, data, { interests, projects: projectPictures }));
-  return _.extend({ }, data, { interests, projects: projectPictures });
+  return _.extend({ }, data, { interests, profile: ProfilesInterests });
 }
 
 /** Component for layout out a Profile Card. */

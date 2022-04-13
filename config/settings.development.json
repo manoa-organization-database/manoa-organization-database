@@ -1,21 +1,18 @@
 {
   "defaultProfiles": [
     {
-      "firstName": "Philip",
-      "lastName": "Johnson",
-      "bio": "I am a Professor and like to paddle outrigger canoes.",
-      "title": "Professor",
+      "firstName": "John",
+      "lastName": "Doe",
+      "email": "john@foo.com",
+      "role": "User",
       "interests": [
-        "Software Engineering",
-        "Climate Change"
+        "Sports",
+        "Photography"
       ],
-      "projects":[
-        "RadGrad",
-        "Open Power Quality"
+      "clubs":[
+        "Mockup Club"
       ],
-      "picture": "https://philipmjohnson.github.io/images/philip2.jpeg",
-      "email": "johnson@hawaii.edu",
-      "role": "user"
+      "picture": "https://philipmjohnson.github.io/images/philip2.jpeg"
     },
     {
       "firstName": "Henri",
@@ -133,8 +130,7 @@
         "Unity",
         "Visualization"
       ],
-      "picture": "https://www.hawaii.edu/its/wp-content/uploads/sites/2/2019/01/LAVAlogo-300x192-300x192.png"
+      "picture": "https://manoa.hawaii.edu/speakers/wp-content/uploads/logo-1.png"
     }
-  ],
-  "loadAssetsFile":  false
+  ]
 }

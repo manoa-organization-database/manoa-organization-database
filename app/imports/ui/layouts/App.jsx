@@ -9,7 +9,7 @@ import Footer from '../components/Footer';
 import Landing from '../pages/Landing';
 import Search from '../pages/Search';
 import Home from '../pages/Home';
-import Profiles from '../pages/Profiles';
+import UserHomePage from '../pages/UserHomePage';
 import AddProject from '../pages/AddProject';
 import Projects from '../pages/Projects';
 import Filter from '../pages/Filter';
@@ -18,6 +18,8 @@ import NotFound from '../pages/NotFound';
 import Signin from '../pages/Signin';
 import Signup from '../pages/Signup';
 import Signout from '../pages/Signout';
+import ClubAdminHome from '../pages/ClubAdminHome';
+import ChangeUserStatus from '../pages/ChangeUserStatus';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
 class App extends React.Component {
@@ -30,12 +32,13 @@ class App extends React.Component {
             <Switch>
               <Route exact path="/" component={Landing}/>
               <ProtectedRoute path="/home" component={Home}/>
-              <Route path="/profiles" component={Profiles}/>
+              <Route path="/profile" component={UserHomePage}/>
               <Route path="/projects" component={Projects}/>
               <Route path="/interests" component={Interests}/>
-              <Route path="/search" component={Search}/>
+              <Route path="/clubadmin" component={ClubAdminHome}/>
               <ProtectedRoute path="/addproject" component={AddProject}/>
               <ProtectedRoute path="/filter" component={Filter}/>
+              <AdminProtectedRoute path="/change-user-status" component={ChangeUserStatus}/>
               <Route path="/signin" component={Signin}/>
               <Route path="/signup" component={Signup}/>
               <ProtectedRoute path="/signout" component={Signout}/>

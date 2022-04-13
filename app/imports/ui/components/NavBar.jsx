@@ -19,14 +19,14 @@ class NavBar extends React.Component {
         {this.props.currentUser ? (
           <Menu.Item as={NavLink} id="homeMenuItem" activeClassName="active" exact to="/home" key='home' style={{ color: 'white' }}>Home</Menu.Item>
         ) : ''}
-        <Menu.Item as={NavLink} id="profilesMenuItem" activeClassName="active" exact to="/profiles" key='profiles'
+        <Menu.Item as={NavLink} id="profilesMenuItem" activeClassName="active" exact to="/profile" key='profile'
           style={{ color: 'white' }}>Profile</Menu.Item>
         <Menu.Item as={NavLink} id="databaseMenuItem" activeClassName="active" exact to="/clubs" key='clubs'
           style={{ color: 'white' }}>Database</Menu.Item>
         <Menu.Item as={NavLink} id="interestsMenuItem" activeClassName="active" exact to="/interests" key='interests'
           style={{ color: 'white' }}>Search by Interest</Menu.Item>
-        <Menu.Item as={NavLink} id="searchMenuItem" activeClassName="active" exact to="/search" key='search'
-          style={{ color: 'white' }}>Search for Clubs</Menu.Item>
+        <Menu.Item as={NavLink} id="clubadminMenuItem" activeClassName="active" exact to="/clubadmin" key='clubadmin'
+          style={{ color: 'white' }}>Club Profile</Menu.Item>
         {this.props.currentUser ? (
           [<Menu.Item as={NavLink} id="addProjectMenuItem" activeClassName="active" exact to="/addProject" key='addP'
             style={{ color: 'white' }}>Add Project</Menu.Item>,
@@ -34,8 +34,8 @@ class NavBar extends React.Component {
             style={{ color: 'white' }}>Filter</Menu.Item>]
         ) : ''}
         {Roles.userIsInRole(Meteor.userId(), 'admin') ? (
-          <Menu.Item as={NavLink} id="adminMenuItem" activeClassName="active" exact to="/admin" key='admin'
-            style={{ color: 'white' }}>Admin</Menu.Item>
+          <Menu.Item as={NavLink} id="adminMenuItem" activeClassName="active" exact to="/change-user-status" key='change-user-status'
+            style={{ color: 'white' }}>Change User Status</Menu.Item>
         ) : ''}
 
         {

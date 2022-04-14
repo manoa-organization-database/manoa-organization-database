@@ -6,13 +6,13 @@ import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
 import { ProfilesProjects } from '../../api/users/ProfilesProjects';
 import { Clubs } from '../../api/clubs/Clubs';
-import { ProjectsInterests } from '../../api/clubs/ProjectsInterests';
+import { ClubInterests } from '../../api/clubs/ClubInterests';
 import { Users } from '../../api/users/Users';
 
 /** Gets the Project data as well as Users and Interests associated with the passed Project name. */
 function getProjectData(name) {
   const data = Clubs.collection.findOne({ name });
-  const interests = _.pluck(ProjectsInterests.collection.find({ project: name }).fetch(), 'interest');
+  const interests = _.pluck(ClubInterests.collection.find({ project: name }).fetch(), 'interest');
   const profiles = _.pluck(ProfilesProjects.collection.find({ project: name }).fetch(), 'profile');
   const profilePictures = profiles.map(profile => Users.collection.findOne({ email: profile }).picture);
   return _.extend({ }, data, { interests, participants: profilePictures });
@@ -76,7 +76,7 @@ export default withTracker(() => {
   // Ensure that minimongo is populated with all collections prior to running render().
   const sub1 = Meteor.subscribe(ProfilesProjects.userPublicationName);
   const sub2 = Meteor.subscribe(Clubs.userPublicationName);
-  const sub3 = Meteor.subscribe(ProjectsInterests.userPublicationName);
+  const sub3 = Meteor.subscribe(ClubInterests.userPublicationName);
   const sub4 = Meteor.subscribe(Users.userPublicationName);
   return {
     ready: sub1.ready() && sub2.ready() && sub3.ready() && sub4.ready(),

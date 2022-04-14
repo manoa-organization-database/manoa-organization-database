@@ -45,7 +45,9 @@ const MakeCard = (props) => (
     <Card.Content>
       <Image floated='left' size='small' src={props.user.picture}/>
       <Card.Header>
-        {props.user.firstName} {props.user.lastName}
+        <Header>
+          {props.user.firstName} {props.user.lastName}
+        </Header>
       </Card.Header>
       <Card.Meta>
         <span>{props.user.email}</span>
@@ -53,11 +55,11 @@ const MakeCard = (props) => (
     </Card.Content>
     <Card.Content extra>
       <Header as='h5'>Clubs</Header>
-      {_.map(props.user.clubs, (club, index) => <Label key={index}>{club}</Label>)}
+      {_.map(props.user.clubs, (club, index) => <Label className="user-home-page-label" key={index}>{club}</Label>)}
     </Card.Content>
     <Card.Content extra>
       <Header as='h5'>Interests</Header>
-      {_.map(props.user.interests, (interest, index) => <Label key={index}>{interest}</Label>)}
+      {_.map(props.user.interests, (interest, index) => <Label className="user-home-page-label" key={index}>{interest}</Label>)}
     </Card.Content>
     <Card.Content extra>
       <Button color='blue'>

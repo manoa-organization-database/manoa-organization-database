@@ -23,7 +23,7 @@ class Landing extends React.Component {
           <Header as="h3" style={{ color: '#024731' }} textAlign="center">Showcase your clubs by providing descriptions,
             location and contact information, and other promotional information.</Header>
           <Container>
-            <Image src="/images/club-admin-home-page.png" bordered alt="Club admin home page"/>
+            <Image src="/images/mockup-club.png" bordered alt="Club home page"/>
           </Container>
           <Divider horizontal hidden section/>
         </div>
@@ -33,7 +33,7 @@ class Landing extends React.Component {
           </Divider>
           <Header style={{ color: 'white' }} as='h3' textAlign='center'>Create a profile and highlight your interests.</Header>
           <Container>
-            <Image src="/images/user-home-page-mockup.png" bordered/>
+            <Image src="/images/user-profile.png" bordered/>
           </Container>
           <Header style={{ color: 'white' }} as='h3' textAlign='center'>Search for clubs based on interests,
             and get notifications when clubs related to your interest are created.</Header>
@@ -49,7 +49,7 @@ class Landing extends React.Component {
           <Header as="h3" style={{ color: '#024731' }} textAlign="center">Admins may grant club officers club admin powers,
             and can add and remove new interests for club admins and users to use.</Header>
           <Container>
-            <Image src="/images/admin-home-page-mockup.png" bordered alt="Admin home page"/>
+            <Image src="/images/interests-filter.png" bordered alt="Admin home page"/>
           </Container>
           <Divider horizontal hidden section/>
         </div>

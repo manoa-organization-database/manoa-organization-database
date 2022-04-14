@@ -30,6 +30,11 @@
   color: white
 }
 
+.ui.user-home-page-label.label {
+  background-color: #376551;
+  color: white
+}
+
 .ui.club-admin-button.button {
   background-color: #376551;
   color: white

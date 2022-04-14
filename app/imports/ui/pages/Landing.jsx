@@ -35,6 +35,9 @@ class Landing extends React.Component {
           <Container>
             <Image src="/images/user-home-page-mockup.png" bordered/>
           </Container>
+          <Container>
+            <Image src="/images/edit-user-profile.png" bordered/>
+          </Container>
           <Header style={{ color: 'white' }} as='h3' textAlign='center'>Search for clubs based on interests,
             and get notifications when clubs related to your interest are created.</Header>
           <Container>

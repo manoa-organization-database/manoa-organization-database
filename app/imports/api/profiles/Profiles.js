@@ -6,7 +6,7 @@ import { Tracker } from 'meteor/tracker';
 class UsersCollection {
   constructor() {
     // The name of this collection.
-    this.name = 'UsersCollection';
+    this.name = 'ProfilessCollection';
     // Define the Mongo collection.
     this.collection = new Mongo.Collection(this.name);
     // Define the structure of each document in the collection.
@@ -25,4 +25,4 @@ class UsersCollection {
   }
 }
 
-export const Users = new UsersCollection();
+export const Profiles = new UsersCollection();

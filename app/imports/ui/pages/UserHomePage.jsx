@@ -4,10 +4,10 @@ import { Container, Loader, Card, Image, Label, Header, Button } from 'semantic-
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
-import { ProfilesInterests } from '../../api/users/ProfilesInterests';
-import { ProfilesProjects } from '../../api/users/ProfilesProjects';
+import { ProfilesInterests } from '../../api/profiles/ProfilesInterests';
+import { ProfilesProjects } from '../../api/profiles/ProfilesProjects';
 import { Clubs } from '../../api/clubs/Clubs';
-import { Users } from '../../api/users/Users';
+import { Profiles } from '../../api/profiles/Profiles';
 
 const sampleUserData = [
   {
@@ -111,7 +111,7 @@ UserHomePage.propTypes = {
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
 export default withTracker(() => {
   // Ensure that minimongo is populated with all collections prior to running render().
-  const sub1 = Meteor.subscribe(Users.userPublicationName);
+  const sub1 = Meteor.subscribe(Profiles.userPublicationName);
   const sub2 = Meteor.subscribe(ProfilesInterests.userPublicationName);
   const sub3 = Meteor.subscribe(ProfilesProjects.userPublicationName);
   const sub4 = Meteor.subscribe(Clubs.userPublicationName);

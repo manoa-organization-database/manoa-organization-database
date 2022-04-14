@@ -2,10 +2,10 @@ import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import { Roles } from 'meteor/alanning:roles';
 import { Clubs } from '../../api/clubs/Clubs';
-import { ProjectsInterests } from '../../api/clubs/ProjectsInterests';
 import { Profiles } from '../../api/profiles/Profiles';
-import { ProfilesProjects } from '../../api/profiles/ProfilesProjects';
-import { ProfilesInterests } from '../../api/profiles/ProfilesInterests';
+// import { ProfilesProjects } from '../../api/profiles/ProfilesProjects';
+// import { ProfilesInterests } from '../../api/profiles/ProfilesInterests';
+import { ClubInterests } from '../../api/clubs/ClubInterests';
 import { Interests } from '../../api/interests/Interests';
 
 /* eslint-disable no-console */
@@ -32,8 +32,9 @@ function addProfile({ firstName, lastName, email, picture, interests, clubs, rol
   // Create the profile.
   Profiles.collection.insert({ firstName, lastName, email, picture, role });
   // Add interests and projects.
-  interests.map(interest => ProfilesInterests.collection.insert({ profile: email, interest }));
-  clubs.map(club => ProfilesProjects.collection.insert({ profile: email, club }));
+  // interests.map(interest => ProfilesInterests.collection.insert({ user: email, interest }));
+  // clubs.map(club => ProfilesProjects.collection.insert({ user: email, club }));
+
   // Make sure interests are defined in the Interests collection if they weren't already.
   interests.map(interest => addInterest(interest));
 }
@@ -42,7 +43,7 @@ function addProfile({ firstName, lastName, email, picture, interests, clubs, rol
 function addClubs({ name, homepage, description, interests, picture }) {
   console.log(`Defining project ${name}`);
   Clubs.collection.insert({ name, homepage, description, picture });
-  interests.map(interest => ProjectsInterests.collection.insert({ club: name, interest }));
+  interests.map(interest => ClubInterests.collection.insert({ club: name, interest }));
   // Make sure interests are defined in the Interests collection if they weren't already.
   interests.map(interest => addInterest(interest));
 }

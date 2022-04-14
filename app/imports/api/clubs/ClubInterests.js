@@ -22,4 +22,4 @@ class ClubInterestsCollection {
   }
 }
 
-export const ProjectsInterests = new ClubInterestsCollection();
+export const ClubInterests = new ClubInterestsCollection();

@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import { Roles } from 'meteor/alanning:roles';
 import { Clubs } from '../../api/clubs/Clubs';
-import { ProjectsInterests } from '../../api/clubs/ProjectsInterests';
+import { ClubInterests } from '../../api/clubs/ClubInterests';
 import { Users } from '../../api/users/Users';
 import { ProfilesProjects } from '../../api/users/ProfilesProjects';
 import { ProfilesInterests } from '../../api/users/ProfilesInterests';
@@ -42,7 +42,7 @@ function addUser({ firstName, lastName, email, picture, interests, clubs, role }
 function addClubs({ name, homepage, description, interests, picture }) {
   console.log(`Defining project ${name}`);
   Clubs.collection.insert({ name, homepage, description, picture });
-  interests.map(interest => ProjectsInterests.collection.insert({ club: name, interest }));
+  interests.map(interest => ClubInterests.collection.insert({ club: name, interest }));
   // Make sure interests are defined in the Interests collection if they weren't already.
   interests.map(interest => addInterest(interest));
 }

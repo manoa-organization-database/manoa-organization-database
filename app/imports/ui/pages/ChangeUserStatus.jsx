@@ -1,15 +1,8 @@
 import React from 'react';
-import { Image, Container, Header, Button, Label, Card, Divider, Grid, Segment, Form, Dropdown, Select } from 'semantic-ui-react';
-import PropTypes from 'prop-types';
-import { _ } from 'meteor/underscore';
-import { Interests } from '../../api/interests/Interests';
-import { Clubs } from '../../api/clubs/Clubs';
+import { Meteor } from 'meteor/meteor';
+import { Header, Grid, Segment, Form, Loader } from 'semantic-ui-react';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
-import { ProfilesProjects } from '../../api/users/ProfilesProjects';
-import { ProfilesInterests } from '../../api/users/ProfilesInterests';
-import { Users } from '../../api/users/Users';
-import { AutoForm, LongTextField, SubmitField, TextField, SelectField} from 'uniforms-semantic';
-import MultiSelectField from '../forms/controllers/MultiSelectField';
+import { AutoForm, SubmitField, TextField, SelectField, swal } from 'uniforms-semantic';
 import SimpleSchema from 'simpl-schema';
 
 /*
@@ -20,7 +13,7 @@ const allRoles = [
 ]
 */
 
-const allRoles = ["User", "Club Admin", "Admin"]
+const allRoles = ['User', 'Club Admin', 'Admin'];
 
 /** Create a schema to specify the structure of the data to appear in the form. */
 const makeSchema = new SimpleSchema({
@@ -29,11 +22,11 @@ const makeSchema = new SimpleSchema({
   'roles.$': { type: String, allowedValues: allRoles },
 });
 
-
 /** Renders a color-blocked static AdminHome page. */
 class ChangeUserStatus extends React.Component {
 
   /** On submit, insert the data. */
+  /*
   submit(data) {
     Meteor.call(updateProfileMethod, data, (error) => {
       if (error) {
@@ -43,11 +36,15 @@ class ChangeUserStatus extends React.Component {
       }
     });
   }
+   */
 
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
+  /*
   render() {
     return (this.props.ready) ? this.renderPage() : <Loader active>Getting data</Loader>;
   }
+   */
+
   render() {
     const formSchema = makeSchema;
     const bridge = new SimpleSchema2Bridge(formSchema);

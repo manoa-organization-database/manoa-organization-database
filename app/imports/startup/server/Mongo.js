@@ -32,8 +32,8 @@ function addUser({ firstName, lastName, email, picture, interests, clubs, role }
   // Create the profile.
   Users.collection.insert({ firstName, lastName, email, picture, role });
   // Add interests and projects.
-  interests.map(interest => ProfilesInterests.collection.insert({ user: email, interest }));
-  clubs.map(club => ProfilesProjects.collection.insert({ user: email, club }));
+  //interests.map(interest => ProfilesInterests.collection.insert({ user: email, interest }));
+  //clubs.map(club => ProfilesProjects.collection.insert({ user: email, club }));
   // Make sure interests are defined in the Interests collection if they weren't already.
   interests.map(interest => addInterest(interest));
 }

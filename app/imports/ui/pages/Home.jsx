@@ -10,9 +10,9 @@ import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import MultiSelectField from '../forms/controllers/MultiSelectField';
 import { Interests } from '../../api/interests/Interests';
-import { Users } from '../../api/users/Users';
-import { ProfilesInterests } from '../../api/users/ProfilesInterests';
-import { ProfilesProjects } from '../../api/users/ProfilesProjects';
+import { Profiles } from '../../api/profiles/Profiles';
+import { ProfilesInterests } from '../../api/profiles/ProfilesInterests';
+import { ProfilesProjects } from '../../api/profiles/ProfilesProjects';
 import { Clubs } from '../../api/clubs/Clubs';
 import { updateProfileMethod } from '../../startup/both/Methods';
 
@@ -60,7 +60,7 @@ class Home extends React.Component {
     // Now create the model with all the user information.
     const projects = _.pluck(ProfilesProjects.collection.find({ profile: email }).fetch(), 'project');
     const interests = _.pluck(ProfilesInterests.collection.find({ profile: email }).fetch(), 'interest');
-    const profile = Users.collection.findOne({ email });
+    const profile = Profiles.collection.findOne({ email });
     const model = _.extend({}, profile, { interests, projects });
     return (
       <Grid id="home-page" container centered>
@@ -99,7 +99,7 @@ Home.propTypes = {
 export default withTracker(() => {
   // Ensure that minimongo is populated with all collections prior to running render().
   const sub1 = Meteor.subscribe(Interests.userPublicationName);
-  const sub2 = Meteor.subscribe(Users.userPublicationName);
+  const sub2 = Meteor.subscribe(Profiles.userPublicationName);
   const sub3 = Meteor.subscribe(ProfilesInterests.userPublicationName);
   const sub4 = Meteor.subscribe(ProfilesProjects.userPublicationName);
   const sub5 = Meteor.subscribe(Clubs.userPublicationName);

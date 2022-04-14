@@ -4,8 +4,8 @@ import { Roles } from 'meteor/alanning:roles';
 import { Clubs } from '../../api/clubs/Clubs';
 import { ProjectsInterests } from '../../api/clubs/ProjectsInterests';
 import { Users } from '../../api/users/Users';
-import { ProfilesProjects } from '../../api/users/ProfilesProjects';
-import { ProfilesInterests } from '../../api/users/ProfilesInterests';
+// import { ProfilesProjects } from '../../api/users/ProfilesProjects';
+// import { ProfilesInterests } from '../../api/users/ProfilesInterests';
 import { Interests } from '../../api/interests/Interests';
 
 /* eslint-disable no-console */
@@ -25,7 +25,7 @@ function addInterest(interest) {
 }
 
 /** Defines a new user and associated profile. Error if user already exists. */
-function addUser({ firstName, lastName, email, picture, role }) {
+function addUser({ firstName, lastName, email, role, picture }) {
   console.log(`Defining profile ${email}`);
   // Define the user in the Meteor accounts package.
   createUser(email, role);
@@ -54,14 +54,14 @@ if (Meteor.users.find().count() === 0) {
   /*
   if (Meteor.settings.defaultProjects && Meteor.settings.defaultProfiles)
   */
-  if (Meteor.settings.defaultAccounts) {
+  if (Meteor.settings.defaultProfiles) {
     /*
     console.log('Creating the default profiles');
     Meteor.settings.defaultProfiles.map(user => addUser(user));
     console.log('Creating the default projects');
     Meteor.settings.defaultProjects.map(club => addClubs(club));
          */
-    Meteor.settings.defaultAccounts.map(user => addUser(user));
+    Meteor.settings.defaultProfiles.map(user => addUser(user));
     console.log('Creating the default users');
   } else {
     console.log('Cannot initialize the database!  Please invoke meteor with a settings file.');

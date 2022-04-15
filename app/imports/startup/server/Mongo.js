@@ -4,7 +4,7 @@ import { Roles } from 'meteor/alanning:roles';
 import { Clubs } from '../../api/clubs/Clubs';
 import { Profiles } from '../../api/profiles/Profiles';
 // import { ProfilesProjects } from '../../api/profiles/ProfilesProjects';
-// import { ProfilesInterests } from '../../api/profiles/ProfilesInterests';
+import { ProfilesInterests } from '../../api/profiles/ProfilesInterests';
 import { ClubInterests } from '../../api/clubs/ClubInterests';
 import { Interests } from '../../api/interests/Interests';
 
@@ -32,8 +32,8 @@ function addProfile({ firstName, lastName, email, picture, interests, clubs, rol
   // Create the profile.
   Profiles.collection.insert({ firstName, lastName, email, picture, role });
   // Add interests and projects.
-  // interests.map(interest => ProfilesInterests.collection.insert({ user: email, interest }));
-  // clubs.map(club => ProfilesProjects.collection.insert({ user: email, club }));
+  interests.map(interest => ProfilesInterests.collection.insert({ profile: email, interest }));
+  // clubs.map(club => ProfilesProjects.collection.insert({ profile: email, club }));
 
   // Make sure interests are defined in the Interests collection if they weren't already.
   interests.map(interest => addInterest(interest));

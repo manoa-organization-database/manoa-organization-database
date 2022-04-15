@@ -33,8 +33,8 @@ const sampleClubData = [
 
 /** Returns the User and associated Clubs and Interests associated with the passed user email. */
 function getProfileData(email) {
-  const data = _.find(sampleUserData, (user) => user.email === email);
-  const interests = _.pluck(_.filter(sampleInterestData, (interest) => interest.email === email), 'interest');
+  const data = Profiles.collection.findOne({ email });
+  const interests = _.pluck(ProfilesInterests.collection.find({ profile: email }).fetch(), 'interest');
   const clubs = _.pluck(_.filter(sampleClubData, (interest) => interest.email === email), 'club');
   return _.extend({}, data, { interests, clubs });
 }
@@ -94,7 +94,7 @@ class UserHomePage extends React.Component {
 
   /** Render the page once subscriptions have been received. */
   renderPage() {
-    const emails = ['john@foo.com'];
+    const emails = _.pluck(Profiles.collection.find().fetch(), 'email');
     const userData = emails.map(email => getProfileData(email));
     return (
       <Container>

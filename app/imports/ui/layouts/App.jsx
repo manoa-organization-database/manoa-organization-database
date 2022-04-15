@@ -13,7 +13,7 @@ import UserHomePage from '../pages/UserHomePage';
 import AddProject from '../pages/AddProject';
 import Projects from '../pages/Projects';
 import Filter from '../pages/Filter';
-import Interests from '../pages/Interests';
+// import Interests from '../pages/Interests';
 import NotFound from '../pages/NotFound';
 import Signin from '../pages/Signin';
 import Signup from '../pages/Signup';
@@ -34,7 +34,7 @@ class App extends React.Component {
               <ProtectedRoute path="/home" component={Home}/>
               <Route path="/profile" component={UserHomePage}/>
               <Route path="/projects" component={Projects}/>
-              <Route path="/interests" component={Interests}/>
+              <Route path="/search" component={Search}/>
               <Route path="/clubadmin" component={ClubAdminHome}/>
               <ProtectedRoute path="/addproject" component={AddProject}/>
               <ProtectedRoute path="/filter" component={Filter}/>

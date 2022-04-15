@@ -1,7 +1,10 @@
 import React from 'react';
-import { Image, Container, Header, Button, Label, Card, Divider } from 'semantic-ui-react';
+import { Meteor } from 'meteor/meteor';
+import { Image, Container, Header, Button, Label, Card, Divider, Loader } from 'semantic-ui-react';
+import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
+import { Clubs } from '../../api/clubs/Clubs';
 
 const sampleMemberData = [
   { firstName: 'Club', lastName: 'Admin', email: 'clubadmin@foo' +
@@ -26,6 +29,11 @@ function getMemberData(email) {
   const data = _.find(sampleMemberData, (member) => member.email === email);
   const interests = _.pluck(_.filter(sampleInterests, (interest) => interest.email === email), 'interest');
   return _.extend({ }, data, { interests });
+}
+
+function getClubData(name) {
+  const data = Clubs.collection.findOne({ name });
+  return _.extend({ }, data);
 }
 
 const ClubCard = (props) => (
@@ -63,18 +71,17 @@ ClubCard.propTypes = {
 
 /** Renders a color-blocked static ClubAdminHome page. */
 class ClubAdminHome extends React.Component {
-  sampleClub = {
-    name: 'Mockup Club',
-    description: 'Do you like making mockups of clubs? Then this is the club for you. The Mockup Club focuses on\n' +
-      '              teaching members how to create their own mockups of clubs. Activites include coming up with clubs ideas and\n' +
-      '              writing their own club descriptions such as this one. Contact a club admin for details.',
-    picture: 'https://react.semantic-ui.com/images/wireframe/image.png',
-    clubAdmins: 'admin@foo.com',
-  };
+  // club = _.pluck(Clubs.collection.find().fetch(), 'Mockup Club');
 
   render() {
+    return (this.props.ready) ? this.renderPage() : <Loader active>Getting data</Loader>;
+  }
+
+  renderPage() {
     const emails = ['clubadmin@foo.com', 'matthew@foo.com', 'david@foo.com'];
     const memberData = emails.map(email => getMemberData(email));
+    const clubName = 'Mockup Club';
+    const club = getClubData(clubName);
     return (
       <div>
         <div className="club-admin-margin">
@@ -85,17 +92,17 @@ class ClubAdminHome extends React.Component {
         <div className="club-admin-margin">
           <Container textAlign='center'>
             <Divider />
-            <Header as="h1">{this.sampleClub.name}</Header>
+            <Header as="h1">{club.name}</Header>
             <Divider />
           </Container>
         </div>
         <div className="club-admin-margin">
-          <Image src={this.sampleClub.picture} size='large' centered/>
+          <Image src={club.picture} size='large' centered/>
         </div>
         <div className="club-admin-margin">
           <Container textAlign='center'>
             <Divider />
-            <Header as="h3">{this.sampleClub.description}</Header>
+            <Header as="h3">{club.description}</Header>
             <Divider />
           </Container>
         </div>
@@ -123,4 +130,15 @@ class ClubAdminHome extends React.Component {
   }
 }
 
-export default ClubAdminHome;
+ClubAdminHome.propTypes = {
+  ready: PropTypes.bool.isRequired,
+};
+
+/** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
+export default withTracker(() => {
+  // Ensure that minimongo is populated with all collections prior to running render().
+  const sub1 = Meteor.subscribe(Clubs.userPublicationName);
+  return {
+    ready: sub1.ready(),
+  };
+})(ClubAdminHome);

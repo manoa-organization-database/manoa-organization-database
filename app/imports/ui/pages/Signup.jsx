@@ -74,6 +74,7 @@ class Signup extends React.Component {
                   type="password"
                   onChange={this.handleChange}
                 />
+                <Form.TextArea placeholder='Write a little bit about yourself' label='Bio' id='signup-form-id'/> *
                 <Form.Button id="signup-form-submit" content="Submit"/>
               </Segment>
             </Form>

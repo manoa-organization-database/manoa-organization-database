@@ -3,7 +3,7 @@ import { Accounts } from 'meteor/accounts-base';
 import { Roles } from 'meteor/alanning:roles';
 import { Clubs } from '../../api/clubs/Clubs';
 import { Profiles } from '../../api/profiles/Profiles';
-// import { ProfilesProjects } from '../../api/profiles/ProfilesProjects';
+// import { ProfilesClubs } from '../../api/profiles/ProfilesClubs';
 import { ProfilesInterests } from '../../api/profiles/ProfilesInterests';
 import { ClubInterests } from '../../api/clubs/ClubInterests';
 import { Interests } from '../../api/interests/Interests';
@@ -31,17 +31,17 @@ function addProfile({ firstName, lastName, email, picture, interests, clubs, rol
   createUser(email, role);
   // Create the profile.
   Profiles.collection.insert({ firstName, lastName, email, picture, role });
-  // Add interests and projects.
+  // Add interests and clubs.
   interests.map(interest => ProfilesInterests.collection.insert({ profile: email, interest }));
-  // clubs.map(club => ProfilesProjects.collection.insert({ profile: email, club }));
+  // clubs.map(club => ProfilesClubs.collection.insert({ profile: email, club }));
 
   // Make sure interests are defined in the Interests collection if they weren't already.
   interests.map(interest => addInterest(interest));
 }
 
-/** Define a new project. Error if project already exists.  */
+/** Define a new club. Error if club already exists.  */
 function addClubs({ name, homepage, description, interests, picture }) {
-  console.log(`Defining project ${name}`);
+  console.log(`Defining club ${name}`);
   Clubs.collection.insert({ name, homepage, description, picture });
   interests.map(interest => ClubInterests.collection.insert({ club: name, interest }));
   // Make sure interests are defined in the Interests collection if they weren't already.
@@ -53,7 +53,7 @@ if (Meteor.users.find().count() === 0) {
   if (Meteor.settings.defaultClubs && Meteor.settings.defaultProfiles) {
     console.log('Creating the default profiles');
     Meteor.settings.defaultProfiles.map(profile => addProfile(profile));
-    console.log('Creating the default projects');
+    console.log('Creating the default clubs');
     Meteor.settings.defaultClubs.map(club => addClubs(club));
   } else {
     console.log('Cannot initialize the database!  Please invoke meteor with a settings file.');

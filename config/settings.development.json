@@ -91,6 +91,20 @@
       "picture": "https://sergey-negrashov.github.io/images/serge.jpg",
       "email": "sin8@hawaii.edu",
       "role": "user"
+    },
+    {
+      "firstName": "ADMIN",
+      "lastName": "Doe",
+      "email": "admin@foo.com",
+      "role": "admin",
+      "interests": [
+        "Cooking",
+        "Coding"
+      ],
+      "clubs":[
+        "Mockup Club"
+      ],
+      "picture": "https://manoa.hawaii.edu/speakers/wp-content/uploads/logo-1.png"
     }
   ],
   "defaultProjects": [
@@ -129,20 +143,6 @@
       "interests": [
         "Unity",
         "Visualization"
-      ],
-      "picture": "https://manoa.hawaii.edu/speakers/wp-content/uploads/logo-1.png"
-    },
-    {
-      "firstName": "ADMIN",
-      "lastName": "Doe",
-      "email": "admin@foo.com",
-      "role": "admin",
-      "interests": [
-        "Cooking",
-        "Coding"
-      ],
-      "clubs":[
-        "Mockup Club"
       ],
       "picture": "https://manoa.hawaii.edu/speakers/wp-content/uploads/logo-1.png"
     }

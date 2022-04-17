@@ -3,7 +3,7 @@ import { Interests } from '../../api/interests/Interests';
 import { ProfilesInterests } from '../../api/profiles/ProfilesInterests';
 import { ProfilesProjects } from '../../api/profiles/ProfilesProjects';
 import { Clubs } from '../../api/clubs/Clubs';
-import { ProjectsInterests } from '../../api/clubs/ProjectsInterests';
+import { ClubInterests } from '../../api/clubs/ClubInterests';
 import { Profiles } from '../../api/profiles/Profiles';
 
 /** Define a publication to publish all interests. */
@@ -22,7 +22,7 @@ Meteor.publish(ProfilesProjects.userPublicationName, () => ProfilesProjects.coll
 Meteor.publish(Clubs.userPublicationName, () => Clubs.collection.find());
 
 /** Define a publication to publish this collection. */
-Meteor.publish(ProjectsInterests.userPublicationName, () => ProjectsInterests.collection.find());
+Meteor.publish(ClubInterests.userPublicationName, () => ClubInterests.collection.find());
 
 // alanning:roles publication
 // Recommended code to publish roles for each user.

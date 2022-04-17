@@ -4,6 +4,7 @@ import { Container, Loader, Card, Image, Label, Header, Button } from 'semantic-
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
+import { NavLink } from 'react-router-dom';
 import { ProfilesInterests } from '../../api/profiles/ProfilesInterests';
 import { ProfilesProjects } from '../../api/profiles/ProfilesProjects';
 import { Clubs } from '../../api/clubs/Clubs';
@@ -62,7 +63,7 @@ const MakeCard = (props) => (
       {_.map(props.user.interests, (interest, index) => <Label className="user-home-page-label" key={index}>{interest}</Label>)}
     </Card.Content>
     <Card.Content extra>
-      <Button color='blue'>
+      <Button color='blue' as={NavLink} activeClassName="active" exact to="/edit-user" >
         Edit
       </Button>
       <Button color='red'>

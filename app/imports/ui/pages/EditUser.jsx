@@ -1,6 +1,6 @@
 import React from 'react';
 import { Grid, Segment, Header, Form, Loader } from 'semantic-ui-react';
-import { AutoForm, TextField, LongTextField, SubmitField } from 'uniforms-semantic';
+import { AutoForm, TextField, SubmitField } from 'uniforms-semantic';
 import swal from 'sweetalert';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
@@ -17,21 +17,19 @@ import { Clubs } from '../../api/clubs/Clubs';
 import { updateProfileMethod } from '../../startup/both/Methods';
 
 /** Create a schema to specify the structure of the data to appear in the form. */
-const makeSchema = (allInterests, allProjects) => new SimpleSchema({
+const makeSchema = (allInterests, allClubs) => new SimpleSchema({
   email: { type: String, label: 'Email', optional: true },
   firstName: { type: String, label: 'First', optional: true },
   lastName: { type: String, label: 'Last', optional: true },
-  bio: { type: String, label: 'Biographical statement', optional: true },
-  title: { type: String, label: 'Title', optional: true },
   picture: { type: String, label: 'Picture URL', optional: true },
   interests: { type: Array, label: 'Interests', optional: true },
   'interests.$': { type: String, allowedValues: allInterests },
-  projects: { type: Array, label: 'Projects', optional: true },
-  'projects.$': { type: String, allowedValues: allProjects },
+  clubs: { type: Array, label: 'Clubs', optional: true },
+  'clubs.$': { type: String, allowedValues: allClubs },
 });
 
 /** Renders the Home Page: what appears after the user logs in. */
-class Home extends React.Component {
+class EditUser extends React.Component {
 
   /** On submit, insert the data. */
   submit(data) {
@@ -54,14 +52,14 @@ class Home extends React.Component {
     const email = Meteor.user().username;
     // Create the form schema for uniforms. Need to determine all interests and projects for muliselect list.
     const allInterests = _.pluck(Interests.collection.find().fetch(), 'name');
-    const allProjects = _.pluck(Clubs.collection.find().fetch(), 'name');
-    const formSchema = makeSchema(allInterests, allProjects);
+    const allClubs = _.pluck(Clubs.collection.find().fetch(), 'name');
+    const formSchema = makeSchema(allInterests, allClubs);
     const bridge = new SimpleSchema2Bridge(formSchema);
     // Now create the model with all the user information.
-    const projects = _.pluck(ProfilesProjects.collection.find({ profile: email }).fetch(), 'project');
+    const clubs = _.pluck(ProfilesProjects.collection.find({ profile: email }).fetch(), 'club');
     const interests = _.pluck(ProfilesInterests.collection.find({ profile: email }).fetch(), 'interest');
     const profile = Profiles.collection.findOne({ email });
-    const model = _.extend({}, profile, { interests, projects });
+    const model = _.extend({}, profile, { interests, clubs });
     return (
       <Grid id="home-page" container centered>
         <Grid.Column>
@@ -73,14 +71,12 @@ class Home extends React.Component {
                 <TextField id='lastName' name='lastName' showInlineError={true} placeholder={'Last Name'}/>
                 <TextField name='email' showInlineError={true} placeholder={'email'} disabled/>
               </Form.Group>
-              <LongTextField id='bio' name='bio' placeholder='Write a little bit about yourself.'/>
               <Form.Group widths={'equal'}>
-                <TextField name='title' showInlineError={true} placeholder={'Title'}/>
                 <TextField name='picture' showInlineError={true} placeholder={'URL to picture'}/>
               </Form.Group>
               <Form.Group widths={'equal'}>
                 <MultiSelectField name='interests' showInlineError={true} placeholder={'Interests'}/>
-                <MultiSelectField name='projects' showInlineError={true} placeholder={'Projects'}/>
+                <MultiSelectField name='clubs' showInlineError={true} placeholder={'Clubs'}/>
               </Form.Group>
               <SubmitField id='home-page-submit' value='Update'/>
             </Segment>
@@ -91,7 +87,7 @@ class Home extends React.Component {
   }
 }
 
-Home.propTypes = {
+EditUser.propTypes = {
   ready: PropTypes.bool.isRequired,
 };
 
@@ -106,4 +102,4 @@ export default withTracker(() => {
   return {
     ready: sub1.ready() && sub2.ready() && sub3.ready() && sub4.ready() && sub5.ready(),
   };
-})(Home);
+})(EditUser);

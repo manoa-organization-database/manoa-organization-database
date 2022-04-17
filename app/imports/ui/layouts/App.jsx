@@ -9,6 +9,7 @@ import Footer from '../components/Footer';
 import Landing from '../pages/Landing';
 import Search from '../pages/Search';
 import Home from '../pages/Home';
+import EditUser from '../pages/EditUser';
 import UserHomePage from '../pages/UserHomePage';
 import AddProject from '../pages/AddProject';
 import Projects from '../pages/Projects';
@@ -32,6 +33,7 @@ class App extends React.Component {
             <Switch>
               <Route exact path="/" component={Landing}/>
               <ProtectedRoute path="/home" component={Home}/>
+              <ProtectedRoute path="/edit-user" component={EditUser}/>
               <Route path="/profile" component={UserHomePage}/>
               <Route path="/projects" component={Projects}/>
               <Route path="/search" component={Search}/>

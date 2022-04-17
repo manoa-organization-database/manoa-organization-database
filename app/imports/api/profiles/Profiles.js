@@ -3,18 +3,19 @@ import SimpleSchema from 'simpl-schema';
 import { Tracker } from 'meteor/tracker';
 
 /** Encapsulates state and variable values for this collection. */
-class ClubsCollection {
+class UsersCollection {
   constructor() {
     // The name of this collection.
-    this.name = 'ClubsCollection';
+    this.name = 'ProfilessCollection';
     // Define the Mongo collection.
     this.collection = new Mongo.Collection(this.name);
     // Define the structure of each document in the collection.
     this.schema = new SimpleSchema({
-      name: { type: String, index: true, unique: true },
-      homepage: { type: String },
-      description: { type: String },
+      firstName: { type: String },
+      lastName: { type: String },
+      email: { type: String, index: true, unique: true },
       picture: { type: String },
+      role: { type: String },
     }, { tracker: Tracker });
     // Ensure collection documents obey schema.
     this.collection.attachSchema(this.schema);
@@ -24,4 +25,4 @@ class ClubsCollection {
   }
 }
 
-export const Clubs = new ClubsCollection();
+export const Profiles = new UsersCollection();

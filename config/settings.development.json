@@ -1,13 +1,28 @@
+
 {
   "defaultProfiles": [
     {
       "firstName": "John",
       "lastName": "Doe",
       "email": "john@foo.com",
-      "role": "User",
+      "role": "user",
       "interests": [
         "Sports",
         "Photography"
+      ],
+      "clubs":[
+        "Mockup Club"
+      ],
+      "picture": "https://manoa.hawaii.edu/speakers/wp-content/uploads/logo-1.png"
+    },
+    {
+      "firstName": "ADMIN",
+      "lastName": "Doe",
+      "email": "admin@foo.com",
+      "role": "admin",
+      "interests": [
+        "Cooking",
+        "Coding"
       ],
       "clubs":[
         "Mockup Club"

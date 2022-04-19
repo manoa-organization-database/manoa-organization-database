@@ -35,7 +35,7 @@ class App extends React.Component {
               <ProtectedRoute path="/home" component={Home}/>
               <ProtectedRoute path="/edit-user" component={EditUser}/>
               <Route path="/profile" component={UserHomePage}/>
-              <Route path="/club" component={ClubInformation}/>
+              <Route path="/clubs" component={ClubInformation}/>
               <Route path="/search" component={Search}/>
               <Route path="/clubadmin" component={ClubAdminHome}/>
               <ProtectedRoute path="/addproject" component={AddProject}/>

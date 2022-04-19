@@ -4,6 +4,7 @@
       "firstName": "John",
       "lastName": "Doe",
       "email": "john@foo.com",
+      "uhID": "23456789",
       "role": "user",
       "interests": [
         "Sports",

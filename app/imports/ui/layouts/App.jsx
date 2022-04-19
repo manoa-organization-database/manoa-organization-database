@@ -12,7 +12,6 @@ import Home from '../pages/Home';
 import EditUser from '../pages/EditUser';
 import UserHomePage from '../pages/UserHomePage';
 import AddProject from '../pages/AddProject';
-import Projects from '../pages/Projects';
 import Filter from '../pages/Filter';
 // import Interests from '../pages/Interests';
 import NotFound from '../pages/NotFound';
@@ -21,6 +20,7 @@ import Signup from '../pages/Signup';
 import Signout from '../pages/Signout';
 import ClubAdminHome from '../pages/ClubAdminHome';
 import ChangeUserStatus from '../pages/ChangeUserStatus';
+import ClubInformation from '../pages/ClubInformation';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
 class App extends React.Component {
@@ -35,7 +35,7 @@ class App extends React.Component {
               <ProtectedRoute path="/home" component={Home}/>
               <ProtectedRoute path="/edit-user" component={EditUser}/>
               <Route path="/profile" component={UserHomePage}/>
-              <Route path="/projects" component={Projects}/>
+              <Route path="/club" component={ClubInformation}/>
               <Route path="/search" component={Search}/>
               <Route path="/clubadmin" component={ClubAdminHome}/>
               <ProtectedRoute path="/addproject" component={AddProject}/>

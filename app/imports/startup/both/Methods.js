@@ -1,10 +1,9 @@
 import { Meteor } from 'meteor/meteor';
 import { Clubs } from '../../api/clubs/Clubs';
 import { ProfilesInterests } from '../../api/profiles/ProfilesInterests';
-import { ProfilesProjects } from '../../api/profiles/ProfilesProjects';
-import { ProjectsInterests } from '../../api/clubs/ProjectsInterests';
-import { Profiles } from '../../api/profiles/Profiles';
 import { ProfilesClubs } from '../../api/profiles/ProfilesClubs';
+import { ClubInterests } from '../../api/clubs/ClubInterests';
+import { Profiles } from '../../api/profiles/Profiles';
 
 /**
  * In Bowfolios, insecure mode is enabled, so it is possible to update the server's Mongo database by making
@@ -34,7 +33,7 @@ const updateProfileMethod = 'Profiles.update';
 
 /**
  * The server-side Profiles.update Meteor Method is called by the client-side Home page after pushing the update button.
- * Its purpose is to update the Profiles, ProfilesInterests, and ProfilesProjects collections to reflect the
+ * Its purpose is to update the Profiles, ProfilesInterests, and ProfilesClubs collections to reflect the
  * updated situation specified by the user.
  */
 Meteor.methods({
@@ -47,23 +46,23 @@ Meteor.methods({
   },
 });
 
-const addProjectMethod = 'Projects.add';
+const addClubMethod = 'Clubs.add';
 
-/** Creates a new project in the Clubs collection, and also updates ProfilesProjects and ProjectsInterests. */
+/** Creates a new project in the Clubs collection, and also updates ProfilesClubs and ClubsInterests. */
 Meteor.methods({
-  'Projects.add'({ name, description, picture, interests, participants, homepage }) {
+  'Clubs.add'({ name, description, picture, interests, participants, homepage }) {
     Clubs.collection.insert({ name, description, picture, homepage });
-    ProfilesProjects.collection.remove({ project: name });
-    ProjectsInterests.collection.remove({ project: name });
+    ProfilesClubs.collection.remove({ club: name });
+    ClubInterests.collection.remove({ club: name });
     if (interests) {
-      interests.map((interest) => ProjectsInterests.collection.insert({ project: name, interest }));
+      interests.map((interest) => ClubInterests.collection.insert({ club: name, interest }));
     } else {
       throw new Meteor.Error('At least one interest is required.');
     }
     if (participants) {
-      participants.map((participant) => ProfilesProjects.collection.insert({ project: name, profile: participant }));
+      participants.map((participant) => ProfilesClubs.collection.insert({ club: name, profile: participant }));
     }
   },
 });
 
-export { updateProfileMethod, addProjectMethod };
+export { updateProfileMethod, addClubMethod };

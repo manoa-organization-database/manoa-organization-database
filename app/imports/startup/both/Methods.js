@@ -4,6 +4,7 @@ import { ProfilesInterests } from '../../api/profiles/ProfilesInterests';
 import { ProfilesProjects } from '../../api/profiles/ProfilesProjects';
 import { ProjectsInterests } from '../../api/clubs/ProjectsInterests';
 import { Profiles } from '../../api/profiles/Profiles';
+import { ProfilesClubs } from '../../api/profiles/ProfilesClubs';
 
 /**
  * In Bowfolios, insecure mode is enabled, so it is possible to update the server's Mongo database by making
@@ -40,9 +41,9 @@ Meteor.methods({
   'Profiles.update'({ email, firstName, lastName, picture, interests, clubs }) {
     Profiles.collection.update({ email }, { $set: { email, firstName, lastName, picture } });
     ProfilesInterests.collection.remove({ profile: email });
-    ProfilesProjects.collection.remove({ profile: email });
+    ProfilesClubs.collection.remove({ profile: email });
     interests.map((interest) => ProfilesInterests.collection.insert({ profile: email, interest }));
-    clubs.map((club) => ProfilesProjects.collection.insert({ profile: email, club }));
+    clubs.map((club) => ProfilesClubs.collection.insert({ profile: email, club }));
   },
 });
 

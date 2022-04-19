@@ -8,7 +8,7 @@ import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 import Landing from '../pages/Landing';
 import Search from '../pages/Search';
-import Home from '../pages/Home';
+// import Home from '../pages/Home';
 import EditUser from '../pages/EditUser';
 import UserHomePage from '../pages/UserHomePage';
 import AddProject from '../pages/AddProject';
@@ -32,12 +32,12 @@ class App extends React.Component {
           <div style={{ paddingTop: '20px', paddingBottom: '30px' }}>
             <Switch>
               <Route exact path="/" component={Landing}/>
-              <ProtectedRoute path="/home" component={Home}/>
+              {/* <ProtectedRoute path="/home" component={Home}/> */}
               <ProtectedRoute path="/edit-user" component={EditUser}/>
-              <Route path="/profile" component={UserHomePage}/>
-              <Route path="/projects" component={Projects}/>
-              <Route path="/search" component={Search}/>
-              <Route path="/clubadmin" component={ClubAdminHome}/>
+              <ProtectedRoute path="/profile" component={UserHomePage}/>
+              <ProtectedRoute path="/projects" component={Projects}/>
+              <ProtectedRoute path="/search" component={Search}/>
+              <ProtectedRoute path="/clubadmin" component={ClubAdminHome}/>
               <ProtectedRoute path="/addproject" component={AddProject}/>
               <ProtectedRoute path="/filter" component={Filter}/>
               <AdminProtectedRoute path="/change-user-status" component={ChangeUserStatus}/>

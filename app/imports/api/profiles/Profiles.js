@@ -14,6 +14,7 @@ class UsersCollection {
       firstName: { type: String },
       lastName: { type: String },
       email: { type: String, index: true, unique: true },
+      uhID: { type: Number, index: true, unique: true },
       picture: { type: String },
       role: { type: String },
     }, { tracker: Tracker });

@@ -4,6 +4,7 @@
       "firstName": "John",
       "lastName": "Doe",
       "email": "john@foo.com",
+      "uhID": "23456789",
       "role": "user",
       "interests": [
         "Sports",
@@ -18,6 +19,7 @@
       "firstName": "ADMIN",
       "lastName": "Doe",
       "email": "admin@foo.com",
+      "uhID": "12345678",
       "role": "admin",
       "interests": [
         "Cooking",
@@ -38,7 +40,7 @@
         "Mockup",
         "Clubs"
       ],
-      "picture": "https://react.semantic-ui.com/images/wireframe/image.png"
+      "picture": "https://www.logolynx.com/images/logolynx/aa/aa2c83b718d1f5f077c0297ae4f401dd.jpeg"
     }
   ]
 }

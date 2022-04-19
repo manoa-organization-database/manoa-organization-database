@@ -17,17 +17,18 @@ class NavBar extends React.Component {
           <span className='bowfolio-green' style={{ fontWeight: 800, fontSize: '24px', color: 'white' }}>MOD</span>
         </Menu.Item>
         {this.props.currentUser ? (
-          <Menu.Item as={NavLink} id="homeMenuItem" activeClassName="active" exact to="/home" key='home' style={{ color: 'white' }}>Home</Menu.Item>
+          [/* <Menu.Item as={NavLink} id="homeMenuItem" activeClassName="active" exact to="/home" key='home'
+           style={{ color: 'white' }}>Home</Menu.Item>, */
+            <Menu.Item as={NavLink} id="profilesMenuItem" activeClassName="active" exact to="/profile" key='profile'
+              style={{ color: 'white' }}>Profile</Menu.Item>,
+            <Menu.Item as={NavLink} id="databaseMenuItem" activeClassName="active" exact to="/clubs"
+              key='clubs' style={{ color: 'white' }}>Database</Menu.Item>,
+            <Menu.Item as={NavLink} id="interestsMenuItem" activeClassName="active" exact to="/search"
+              key='search' style={{ color: 'white' }}>Search by Interest</Menu.Item>,
+            <Menu.Item as={NavLink} id="clubadminMenuItem" activeClassName="active" exact to="/clubadmin" key='clubadmin'
+              style={{ color: 'white' }}>Club Profile</Menu.Item>,
+          ]
         ) : ''}
-        <Menu.Item as={NavLink} id="profilesMenuItem" activeClassName="active" exact to="/profile" key='profile'
-          style={{ color: 'white' }}>Profile</Menu.Item>
-        <Menu.Item as={NavLink} id="databaseMenuItem" activeClassName="active" exact to="/clubs" key='clubs'
-          style={{ color: 'white' }}>Database</Menu.Item>
-        <Menu.Item as={NavLink} id="interestsMenuItem" activeClassName="active" exact to="/search" key='search'
-          style={{ color: 'white' }}>Search by Interest</Menu.Item>
-        {Roles.userIsInRole(Meteor.userId(), 'admin') ? (<Menu.Item as={NavLink} id="clubadminMenuItem" activeClassName="active"
-          exact to="/clubadmin" key='clubadmin'
-          style={{ color: 'white' }}>Club Profile</Menu.Item>) : ''}
         {this.props.currentUser ? (
           [<Menu.Item as={NavLink} id="addProjectMenuItem" activeClassName="active" exact to="/addProject" key='addP'
             style={{ color: 'white' }}>Add Project</Menu.Item>,

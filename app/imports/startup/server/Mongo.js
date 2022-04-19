@@ -3,9 +3,9 @@ import { Accounts } from 'meteor/accounts-base';
 import { Roles } from 'meteor/alanning:roles';
 import { Clubs } from '../../api/clubs/Clubs';
 import { Profiles } from '../../api/profiles/Profiles';
+import { ProfilesClubs } from '../../api/profiles/ProfilesClubs';
 import { ProfilesInterests } from '../../api/profiles/ProfilesInterests';
 import { ClubInterests } from '../../api/clubs/ClubInterests';
-import { ProfilesClubs } from '../../api/profiles/ProfilesClubs';
 import { Interests } from '../../api/interests/Interests';
 
 /* eslint-disable no-console */
@@ -25,15 +25,16 @@ function addInterest(interest) {
 }
 
 /** Defines a new user and associated profile. Error if user already exists. */
-function addProfile({ firstName, lastName, email, picture, interests, clubs, role }) {
+function addProfile({ firstName, lastName, email, uhID, picture, interests, clubs, role }) {
   console.log(`Defining profile ${email}`);
   // Define the user in the Meteor accounts package.
   createUser(email, role);
   // Create the profile.
-  Profiles.collection.insert({ firstName, lastName, email, picture, role });
+  Profiles.collection.insert({ firstName, lastName, email, uhID, picture, role });
   // Add interests and clubs.
-  interests.map(interest => ProfilesInterests.collection.insert({ profile: email, interest: interest }));
-  clubs.map(club => ProfilesClubs.collection.insert({ profile: email, club: club }));
+  interests.map(interest => ProfilesInterests.collection.insert({ profile: email, interest }));
+  clubs.map(club => ProfilesClubs.collection.insert({ profile: email, club }));
+
   // Make sure interests are defined in the Interests collection if they weren't already.
   interests.map(interest => addInterest(interest));
 }

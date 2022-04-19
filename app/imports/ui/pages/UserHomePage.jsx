@@ -56,6 +56,7 @@ MakeCard.propTypes = {
     firstName: PropTypes.string,
     lastName: PropTypes.string,
     email: PropTypes.string,
+    uhID: PropTypes.number,
     role: PropTypes.string,
     interests: PropTypes.array,
     clubs: PropTypes.array,

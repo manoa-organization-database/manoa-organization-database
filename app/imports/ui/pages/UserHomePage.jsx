@@ -4,6 +4,7 @@ import { Container, Loader, Card, Image, Label, Header, Button } from 'semantic-
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
+import { NavLink } from 'react-router-dom';
 import { ProfilesInterests } from '../../api/profiles/ProfilesInterests';
 import { ProfilesProjects } from '../../api/profiles/ProfilesProjects';
 import { Clubs } from '../../api/clubs/Clubs';
@@ -33,8 +34,8 @@ const sampleClubData = [
 
 /** Returns the User and associated Clubs and Interests associated with the passed user email. */
 function getProfileData(email) {
-  const data = _.find(sampleUserData, (user) => user.email === email);
-  const interests = _.pluck(_.filter(sampleInterestData, (interest) => interest.email === email), 'interest');
+  const data = Profiles.collection.findOne({ email });
+  const interests = _.pluck(ProfilesInterests.collection.find({ profile: email }).fetch(), 'interest');
   const clubs = _.pluck(_.filter(sampleClubData, (interest) => interest.email === email), 'club');
   return _.extend({}, data, { interests, clubs });
 }
@@ -62,7 +63,7 @@ const MakeCard = (props) => (
       {_.map(props.user.interests, (interest, index) => <Label className="user-home-page-label" key={index}>{interest}</Label>)}
     </Card.Content>
     <Card.Content extra>
-      <Button color='blue'>
+      <Button color='blue' as={NavLink} activeClassName="active" exact to="/edit-user" >
         Edit
       </Button>
       <Button color='red'>
@@ -94,7 +95,7 @@ class UserHomePage extends React.Component {
 
   /** Render the page once subscriptions have been received. */
   renderPage() {
-    const emails = ['john@foo.com'];
+    const emails = _.pluck(Profiles.collection.find().fetch(), 'email');
     const userData = emails.map(email => getProfileData(email));
     return (
       <Container>

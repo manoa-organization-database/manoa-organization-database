@@ -12,7 +12,7 @@ class Signup extends React.Component {
   /** Initialize state fields. */
   constructor(props) {
     super(props);
-    this.state = { email: '', password: '', error: '', redirectToReferer: false };
+    this.state = { firstName: '', lastName: '', email: '', picture: '', password: '', error: '', redirectToReferer: false };
   }
 
   /** Update the form controls each time the user interacts with them. */
@@ -22,12 +22,12 @@ class Signup extends React.Component {
 
   /** Handle Signup submission. Create user account and a profile entry, then redirect to the home page. */
   submit= () => {
-    const { email, password } = this.state;
+    const { firstName, lastName, email, picture, password } = this.state;
     Accounts.createUser({ email, username: email, password }, (err) => {
       if (err) {
         this.setState({ error: err.reason });
       } else {
-        Profiles.insert({ email }, (err2) => {
+        Profiles.collection.insert({ firstName, lastName, email, picture, role: 'user' }, (err2) => {
           if (err2) {
             this.setState({ error: err2.reason });
           } else {
@@ -40,7 +40,7 @@ class Signup extends React.Component {
 
   /** Display the signup form. */
   render() {
-    const { from } = this.props.location.state || { from: { pathname: '/home' } };
+    const { from } = this.props.location.state || { from: { pathname: '/profile' } };
     // if correct authentication, redirect to from: page instead of signup screen
     if (this.state.redirectToReferer) {
       return <Redirect to={from}/>;
@@ -74,7 +74,36 @@ class Signup extends React.Component {
                   type="password"
                   onChange={this.handleChange}
                 />
-                <Form.TextArea placeholder='Write a little bit about yourself' label='Bio' id='signup-form-id'/> *
+                <Form.Input
+                  label="First Name"
+                  id="signup-form-firstName"
+                  icon="user"
+                  iconPosition="left"
+                  name="firstName"
+                  placeholder="Enter your first name"
+                  type="firstName"
+                  onChange={this.handleChange}
+                />
+                <Form.Input
+                  label="Last Name"
+                  id="signup-form-lastName"
+                  icon="user"
+                  iconPosition="left"
+                  name="lastName"
+                  placeholder="Enter your last name"
+                  type="lastName"
+                  onChange={this.handleChange}
+                />
+                <Form.Input
+                  label="Picture URL"
+                  id="signup-form-picture"
+                  icon="picture"
+                  iconPosition="left"
+                  name="picture"
+                  placeholder="Provide a link to a picture"
+                  type="picture"
+                  onChange={this.handleChange}
+                />
                 <Form.Button id="signup-form-submit" content="Submit"/>
               </Segment>
             </Form>

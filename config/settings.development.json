@@ -18,6 +18,7 @@
       "firstName": "ADMIN",
       "lastName": "Doe",
       "email": "admin@foo.com",
+      "uhID": "12345678",
       "role": "admin",
       "interests": [
         "Cooking",

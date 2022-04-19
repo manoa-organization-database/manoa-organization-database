@@ -5,35 +5,35 @@ import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
 import { Clubs } from '../../api/clubs/Clubs';
+import { ProfilesClubs } from '../../api/profiles/ProfilesClubs';
+import { ClubInterests } from '../../api/clubs/ClubInterests';
+import { ProfilesInterests } from '../../api/profiles/ProfilesInterests';
+import { Profiles } from '../../api/profiles/Profiles';
 
-const sampleMemberData = [
-  { firstName: 'Club', lastName: 'Admin', email: 'clubadmin@foo' +
-      '.com', picture: 'https://react.semantic-ui.com/images/avatar/large/matthew.png', role: 'Club Admin' },
-  { firstName: 'Matthew', lastName: 'Smith', email: 'matthew@foo' +
-      '.com', picture: 'https://react.semantic-ui.com/images/avatar/large/matthew.png', role: 'Member' },
-  { firstName: 'David', lastName: 'Tennent', email: 'david@foo' +
-      '.com', picture: 'https://react.semantic-ui.com/images/avatar/large/matthew.png', role: 'Member' }];
+function getMemberEmails(clubName) {
+  const emails = _.filter(ProfilesClubs.collection.find().fetch(), (profilesClub) => profilesClub.club === clubName);
+  return _.pluck(emails, 'profile');
+}
 
-const sampleInterests = [
-  { email: 'clubadmin@foo.com', interest: 'Clubs' },
-  { email: 'clubadmin@foo.com', interest: 'Mockups' },
-  { email: 'clubadmin@foo.com', interest: 'Websites' },
-  { email: 'matthew@foo.com', interest: 'Clubs' },
-  { email: 'matthew@foo.com', interest: 'Mockups' },
-  { email: 'david@foo.com', interest: 'Clubs' },
-  { email: 'david@foo.com', interest: 'Mockups' },
-  { email: 'david@foo.com', interest: 'Sports' },
-];
+function getMemberInterests(profileName) {
+  const interests = _.filter(ProfilesInterests.collection.find().fetch(), (profilesInterest) => profilesInterest.profile === profileName);
+  return _.pluck(interests, 'interest');
+}
 
 function getMemberData(email) {
-  const data = _.find(sampleMemberData, (member) => member.email === email);
-  const interests = _.pluck(_.filter(sampleInterests, (interest) => interest.email === email), 'interest');
-  return _.extend({ }, data, { interests });
+  const profiles = _.find(Profiles.collection.find().fetch(), (member) => member.email === email);
+  const interests = getMemberInterests(email);
+  return _.extend({ }, profiles, { interests });
 }
 
 function getClubData(name) {
   const data = Clubs.collection.findOne({ name });
   return _.extend({ }, data);
+}
+
+function getClubInterests(clubName) {
+  const interests = _.filter(ClubInterests.collection.find().fetch(), (clubInterest) => clubInterest.club === clubName);
+  return _.pluck(interests, 'interest');
 }
 
 const ClubCard = (props) => (
@@ -78,10 +78,11 @@ class ClubAdminHome extends React.Component {
   }
 
   renderPage() {
-    const emails = ['clubadmin@foo.com', 'matthew@foo.com', 'david@foo.com'];
-    const memberData = emails.map(email => getMemberData(email));
     const clubName = 'Mockup Club';
+    const emails = getMemberEmails(clubName);
+    const memberData = emails.map(email => getMemberData(email));
     const club = getClubData(clubName);
+    const interests = getClubInterests(clubName);
     return (
       <div>
         <div className="club-admin-margin">
@@ -110,8 +111,7 @@ class ClubAdminHome extends React.Component {
           <Container textAlign='center'>
             <Header as="h1">Club Interests</Header>
             <div>
-              <Label className="club-admin-label">Clubs</Label>
-              <Label className="club-admin-label">Mockups</Label>
+              {_.map(interests, (interest, index) => <Label key={index} className="club-admin-label">{interest}</Label>)}
             </div>
             <Divider />
           </Container>
@@ -138,7 +138,11 @@ ClubAdminHome.propTypes = {
 export default withTracker(() => {
   // Ensure that minimongo is populated with all collections prior to running render().
   const sub1 = Meteor.subscribe(Clubs.userPublicationName);
+  const sub2 = Meteor.subscribe(ProfilesClubs.userPublicationName);
+  const sub3 = Meteor.subscribe(ClubInterests.userPublicationName);
+  const sub4 = Meteor.subscribe(ProfilesInterests.userPublicationName);
+  const sub5 = Meteor.subscribe(Profiles.userPublicationName);
   return {
-    ready: sub1.ready(),
+    ready: sub1.ready() && sub2.ready() && sub3.ready() && sub4.ready() && sub5.ready(),
   };
 })(ClubAdminHome);

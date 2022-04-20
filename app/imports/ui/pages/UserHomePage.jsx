@@ -74,8 +74,8 @@ class UserHomePage extends React.Component {
 
   /** Render the page once subscriptions have been received. */
   renderPage() {
-    const emails = _.pluck(Profiles.collection.find().fetch(), 'email');
-    const profileData = emails.map(email => getProfileData(email));
+    const email = Meteor.user().username;
+    const profileData = Profiles.collection.findOne({ email });
     return (
       <Container>
         {_.map(profileData, (profile, index) => <MakeCard key={index} profile={profile}/>)}

@@ -63,10 +63,10 @@ const MakeCard = (props) => (
       {_.map(props.user.interests, (interest, index) => <Label className="user-home-page-label" key={index}>{interest}</Label>)}
     </Card.Content>
     <Card.Content extra>
-      <Button color='blue' as={NavLink} activeClassName="active" exact to="/edit-user" >
+      <Button color='blue' as={NavLink} activeClassName="active" exact to="/edit-user">
         Edit
       </Button>
-      <Button color='red'>
+      <Button color='red' as={NavLink} activeClassName="active" exact to="/delete-user">
         Delete
       </Button>
     </Card.Content>

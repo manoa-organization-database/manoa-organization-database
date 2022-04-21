@@ -8,14 +8,13 @@ import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 import Landing from '../pages/Landing';
 import Search from '../pages/Search';
-// import Home from '../pages/Home';
 import EditUser from '../pages/EditUser';
 import UserHomePage from '../pages/UserHomePage';
 import AddProject from '../pages/AddProject';
 import Filter from '../pages/Filter';
-// import Interests from '../pages/Interests';
 import NotFound from '../pages/NotFound';
 import Signin from '../pages/Signin';
+import DeleteUser from '../pages/DeleteUser';
 import Signup from '../pages/Signup';
 import Signout from '../pages/Signout';
 import ClubAdminHome from '../pages/ClubAdminHome';
@@ -32,8 +31,8 @@ class App extends React.Component {
           <div style={{ paddingTop: '20px', paddingBottom: '30px' }}>
             <Switch>
               <Route exact path="/" component={Landing}/>
-              {/* <ProtectedRoute path="/home" component={Home}/> */}
               <ProtectedRoute path="/edit-user" component={EditUser}/>
+              <ProtectedRoute path="/delete-user" component={DeleteUser}/>
               <ProtectedRoute path="/profile" component={UserHomePage}/>
               <ProtectedRoute path="/clubs" component={ClubInformation}/>
               <ProtectedRoute path="/search" component={Search}/>

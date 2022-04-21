@@ -52,16 +52,7 @@ const MakeCard = (props) => (
 );
 
 MakeCard.propTypes = {
-  profile: PropTypes.shape({
-    firstName: PropTypes.string,
-    lastName: PropTypes.string,
-    email: PropTypes.string,
-    uhID: PropTypes.number,
-    role: PropTypes.string,
-    interests: PropTypes.array,
-    clubs: PropTypes.array,
-    picture: PropTypes.string,
-  }).isRequired,
+  profile: PropTypes.object.isRequired,
 };
 
 /** Renders the Profile Collection as a set of Cards. */
@@ -74,11 +65,16 @@ class UserHomePage extends React.Component {
 
   /** Render the page once subscriptions have been received. */
   renderPage() {
-    const email = Meteor.user().username;
-    const profileData = Profiles.collection.findOne({ email });
+    /** Creates an array of all emails, then finds the logged in user's email */
+    const emails = _.pluck(Profiles.collection.find().fetch(), 'email');
+    // console.log(emails);
+    const profileEmail = _.find(emails, function (email) { return email === Meteor.user().username; });
+    // console.log(profileEmail);
+    const profileData = getProfileData(profileEmail);
+    // console.log(profileData);
     return (
       <Container>
-        {_.map(profileData, (profile, index) => <MakeCard key={index} profile={profile}/>)}
+        <MakeCard profile={profileData}/>
       </Container>
     );
   }

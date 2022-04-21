@@ -8,7 +8,7 @@ import { Container, Form, Grid, Header, Message, Segment } from 'semantic-ui-rea
  * Signin page overrides the form’s submit event and call Meteor’s loginWithPassword().
  * Authentication errors modify the component’s state to be displayed
  */
-export default class Signin extends React.Component {
+export default class DeleteUser extends React.Component {
 
   /** Initialize component state with properties for login and redirection. */
   constructor(props) {
@@ -23,7 +23,7 @@ export default class Signin extends React.Component {
 
   /** Handle Signin submission using Meteor's account mechanism. */
   submit = () => {
-    const { email, password } = this.state;
+    const { email, uhID, password } = this.state;
     Meteor.loginWithPassword(email, password, (err) => {
       if (err) {
         this.setState({ error: err.reason });
@@ -46,7 +46,7 @@ export default class Signin extends React.Component {
         <Grid textAlign="center" verticalAlign="middle" centered columns={2}>
           <Grid.Column>
             <Header as="h2" textAlign="center">
-                Login to your account
+                Please provide your login credentials in order to delete your account.
             </Header>
             <Form onSubmit={this.submit}>
               <Segment stacked>
@@ -58,6 +58,16 @@ export default class Signin extends React.Component {
                   name="email"
                   type="email"
                   placeholder="E-mail address"
+                  onChange={this.handleChange}
+                />
+                <Form.Input
+                  label="UH student ID"
+                  id="signup-form-uhID"
+                  icon="id card"
+                  iconPosition="left"
+                  name="uhID"
+                  type="uhID"
+                  placeholder="Enter your UH ID"
                   onChange={this.handleChange}
                 />
                 <Form.Input
@@ -73,9 +83,6 @@ export default class Signin extends React.Component {
                 <Form.Button id="signin-form-submit" content="Submit"/>
               </Segment>
             </Form>
-            <Message>
-              <Link to="/signup">Click here to Register</Link>
-            </Message>
             {this.state.error === '' ? (
               ''
             ) : (
@@ -93,6 +100,6 @@ export default class Signin extends React.Component {
 }
 
 /** Ensure that the React Router location object is available in case we need to redirect. */
-Signin.propTypes = {
+DeleteUser.propTypes = {
   location: PropTypes.object,
 };

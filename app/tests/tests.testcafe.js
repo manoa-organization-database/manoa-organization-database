@@ -13,9 +13,9 @@ import { navBar } from './navbar.component';
 /* global fixture:false, test:false */
 
 /** Credentials for one of the sample users defined in settings.development.json. */
-const credentials = { username: 'johnson@hawaii.edu', password: 'foo', firstName: 'Philip', lastName: 'Johnson' };
+const credentials = { email: 'john@foo.com', password: 'foo', firstName: 'John', lastName: 'Foo' };
 
-fixture('Bowfolios localhost test with default db')
+fixture('Manoa Organizational Database localhost test with default db')
   .page('http://localhost:3000');
 
 test('Test that landing page shows up', async (testController) => {
@@ -32,9 +32,11 @@ test('Test that signin and signout work', async (testController) => {
 test('Test that signup page, then logout works', async (testController) => {
   // Create a new user email address that's guaranteed to be unique.
   const newUser = `user-${new Date().getTime()}@foo.com`;
+  const newName = `user-${new Date().getTime()}`;
+  const newPic = 'https://manoa.hawaii.edu/speakers/wp-content/uploads/logo-1.png';
   await navBar.gotoSignupPage(testController);
   await signupPage.isDisplayed(testController);
-  await signupPage.signupUser(testController, newUser, credentials.password);
+  await signupPage.signupUser(testController, newName, newName, newUser, 99999999, newPic, credentials.password);
   // New user has successfully logged in, so now let's logout.
   await navBar.logout(testController);
   await signoutPage.isDisplayed(testController);

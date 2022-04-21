@@ -35,9 +35,9 @@ function addProfile({ firstName, lastName, email, uhID, picture, interests, club
   // Add interests and clubs.
   interests.map(interest => ProfilesInterests.collection.insert({ profile: email, interest }));
   clubs.map(club => ProfilesClubs.collection.insert({ profile: email, club }));
-  if (clubAdmin.length !== 0) {
+  // if (clubAdmin.length !== 0) {
     clubAdmin.map(clubsAdmin => ClubAdmin.collection.insert({ admin: email, club: clubsAdmin }));
-  }
+  // }
   // Make sure interests are defined in the Interests collection if they weren't already.
   interests.map(interest => addInterest(interest));
 }

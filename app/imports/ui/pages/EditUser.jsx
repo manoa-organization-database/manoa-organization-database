@@ -1,6 +1,6 @@
 import React from 'react';
 import { Grid, Segment, Header, Form, Loader } from 'semantic-ui-react';
-import { AutoForm, TextField, SubmitField } from 'uniforms-semantic';
+import { AutoForm, TextField, NumField, SubmitField } from 'uniforms-semantic';
 import swal from 'sweetalert';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import SimpleSchema from 'simpl-schema';
@@ -12,13 +12,14 @@ import MultiSelectField from '../forms/controllers/MultiSelectField';
 import { Interests } from '../../api/interests/Interests';
 import { Profiles } from '../../api/profiles/Profiles';
 import { ProfilesInterests } from '../../api/profiles/ProfilesInterests';
-import { ProfilesProjects } from '../../api/profiles/ProfilesProjects';
+import { ProfilesClubs } from '../../api/profiles/ProfilesClubs';
 import { Clubs } from '../../api/clubs/Clubs';
 import { updateProfileMethod } from '../../startup/both/Methods';
 
 /** Create a schema to specify the structure of the data to appear in the form. */
 const makeSchema = (allInterests, allClubs) => new SimpleSchema({
   email: { type: String, label: 'Email', optional: true },
+  uhID: { type: Number, label: 'UH ID', optional: true },
   firstName: { type: String, label: 'First', optional: true },
   lastName: { type: String, label: 'Last', optional: true },
   picture: { type: String, label: 'Picture URL', optional: true },
@@ -56,7 +57,7 @@ class EditUser extends React.Component {
     const formSchema = makeSchema(allInterests, allClubs);
     const bridge = new SimpleSchema2Bridge(formSchema);
     // Now create the model with all the user information.
-    const clubs = _.pluck(ProfilesProjects.collection.find({ profile: email }).fetch(), 'club');
+    const clubs = _.pluck(ProfilesClubs.collection.find({ profile: email }).fetch(), 'club');
     const interests = _.pluck(ProfilesInterests.collection.find({ profile: email }).fetch(), 'interest');
     const profile = Profiles.collection.findOne({ email });
     const model = _.extend({}, profile, { interests, clubs });
@@ -69,7 +70,8 @@ class EditUser extends React.Component {
               <Form.Group widths={'equal'}>
                 <TextField id='firstName' name='firstName' showInlineError={true} placeholder={'First Name'}/>
                 <TextField id='lastName' name='lastName' showInlineError={true} placeholder={'Last Name'}/>
-                <TextField name='email' showInlineError={true} placeholder={'email'} disabled/>
+                <TextField id='email' name='email' showInlineError={true} placeholder={'email'} disabled/>
+                <NumField id='uhID' name='uhID' showInlineError={true} placeholder={'UH ID'} disabled/>
               </Form.Group>
               <Form.Group widths={'equal'}>
                 <TextField name='picture' showInlineError={true} placeholder={'URL to picture'}/>
@@ -97,7 +99,7 @@ export default withTracker(() => {
   const sub1 = Meteor.subscribe(Interests.userPublicationName);
   const sub2 = Meteor.subscribe(Profiles.userPublicationName);
   const sub3 = Meteor.subscribe(ProfilesInterests.userPublicationName);
-  const sub4 = Meteor.subscribe(ProfilesProjects.userPublicationName);
+  const sub4 = Meteor.subscribe(ProfilesClubs.userPublicationName);
   const sub5 = Meteor.subscribe(Clubs.userPublicationName);
   return {
     ready: sub1.ready() && sub2.ready() && sub3.ready() && sub4.ready() && sub5.ready(),

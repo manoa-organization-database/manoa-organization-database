@@ -1,13 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { Meteor } from 'meteor/meteor';
 import { Container, Form, Grid, Header, Message, Segment } from 'semantic-ui-react';
+import { _ } from 'meteor/underscore';
+import { Interests } from '../../api/interests/Interests';
+import { Profiles } from '../../api/profiles/Profiles';
+import { ProfilesInterests } from '../../api/profiles/ProfilesInterests';
+import { ProfilesClubs } from '../../api/profiles/ProfilesClubs';
 
 /**
  * Signin page overrides the form’s submit event and call Meteor’s loginWithPassword().
  * Authentication errors modify the component’s state to be displayed
  */
+
+function getProfileData(email) {
+  const data = Profiles.collection.findOne({ email });
+  const interests = _.pluck(ProfilesInterests.collection.find({ profile: email }).fetch(), 'interest');
+  const clubs = _.pluck(ProfilesClubs.collection.find({ profile: email }).fetch(), 'club');
+  return _.extend({}, data, { interests, clubs });
+}
+
 export default class DeleteUser extends React.Component {
 
   /** Initialize component state with properties for login and redirection. */
@@ -23,7 +36,11 @@ export default class DeleteUser extends React.Component {
 
   /** Handle Signin submission using Meteor's account mechanism. */
   submit = () => {
-    const { email, uhID, password } = this.state;
+    const allUsers = _.pluck(Profiles.collection.find().fetch(), 'email');
+    console.log(allUsers);
+    const profileData = allUsers.map(email => getProfileData(email));
+    console.log(profileData);
+    const { email, password } = this.state;
     Meteor.loginWithPassword(email, password, (err) => {
       if (err) {
         this.setState({ error: err.reason });

@@ -4,6 +4,7 @@
       "firstName": "John",
       "lastName": "Doe",
       "email": "john@foo.com",
+      "uhID": "23456789",
       "role": "user",
       "interests": [
         "Sports",
@@ -18,6 +19,7 @@
       "firstName": "ADMIN",
       "lastName": "Doe",
       "email": "admin@foo.com",
+      "uhID": "12345678",
       "role": "admin",
       "interests": [
         "Cooking",
@@ -36,6 +38,26 @@
       "description": "Do you like making mockups of clubs? Then this is the club for you. The Mockup Club focuses on teaching members how to create their own mockups of clubs. Activites include coming up with clubs ideas and writing their own club descriptions such as this one. Contact a club admin for details.",
       "interests": [
         "Mockup",
+        "Clubs"
+      ],
+      "picture": "https://www.logolynx.com/images/logolynx/aa/aa2c83b718d1f5f077c0297ae4f401dd.jpeg"
+    },
+    {
+      "name": "Photography Club",
+      "homepage": "www.google.com",
+      "description": "Do you like taking pictures? Then this is the club for you.",
+      "interests": [
+        "Photography",
+        "Clubs"
+      ],
+      "picture": "https://www.logolynx.com/images/logolynx/aa/aa2c83b718d1f5f077c0297ae4f401dd.jpeg"
+    },
+    {
+      "name": "Sports Club",
+      "homepage": "www.google.com",
+      "description": "Do you like sports? Then this is the club for you.",
+      "interests": [
+        "Sports",
         "Clubs"
       ],
       "picture": "https://www.logolynx.com/images/logolynx/aa/aa2c83b718d1f5f077c0297ae4f401dd.jpeg"

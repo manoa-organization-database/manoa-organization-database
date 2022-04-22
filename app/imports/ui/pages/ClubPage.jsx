@@ -51,9 +51,9 @@ const ClubCard = (props) => (
       <Card.Meta>
         <span className='email'>{props.member.email}</span>
       </Card.Meta>
-      <Card.Meta>
+      {/* <Card.Meta>
         <span className='role'>{props.member.role}</span>
-      </Card.Meta>
+      </Card.Meta> */}
     </Card.Content>
     <Card.Content extra>
       <div>
@@ -92,7 +92,6 @@ class ClubPage extends React.Component {
     const adminData = adminEmails.map(email => getMemberData(email));
     const club = getClubData(clubName);
     const interests = getClubInterests(clubName);
-    console.log(adminData);
     return (
       <div>
         <div className="club-admin-margin">
@@ -123,7 +122,7 @@ class ClubPage extends React.Component {
         </div>
         <div className="club-admin-margin">
           <Container textAlign="center">
-            <Header as="h1">Members</Header>
+            <Header as="h1">Admins</Header>
             <Card.Group centered>
               {_.map(adminData, (profile, index) => <ClubCard key={index} member={profile}/>)}
               {/* {_.map(memberData, (profile, index) => <ClubCard key={index} member={profile}/>)} */}

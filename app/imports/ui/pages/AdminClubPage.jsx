@@ -10,15 +10,15 @@ import { ClubInterests } from '../../api/clubs/ClubInterests';
 import { ProfilesInterests } from '../../api/profiles/ProfilesInterests';
 import { Profiles } from '../../api/profiles/Profiles';
 import { ClubAdmin } from '../../api/clubs/ClubAdmin';
+import { NavLink } from 'react-router-dom';
 
-function getMemberEmails(clubName) {
+/* function getMemberEmails(clubName) {
   const emails = _.filter(ProfilesClubs.collection.find().fetch(), (profilesClub) => profilesClub.club === clubName);
   return _.pluck(emails, 'profile');
-}
+} */
 
 function getAdminEmails(clubName) {
   const emails = _.filter(ClubAdmin.collection.find().fetch(), (clubadmin) => clubadmin.club === clubName);
-  console.log(emails);
   return _.pluck(emails, 'admin');
 }
 
@@ -51,9 +51,9 @@ const ClubCard = (props) => (
       <Card.Meta>
         <span className='email'>{props.member.email}</span>
       </Card.Meta>
-      <Card.Meta>
+      {/* <Card.Meta>
         <span className='role'>{props.member.role}</span>
-      </Card.Meta>
+      </Card.Meta> */}
     </Card.Content>
     <Card.Content extra>
       <div>
@@ -76,8 +76,8 @@ ClubCard.propTypes = {
   }).isRequired,
 };
 
-/** Renders a color-blocked static ClubAdminClub page. */
-class ClubAdminClub extends React.Component {
+/** Renders a color-blocked static AdminClubPage page. */
+class AdminClubPage extends React.Component {
   // club = _.pluck(Clubs.collection.find().fetch(), 'Mockup Club');
 
   render() {
@@ -86,18 +86,18 @@ class ClubAdminClub extends React.Component {
 
   renderPage() {
     const clubName = this.props.doc.name;
-    const emails = getMemberEmails(clubName);
+    // const emails = getMemberEmails(clubName);
     const adminEmails = getAdminEmails(clubName);
-    const memberData = emails.map(email => getMemberData(email));
+    // const memberData = emails.map(email => getMemberData(email));
     const adminData = adminEmails.map(email => getMemberData(email));
     const club = getClubData(clubName);
     const interests = getClubInterests(clubName);
-    console.log(adminData);
     return (
       <div>
         <div className="club-admin-margin">
           <Container>
-            <Button fluid className="club-admin-button">Edit Club Profile</Button>
+            <Button fluid className="club-admin-button" as={NavLink}
+              activeClassName="active" exact to={`/edit-club/${this.props.doc._id}`}>Edit Club Profile</Button>
           </Container>
         </div>
         <div className="club-admin-margin">
@@ -128,7 +128,7 @@ class ClubAdminClub extends React.Component {
         </div>
         <div className="club-admin-margin">
           <Container textAlign="center">
-            <Header as="h1">Members</Header>
+            <Header as="h1">Admins</Header>
             <Card.Group centered>
               {_.map(adminData, (profile, index) => <ClubCard key={index} member={profile}/>)}
               {/* {_.map(memberData, (profile, index) => <ClubCard key={index} member={profile}/>)} */}
@@ -141,7 +141,7 @@ class ClubAdminClub extends React.Component {
   }
 }
 
-ClubAdminClub.propTypes = {
+AdminClubPage.propTypes = {
   doc: PropTypes.object,
   ready: PropTypes.bool.isRequired,
 };
@@ -161,4 +161,4 @@ export default withTracker(({ match }) => {
     doc,
     ready: sub1.ready() && sub2.ready() && sub3.ready() && sub4.ready() && sub5.ready() && sub6.ready(),
   };
-})(ClubAdminClub);
+})(AdminClubPage);

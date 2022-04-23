@@ -1,8 +1,8 @@
 import { Selector } from 'testcafe';
 
-class ProfilesPage {
+class UserHomePage {
   constructor() {
-    this.pageId = '#profiles-page';
+    this.pageId = '#user-home-page';
     this.pageSelector = Selector(this.pageId);
   }
 
@@ -12,10 +12,10 @@ class ProfilesPage {
   }
 
   /** Checks that the current page has at least six profiles on it.  */
-  async hasDefaultProfiles(testController) {
+  async hasProfile(testController) {
     const cardCount = Selector('.ui .card').count;
-    await testController.expect(cardCount).gte(6);
+    await testController.expect(cardCount).gte(1);
   }
 }
 
-export const profilesPage = new ProfilesPage();
+export const userHomePage = new UserHomePage();

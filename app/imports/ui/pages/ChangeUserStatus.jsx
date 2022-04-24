@@ -3,11 +3,11 @@ import { Meteor } from 'meteor/meteor';
 import { Header, Grid, Segment, Form } from 'semantic-ui-react';
 // import PropTypes from 'prop-types';
 // import { _ } from 'meteor/underscore';
+import swal from 'sweetalert';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import { AutoForm, SubmitField, TextField, SelectField } from 'uniforms-semantic';
 import SimpleSchema from 'simpl-schema';
-import { Profiles } from '../../api/profiles/Profiles';
-import { updateProfileMethod } from '../../startup/both/Methods';
+import { updateProfileRoleMethod } from '../../startup/both/Methods';
 
 /*
 const allRoles = [
@@ -17,7 +17,7 @@ const allRoles = [
 ]
 */
 
-const allRoles = ['User', 'Club Admin', 'Admin'];
+const allRoles = ['user', 'club-admin', 'admin'];
 
 /** Create a schema to specify the structure of the data to appear in the form. */
 const makeSchema = new SimpleSchema({
@@ -26,12 +26,12 @@ const makeSchema = new SimpleSchema({
   'roles.$': { type: String, allowedValues: allRoles },
 });
 
-/** Renders a color-blocked static AdminHome page. */
 class ChangeUserStatus extends React.Component {
 
   /** On submit, insert the data. */
   submit(data) {
-    Meteor.call(updateProfileMethod, data, (error) => {
+    console.log(data);
+    Meteor.call(updateProfileRoleMethod, data, (error) => {
       if (error) {
         swal('Error', error.message, 'error');
       } else {
@@ -61,7 +61,7 @@ class ChangeUserStatus extends React.Component {
                 <SelectField
                   showInlineError={true}
                   name='roles'
-                  label='Role'
+                  label='ROLE'
                   allowedValues={allRoles}
                 />
               </Form.Group>

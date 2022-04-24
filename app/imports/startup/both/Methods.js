@@ -1,4 +1,6 @@
 import { Meteor } from 'meteor/meteor';
+import { Accounts } from 'meteor/accounts-base';
+import { Roles } from 'meteor/alanning:roles';
 import { Clubs } from '../../api/clubs/Clubs';
 import { ProfilesInterests } from '../../api/profiles/ProfilesInterests';
 import { ProfilesClubs } from '../../api/profiles/ProfilesClubs';
@@ -65,4 +67,31 @@ Meteor.methods({
   },
 });
 
-export { updateProfileMethod, addClubMethod };
+const updateProfileRoleMethod = 'Roles.update';
+
+/**
+ * The server-side Profiles.update Meteor Method is called by the client-side Home page after pushing the update button.
+ * Its purpose is to update the Profiles, ProfilesInterests, and ProfilesProjects collections to reflect the
+ * updated situation specified by the user.
+ */
+Meteor.methods({
+  'Roles.update'({ email, roles }) {
+    console.log(email, roles);
+    const userID = Accounts.findUserByEmail(email);
+    Roles.removeUsersFromRoles(userID, ['user', 'club-admin', 'admin']);
+    Roles.addUsersToRoles(userID, roles);
+    /*
+    if (roles === 'user') {
+      Roles.addUsersToRoles(userID, 'user');
+    }
+    if (roles === 'club-admin') {
+      Roles.addUsersToRoles(userID, 'club-admin');
+    }
+    if (roles === 'user') {
+      Roles.addUsersToRoles(userID, 'admin');
+    }
+     */
+  },
+});
+
+export { updateProfileMethod, addClubMethod, updateProfileRoleMethod };

@@ -13,6 +13,9 @@
       "clubs":[
         "Mockup Club"
       ],
+      "clubAdmin":[
+
+      ],
       "picture": "https://manoa.hawaii.edu/speakers/wp-content/uploads/logo-1.png"
     },
     {
@@ -27,6 +30,11 @@
       ],
       "clubs":[
         "Mockup Club"
+      ],
+      "clubAdmin":[
+        "Mockup Club",
+        "Photography Club",
+        "Sports Club"
       ],
       "picture": "https://manoa.hawaii.edu/speakers/wp-content/uploads/logo-1.png"
     }

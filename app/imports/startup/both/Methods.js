@@ -6,6 +6,7 @@ import { ProfilesInterests } from '../../api/profiles/ProfilesInterests';
 import { ProfilesClubs } from '../../api/profiles/ProfilesClubs';
 import { ClubInterests } from '../../api/clubs/ClubInterests';
 import { Profiles } from '../../api/profiles/Profiles';
+import { ClubAdmin } from '../../api/clubs/ClubAdmin';
 
 /**
  * In Bowfolios, insecure mode is enabled, so it is possible to update the server's Mongo database by making
@@ -75,22 +76,17 @@ const updateProfileRoleMethod = 'Roles.update';
  * updated situation specified by the user.
  */
 Meteor.methods({
-  'Roles.update'({ email, roles }) {
-    console.log(email, roles);
+  'Roles.update'({ email, roles, clubs }) {
+    console.log(`Set ${email} to ${roles} role`);
     const userID = Accounts.findUserByEmail(email);
     Roles.removeUsersFromRoles(userID, ['user', 'club-admin', 'admin']);
     Roles.addUsersToRoles(userID, roles);
-    /*
-    if (roles === 'user') {
-      Roles.addUsersToRoles(userID, 'user');
+    ClubAdmin.collection.remove({ admin: email });
+    if ((Roles.userIsInRole(userID, 'club-admin') || Roles.userIsInRole(userID, 'admin')) && (clubs && clubs.length > 0)) {
+      clubs.map(club => ClubAdmin.collection.insert({ admin: email, club: club }));
+      console.log(`${email} is now a club-admin of these clubs:`);
+      console.log(clubs);
     }
-    if (roles === 'club-admin') {
-      Roles.addUsersToRoles(userID, 'club-admin');
-    }
-    if (roles === 'user') {
-      Roles.addUsersToRoles(userID, 'admin');
-    }
-     */
   },
 });
 

@@ -1,126 +1,111 @@
 import React from 'react';
-import { Image, Container, Header, Button, Label, Card, Divider } from 'semantic-ui-react';
+import { Meteor } from 'meteor/meteor';
+import { Container, Loader, Card, Image, Label, Header, Button } from 'semantic-ui-react';
+import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
+import { NavLink } from 'react-router-dom';
+import { ProfilesInterests } from '../../api/profiles/ProfilesInterests';
+import { Clubs } from '../../api/clubs/Clubs';
+import { Profiles } from '../../api/profiles/Profiles';
+import { ProfilesClubs } from '../../api/profiles/ProfilesClubs';
+import { ClubAdmin } from '../../api/clubs/ClubAdmin';
 
-const sampleMemberData = [
-  { firstName: 'Club', lastName: 'Admin', email: 'clubadmin@foo' +
-      '.com', picture: 'https://react.semantic-ui.com/images/avatar/large/matthew.png', role: 'Club Admin' },
-  { firstName: 'Matthew', lastName: 'Smith', email: 'matthew@foo' +
-      '.com', picture: 'https://react.semantic-ui.com/images/avatar/large/matthew.png', role: 'Member' },
-  { firstName: 'David', lastName: 'Tennent', email: 'david@foo' +
-      '.com', picture: 'https://react.semantic-ui.com/images/avatar/large/matthew.png', role: 'Member' }];
-
-const sampleInterests = [
-  { email: 'clubadmin@foo.com', interest: 'Clubs' },
-  { email: 'clubadmin@foo.com', interest: 'Mockups' },
-  { email: 'clubadmin@foo.com', interest: 'Websites' },
-  { email: 'matthew@foo.com', interest: 'Clubs' },
-  { email: 'matthew@foo.com', interest: 'Mockups' },
-  { email: 'david@foo.com', interest: 'Clubs' },
-  { email: 'david@foo.com', interest: 'Mockups' },
-  { email: 'david@foo.com', interest: 'Sports' },
-];
-
-function getMemberData(email) {
-  const data = _.find(sampleMemberData, (member) => member.email === email);
-  const interests = _.pluck(_.filter(sampleInterests, (interest) => interest.email === email), 'interest');
-  return _.extend({ }, data, { interests });
+/** Returns the Profile and associated Clubs and Interests associated with the passed profile email. */
+function getProfileData(email) {
+  const data = Profiles.collection.findOne({ email });
+  const interests = _.pluck(ProfilesInterests.collection.find({ profile: email }).fetch(), 'interest');
+  const clubs = _.pluck(ProfilesClubs.collection.find({ profile: email }).fetch(), 'club');
+  const adminClubs = _.pluck(ClubAdmin.collection.find({ admin: email }).fetch(), 'club');
+  return _.extend({}, data, { interests, clubs, adminClubs });
 }
 
-const ClubCard = (props) => (
-  <Card>
-    <Image src={props.member.picture} wrapped ui={false} />
+function getClubId(club) {
+  const clubData = Clubs.collection.findOne({ name: club });
+  return clubData._id;
+}
+
+/** Component for layout out a Profile Card. */
+const MakeCard = (props) => (
+  <Card centered fluid>
     <Card.Content>
-      <Card.Header>{props.member.firstName} {props.member.lastName}</Card.Header>
+      <Image floated='left' size='small' src={props.profile.picture}/>
+      <Card.Header>
+        <Header>
+          {props.profile.firstName} {props.profile.lastName}
+        </Header>
+      </Card.Header>
       <Card.Meta>
-        <span className='email'>{props.member.email}</span>
-      </Card.Meta>
-      <Card.Meta>
-        <span className='role'>{props.member.role}</span>
+        <span>{props.profile.email}</span>
       </Card.Meta>
     </Card.Content>
     <Card.Content extra>
-      <div>
-        <p>Interests:</p>
-        {_.map(props.member.interests, (interest, index) => <Label key={index} className="club-admin-label">{interest}</Label>)}
-      </div>
+      <Header as='h5'>Clubs</Header>
+      {_.map(props.profile.clubs, (club, index) => <Label className="user-home-page-label" key={index} as={NavLink}
+        activeClassName="active" exact to={`/club/${getClubId(club)}`}>{club}</Label>)}
+    </Card.Content>
+    <Card.Content extra>
+      <Header as='h5'>Admin</Header>
+      {_.map(props.profile.adminClubs, (club, index) => <Label className="user-home-page-label" key={index} as={NavLink}
+        activeClassName="active" exact to={`/clubadmin/${getClubId(club)}`} >{club}</Label>)}
+    </Card.Content>
+    <Card.Content extra>
+      <Header as='h5'>Interests</Header>
+      {_.map(props.profile.interests, (interest, index) => <Label className="user-home-page-label" key={index}>{interest}</Label>)}
+    </Card.Content>
+    <Card.Content extra>
+      <Button color='blue' as={NavLink} activeClassName="active" exact to="/edit-user" >
+        Edit
+      </Button>
+      <Button color='red'>
+        Delete
+      </Button>
     </Card.Content>
   </Card>
 );
 
-// Require a document to be passed to this component.
-ClubCard.propTypes = {
-  member: PropTypes.shape({
-    firstName: PropTypes.string,
-    lastName: PropTypes.string,
-    email: PropTypes.string,
-    picture: PropTypes.string,
-    role: PropTypes.string,
-    interests: PropTypes.array,
-  }).isRequired,
+MakeCard.propTypes = {
+  profile: PropTypes.object.isRequired,
 };
 
-/** Renders a color-blocked static ClubAdminHome page. */
+/** Renders the Profile Collection as a set of Cards. */
 class ClubAdminHome extends React.Component {
-  sampleClub = {
-    name: 'Mockup Club',
-    description: 'Do you like making mockups of clubs? Then this is the club for you. The Mockup Club focuses on\n' +
-      '              teaching members how to create their own mockups of clubs. Activites include coming up with clubs ideas and\n' +
-      '              writing their own club descriptions such as this one. Contact a club admin for details.',
-    picture: 'https://react.semantic-ui.com/images/wireframe/image.png',
-    clubAdmins: 'admin@foo.com',
-  };
 
+  /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   render() {
-    const emails = ['clubadmin@foo.com', 'matthew@foo.com', 'david@foo.com'];
-    const memberData = emails.map(email => getMemberData(email));
+    return (this.props.ready) ? this.renderPage() : <Loader active>Getting data</Loader>;
+  }
+
+  /** Render the page once subscriptions have been received. */
+  renderPage() {
+    /** Creates an array of all emails, then finds the logged in user's email */
+    const emails = _.pluck(Profiles.collection.find().fetch(), 'email');
+    // console.log(emails);
+    const profileEmail = _.find(emails, function (email) { return email === Meteor.user().username; });
+    // console.log(profileEmail);
+    const profileData = getProfileData(profileEmail);
+    // console.log(profileData);
     return (
-      <div>
-        <div className="club-admin-margin">
-          <Container>
-            <Button fluid className="club-admin-button">Edit Club Profile</Button>
-          </Container>
-        </div>
-        <div className="club-admin-margin">
-          <Container textAlign='center'>
-            <Divider />
-            <Header as="h1">{this.sampleClub.name}</Header>
-            <Divider />
-          </Container>
-        </div>
-        <div className="club-admin-margin">
-          <Image src={this.sampleClub.picture} size='large' centered/>
-        </div>
-        <div className="club-admin-margin">
-          <Container textAlign='center'>
-            <Divider />
-            <Header as="h3">{this.sampleClub.description}</Header>
-            <Divider />
-          </Container>
-        </div>
-        <div className="club-admin-margin">
-          <Container textAlign='center'>
-            <Header as="h1">Club Interests</Header>
-            <div>
-              <Label className="club-admin-label">Clubs</Label>
-              <Label className="club-admin-label">Mockups</Label>
-            </div>
-            <Divider />
-          </Container>
-        </div>
-        <div className="club-admin-margin">
-          <Container textAlign="center">
-            <Header as="h1">Members</Header>
-            <Card.Group centered>
-              {_.map(memberData, (profile, index) => <ClubCard key={index} member={profile}/>)}
-            </Card.Group>
-            <Divider />
-          </Container>
-        </div>
-      </div>
+      <Container>
+        <MakeCard profile={profileData}/>
+      </Container>
     );
   }
 }
 
-export default ClubAdminHome;
+ClubAdminHome.propTypes = {
+  ready: PropTypes.bool.isRequired,
+};
+
+/** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
+export default withTracker(() => {
+  // Ensure that minimongo is populated with all collections prior to running render().
+  const sub1 = Meteor.subscribe(Profiles.userPublicationName);
+  const sub2 = Meteor.subscribe(ProfilesInterests.userPublicationName);
+  const sub3 = Meteor.subscribe(ProfilesClubs.userPublicationName);
+  const sub4 = Meteor.subscribe(Clubs.userPublicationName);
+  const sub5 = Meteor.subscribe(ClubAdmin.userPublicationName);
+  return {
+    ready: sub1.ready() && sub2.ready() && sub3.ready() && sub4.ready() && sub5.ready(),
+  };
+})(ClubAdminHome);

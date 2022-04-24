@@ -1,9 +1,12 @@
 import { Meteor } from 'meteor/meteor';
+import { Accounts } from 'meteor/accounts-base';
+import { Roles } from 'meteor/alanning:roles';
 import { Clubs } from '../../api/clubs/Clubs';
 import { ProfilesInterests } from '../../api/profiles/ProfilesInterests';
 import { ProfilesClubs } from '../../api/profiles/ProfilesClubs';
 import { ClubInterests } from '../../api/clubs/ClubInterests';
 import { Profiles } from '../../api/profiles/Profiles';
+import { ClubAdmin } from '../../api/clubs/ClubAdmin';
 
 /**
  * In Bowfolios, insecure mode is enabled, so it is possible to update the server's Mongo database by making
@@ -46,6 +49,21 @@ Meteor.methods({
   },
 });
 
+const updateClubMethod = 'Clubs.update';
+
+/**
+ * The server-side Clubs.update Meteor Method is called by the client-side Edit page after pushing the update button.
+ * Its purpose is to update the Clubs, and ClubInterests collections to reflect the
+ * updated situation specified by the user.
+ */
+Meteor.methods({
+  'Clubs.update'({ name, picture, description, interests }) {
+    Clubs.collection.update({ name }, { $set: { name, description, picture } });
+    ClubInterests.collection.remove({ club: name });
+    interests.map((interest) => ClubInterests.collection.insert({ club: name, interest }));
+  },
+});
+
 const addClubMethod = 'Clubs.add';
 
 /** Creates a new project in the Clubs collection, and also updates ProfilesClubs and ClubsInterests. */
@@ -65,4 +83,26 @@ Meteor.methods({
   },
 });
 
-export { updateProfileMethod, addClubMethod };
+const updateProfileRoleMethod = 'Roles.update';
+
+/**
+ * The server-side Profiles.update Meteor Method is called by the client-side Home page after pushing the update button.
+ * Its purpose is to update the Profiles, ProfilesInterests, and ProfilesProjects collections to reflect the
+ * updated situation specified by the user.
+ */
+Meteor.methods({
+  'Roles.update'({ email, roles, clubs }) {
+    console.log(`Set ${email} to ${roles} role`);
+    const userID = Accounts.findUserByEmail(email);
+    Roles.removeUsersFromRoles(userID, ['user', 'club-admin', 'admin']);
+    Roles.addUsersToRoles(userID, roles);
+    ClubAdmin.collection.remove({ admin: email });
+    if ((Roles.userIsInRole(userID, 'club-admin') || Roles.userIsInRole(userID, 'admin')) && (clubs && clubs.length > 0)) {
+      clubs.map(club => ClubAdmin.collection.insert({ admin: email, club: club }));
+      console.log(`${email} is now a club-admin of these clubs:`);
+      console.log(clubs);
+    }
+  },
+});
+
+export { updateProfileMethod, addClubMethod, updateProfileRoleMethod, updateClubMethod };

@@ -4,7 +4,7 @@ import { Container, Loader, Card, Image, Label, Header, Button } from 'semantic-
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { ProfilesInterests } from '../../api/profiles/ProfilesInterests';
 import { Clubs } from '../../api/clubs/Clubs';
 import { Profiles } from '../../api/profiles/Profiles';

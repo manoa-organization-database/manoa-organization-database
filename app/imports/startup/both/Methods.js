@@ -58,7 +58,6 @@ Meteor.methods({
     Clubs.collection.update({ name }, { $set: { name, description, picture } });
     ClubInterests.collection.remove({ club: name });
     interests.map((interest) => ClubInterests.collection.insert({ club: name, interest }));
-    console.log('working');
   },
 });
 

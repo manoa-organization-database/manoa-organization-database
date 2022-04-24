@@ -7,15 +7,19 @@ import { ProfilesClubs } from '../../api/profiles/ProfilesClubs';
 import { ProfilesInterests } from '../../api/profiles/ProfilesInterests';
 import { ClubInterests } from '../../api/clubs/ClubInterests';
 import { Interests } from '../../api/interests/Interests';
+import { ClubAdmin } from '../../api/clubs/ClubAdmin';
 
 /* eslint-disable no-console */
 
 /** Define a user in the Meteor accounts package. This enables login. Username is the email address. */
 function createUser(email, role) {
   const userID = Accounts.createUser({ username: email, email, password: 'foo' });
-  if (role === 'admin') {
-    Roles.createRole(role, { unlessExists: true });
+  if (role === 'user') {
+    Roles.addUsersToRoles(userID, 'user');
+  } else if (role === 'admin') {
     Roles.addUsersToRoles(userID, 'admin');
+  } else if (role === 'club-admin') {
+    Roles.addUsersToRoles(userID, 'club-admin');
   }
 }
 
@@ -25,7 +29,7 @@ function addInterest(interest) {
 }
 
 /** Defines a new user and associated profile. Error if user already exists. */
-function addProfile({ firstName, lastName, email, uhID, picture, interests, clubs, role }) {
+function addProfile({ firstName, lastName, email, uhID, picture, interests, clubs, clubAdmin, role }) {
   console.log(`Defining profile ${email}`);
   // Define the user in the Meteor accounts package.
   createUser(email, role);
@@ -34,7 +38,7 @@ function addProfile({ firstName, lastName, email, uhID, picture, interests, club
   // Add interests and clubs.
   interests.map(interest => ProfilesInterests.collection.insert({ profile: email, interest }));
   clubs.map(club => ProfilesClubs.collection.insert({ profile: email, club }));
-
+  clubAdmin.map(clubsAdmin => ClubAdmin.collection.insert({ admin: email, club: clubsAdmin }));
   // Make sure interests are defined in the Interests collection if they weren't already.
   interests.map(interest => addInterest(interest));
 }
@@ -51,10 +55,15 @@ function addClubs({ name, homepage, description, interests, picture }) {
 /** Initialize DB if it appears to be empty (i.e. no users defined.) */
 if (Meteor.users.find().count() === 0) {
   if (Meteor.settings.defaultClubs && Meteor.settings.defaultProfiles) {
+    console.log('Creating roles: user, club-admin, admin');
+    Roles.createRole('user');
+    Roles.createRole('club-admin');
+    Roles.createRole('admin');
     console.log('Creating the default profiles');
     Meteor.settings.defaultProfiles.map(profile => addProfile(profile));
     console.log('Creating the default clubs');
     Meteor.settings.defaultClubs.map(club => addClubs(club));
+
   } else {
     console.log('Cannot initialize the database!  Please invoke meteor with a settings file.');
   }

@@ -20,6 +20,9 @@ import Signout from '../pages/Signout';
 import ClubAdminHome from '../pages/ClubAdminHome';
 import ChangeUserStatus from '../pages/ChangeUserStatus';
 import ClubInformation from '../pages/ClubInformation';
+import AdminClubPage from '../pages/AdminClubPage';
+import ClubPage from '../pages/ClubPage';
+import EditClub from '../pages/EditClub';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
 class App extends React.Component {
@@ -36,7 +39,10 @@ class App extends React.Component {
               <ProtectedRoute path="/profile" component={UserHomePage}/>
               <ProtectedRoute path="/clubs" component={ClubInformation}/>
               <ProtectedRoute path="/search" component={Search}/>
-              <ProtectedRoute path="/clubadmin" component={ClubAdminHome}/>
+              <ProtectedRoute path="/clubadminhome" component={ClubAdminHome}/>
+              <ProtectedRoute path="/clubadmin/:_id" component={AdminClubPage}/>
+              <ProtectedRoute path="/club/:_id" component={ClubPage}/>
+              <ProtectedRoute path="/edit-club/:_id" component={EditClub}/>
               <ProtectedRoute path="/addproject" component={AddProject}/>
               <ProtectedRoute path="/filter" component={Filter}/>
               <AdminProtectedRoute path="/change-user-status" component={ChangeUserStatus}/>

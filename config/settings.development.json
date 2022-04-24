@@ -13,6 +13,9 @@
       "clubs":[
         "Mockup Club"
       ],
+      "clubAdmin":[
+
+      ],
       "picture": "https://manoa.hawaii.edu/speakers/wp-content/uploads/logo-1.png"
     },
     {
@@ -28,6 +31,11 @@
       "clubs":[
         "Mockup Club"
       ],
+      "clubAdmin":[
+        "Mockup Club",
+        "Photography Club",
+        "Sports Club"
+      ],
       "picture": "https://manoa.hawaii.edu/speakers/wp-content/uploads/logo-1.png"
     }
   ],
@@ -35,7 +43,7 @@
     {
       "name": "Mockup Club",
       "homepage": "www.google.com",
-      "description": "Do you like making mockups of clubs? Then this is the club for you. The Mockup Club focuses on teaching members how to create their own mockups of clubs. Activites include coming up with clubs ideas and writing their own club descriptions such as this one. Contact a club admin for details.",
+      "description": "Do you like making mockups of clubs? Then this is the club for you. The Mockup Club focuses on teaching members how to create their own mockups of clubs. Activites include coming up with clubs ideas and writing their own club descriptions such as this one. Pray you don't break everything. Contact a club admin for details.",
       "interests": [
         "Mockup",
         "Clubs"

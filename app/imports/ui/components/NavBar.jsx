@@ -25,7 +25,7 @@ class NavBar extends React.Component {
               key='clubs' style={{ color: 'white' }}>Database</Menu.Item>,
             <Menu.Item as={NavLink} id="interestsMenuItem" activeClassName="active" exact to="/search"
               key='search' style={{ color: 'white' }}>Search by Interest</Menu.Item>,
-            <Menu.Item as={NavLink} id="clubadminMenuItem" activeClassName="active" exact to="/clubadmin" key='clubadmin'
+            <Menu.Item as={NavLink} id="clubadminMenuItem" activeClassName="active" exact to="/clubadminhome" key='clubadmin'
               style={{ color: 'white' }}>Club Profile</Menu.Item>,
           ]
         ) : ''}

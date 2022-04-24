@@ -7,6 +7,7 @@ import { ProfilesClubs } from '../../api/profiles/ProfilesClubs';
 import { ClubInterests } from '../../api/clubs/ClubInterests';
 import { Profiles } from '../../api/profiles/Profiles';
 import { ClubAdmin } from '../../api/clubs/ClubAdmin';
+import { Interests } from '../../api/interests/Interests';
 
 /**
  * In Bowfolios, insecure mode is enabled, so it is possible to update the server's Mongo database by making
@@ -90,4 +91,12 @@ Meteor.methods({
   },
 });
 
-export { updateProfileMethod, addClubMethod, updateProfileRoleMethod };
+const addInterestMethod = 'Interest.add';
+
+Meteor.methods({
+  'Interest.add'({ name }) {
+    Interests.collection.update({ name }, { $set: { name } }, { upsert: true });
+  },
+});
+
+export { updateProfileMethod, addClubMethod, updateProfileRoleMethod, addInterestMethod };

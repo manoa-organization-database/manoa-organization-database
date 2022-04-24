@@ -66,7 +66,7 @@ class ChangeUserStatus extends React.Component {
               <Form.Group widths={'equal'}>
                 <MultiSelectField name='clubs' showInlineError={true} placeholder={'Clubs'}/>
               </Form.Group>
-              <SubmitField id='home-page-submit' value='Update'/>
+              <SubmitField id='role-page-submit' value='Update'/>
             </Segment>
           </AutoForm>
         </Grid.Column>

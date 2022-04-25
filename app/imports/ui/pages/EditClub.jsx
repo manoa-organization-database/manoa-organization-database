@@ -54,7 +54,7 @@ class EditClub extends React.Component {
     const club = Clubs.collection.findOne({ name: clubName });
     const model = _.extend({}, club, { interests });
     return (
-      <Grid id="home-page" container centered>
+      <Grid id="edit-club-page" container centered>
         <Grid.Column>
           <Header as="h2" textAlign="center">Club Profile</Header>
           <AutoForm model={model} schema={bridge} onSubmit={data => this.submit(data)}>

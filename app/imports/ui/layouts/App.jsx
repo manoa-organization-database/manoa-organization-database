@@ -41,10 +41,10 @@ class App extends React.Component {
               <ProtectedRoute path="/profile" component={UserHomePage}/>
               <ProtectedRoute path="/clubs" component={ClubInformation}/>
               <ProtectedRoute path="/search" component={Search}/>
-              <ProtectedRoute path="/clubadminhome" component={ClubAdminHome}/>
-              <ProtectedRoute path="/clubadmin/:_id" component={AdminClubPage}/>
+              <ClubAdminProtectedRoute path="/clubadminhome" component={ClubAdminHome}/>
+              <ClubAdminProtectedRoute path="/clubadmin/:_id" component={AdminClubPage}/>
               <ProtectedRoute path="/club/:_id" component={ClubPage}/>
-              <ProtectedRoute path="/edit-club/:_id" component={EditClub}/>
+              <ClubAdminProtectedRoute path="/edit-club/:_id" component={EditClub}/>
               <ProtectedRoute path="/addproject" component={AddProject}/>
               <ProtectedRoute path="/filter" component={Filter}/>
               <AdminProtectedRoute path="/change-user-status" component={ChangeUserStatus}/>
@@ -99,6 +99,25 @@ const AdminProtectedRoute = ({ component: Component, ...rest }) => (
   />
 );
 
+/**
+ * AdminProtectedRoute (see React Router v4 sample)
+ * Checks for Meteor login and admin role before routing to the requested page, otherwise goes to signin page.
+ * @param {any} { component: Component, ...rest }
+ */
+const ClubAdminProtectedRoute = ({ component: Component, ...rest }) => (
+  <Route
+    {...rest}
+    render={(props) => {
+      const isLogged = Meteor.userId() !== null;
+      const isClubAdmin = Roles.userIsInRole(Meteor.userId(), 'club-admin');
+      return (isLogged && isClubAdmin) ?
+        (<Component {...props} />) :
+        (<Redirect to={{ pathname: '/signin', state: { from: props.location } }}/>
+        );
+    }}
+  />
+);
+
 /** Require a component and location to be passed to each ProtectedRoute. */
 ProtectedRoute.propTypes = {
   component: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
@@ -107,6 +126,12 @@ ProtectedRoute.propTypes = {
 
 /** Require a component and location to be passed to each AdminProtectedRoute. */
 AdminProtectedRoute.propTypes = {
+  component: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+  location: PropTypes.object,
+};
+
+/** Require a component and location to be passed to each AdminProtectedRoute. */
+ClubAdminProtectedRoute.propTypes = {
   component: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
   location: PropTypes.object,
 };

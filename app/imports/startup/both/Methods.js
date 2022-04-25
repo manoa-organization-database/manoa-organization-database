@@ -114,4 +114,4 @@ Meteor.methods({
   },
 });
 
-export { updateProfileMethod, addClubMethod, updateProfileRoleMethod, addInterestMethod };
+export { updateProfileMethod, addClubMethod, updateProfileRoleMethod, addInterestMethod, updateClubMethod };

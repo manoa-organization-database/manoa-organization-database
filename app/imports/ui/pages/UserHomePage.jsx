@@ -9,13 +9,20 @@ import { ProfilesInterests } from '../../api/profiles/ProfilesInterests';
 import { Clubs } from '../../api/clubs/Clubs';
 import { Profiles } from '../../api/profiles/Profiles';
 import { ProfilesClubs } from '../../api/profiles/ProfilesClubs';
+import { ClubAdmin } from '../../api/clubs/ClubAdmin';
 
 /** Returns the Profile and associated Clubs and Interests associated with the passed profile email. */
 function getProfileData(email) {
   const data = Profiles.collection.findOne({ email });
   const interests = _.pluck(ProfilesInterests.collection.find({ profile: email }).fetch(), 'interest');
   const clubs = _.pluck(ProfilesClubs.collection.find({ profile: email }).fetch(), 'club');
-  return _.extend({}, data, { interests, clubs });
+  const adminClubs = _.pluck(ClubAdmin.collection.find({ admin: email }).fetch(), 'club');
+  return _.extend({}, data, { interests, clubs, adminClubs });
+}
+
+function getClubId(club) {
+  const clubData = Clubs.collection.findOne({ name: club });
+  return clubData._id;
 }
 
 /** Component for layout out a Profile Card. */
@@ -32,10 +39,20 @@ const MakeCard = (props) => (
         <span>{props.profile.email}</span>
       </Card.Meta>
     </Card.Content>
-    <Card.Content extra>
-      <Header as='h5'>Clubs</Header>
-      {_.map(props.profile.clubs, (club, index) => <Label className="user-home-page-label" key={index}>{club}</Label>)}
-    </Card.Content>
+    {props.profile.clubs.length > 0 &&
+      <Card.Content extra>
+        <Header as='h5'>Clubs</Header>
+        {_.map(props.profile.clubs, (club, index) => <Label className="user-home-page-label" key={index} as={NavLink}
+          activeClassName="active" exact to={`/club/${getClubId(club)}`}>{club}</Label>)}
+      </Card.Content>
+    }
+    {props.profile.adminClubs.length > 0 &&
+      <Card.Content extra>
+        <Header as='h5'>Admin</Header>
+        {_.map(props.profile.adminClubs, (club, index) => <Label className="user-home-page-label" key={index} as={NavLink}
+          activeClassName="active" exact to={`/clubadmin/${getClubId(club)}`} >{club}</Label>)}
+      </Card.Content>
+    }
     <Card.Content extra>
       <Header as='h5'>Interests</Header>
       {_.map(props.profile.interests, (interest, index) => <Label className="user-home-page-label" key={index}>{interest}</Label>)}
@@ -73,7 +90,7 @@ class UserHomePage extends React.Component {
     const profileData = getProfileData(profileEmail);
     console.log(profileData);
     return (
-      <Container>
+      <Container id="user-home-page">
         <MakeCard profile={profileData}/>
       </Container>
     );
@@ -91,7 +108,8 @@ export default withTracker(() => {
   const sub2 = Meteor.subscribe(ProfilesInterests.userPublicationName);
   const sub3 = Meteor.subscribe(ProfilesClubs.userPublicationName);
   const sub4 = Meteor.subscribe(Clubs.userPublicationName);
+  const sub5 = Meteor.subscribe(ClubAdmin.userPublicationName);
   return {
-    ready: sub1.ready() && sub2.ready() && sub3.ready() && sub4.ready(),
+    ready: sub1.ready() && sub2.ready() && sub3.ready() && sub4.ready() && sub5.ready(),
   };
 })(UserHomePage);

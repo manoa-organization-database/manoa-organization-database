@@ -29,7 +29,27 @@
         "Coding"
       ],
       "clubs":[
-        "Mockup Club"
+        "Mockup Club",
+        "Photography Club",
+        "Sports Club"
+      ],
+      "clubAdmin":[
+
+      ],
+      "picture": "https://manoa.hawaii.edu/speakers/wp-content/uploads/logo-1.png"
+    },
+    {
+      "firstName": "Club",
+      "lastName": "Admin",
+      "email": "clubadmin@foo.com",
+      "uhID": "87654321",
+      "role": "club-admin",
+      "interests": [
+        "Mockup",
+        "Clubs"
+      ],
+      "clubs":[
+
       ],
       "clubAdmin":[
         "Mockup Club",

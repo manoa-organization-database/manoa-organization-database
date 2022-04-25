@@ -93,7 +93,7 @@ class ClubPage extends React.Component {
     const club = getClubData(clubName);
     const interests = getClubInterests(clubName);
     return (
-      <div>
+      <div id="club-page">
         <div className="club-admin-margin">
           <Container textAlign='center'>
             <Divider />

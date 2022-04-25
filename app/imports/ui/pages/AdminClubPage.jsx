@@ -4,13 +4,13 @@ import { Image, Container, Header, Button, Label, Card, Divider, Loader } from '
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
+import { NavLink } from 'react-router-dom';
 import { Clubs } from '../../api/clubs/Clubs';
 import { ProfilesClubs } from '../../api/profiles/ProfilesClubs';
 import { ClubInterests } from '../../api/clubs/ClubInterests';
 import { ProfilesInterests } from '../../api/profiles/ProfilesInterests';
 import { Profiles } from '../../api/profiles/Profiles';
 import { ClubAdmin } from '../../api/clubs/ClubAdmin';
-import { NavLink } from 'react-router-dom';
 
 /* function getMemberEmails(clubName) {
   const emails = _.filter(ProfilesClubs.collection.find().fetch(), (profilesClub) => profilesClub.club === clubName);
@@ -93,7 +93,7 @@ class AdminClubPage extends React.Component {
     const club = getClubData(clubName);
     const interests = getClubInterests(clubName);
     return (
-      <div>
+      <div id="admin-club-page">
         <div className="club-admin-margin">
           <Container>
             <Button fluid className="club-admin-button" as={NavLink}

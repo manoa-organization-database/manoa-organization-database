@@ -18,6 +18,11 @@ function getProfileData(email) {
   return _.extend({}, data, { interests, clubs });
 }
 
+function getClubId(club) {
+  const clubData = Clubs.collection.findOne({ name: club });
+  return clubData._id;
+}
+
 /** Component for layout out a Profile Card. */
 const MakeCard = (props) => (
   <Card centered fluid>
@@ -34,7 +39,8 @@ const MakeCard = (props) => (
     </Card.Content>
     <Card.Content extra>
       <Header as='h5'>Clubs</Header>
-      {_.map(props.profile.clubs, (club, index) => <Label className="user-home-page-label" key={index}>{club}</Label>)}
+      {_.map(props.profile.clubs, (club, index) => <Label className="user-home-page-label" key={index} as={NavLink}
+        activeClassName="active" exact to={`/club/${getClubId(club)}`}>{club}</Label>)}
     </Card.Content>
     <Card.Content extra>
       <Header as='h5'>Interests</Header>

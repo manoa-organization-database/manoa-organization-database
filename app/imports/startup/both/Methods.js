@@ -114,4 +114,17 @@ Meteor.methods({
   },
 });
 
-export { updateProfileMethod, addClubMethod, updateProfileRoleMethod, addInterestMethod, updateClubMethod };
+const removeInterestMethod = 'Interest.remove';
+
+Meteor.methods({
+  // eslint-disable-next-line meteor/audit-argument-checks
+  'Interest.remove'(docID) {
+    const name = Interests.collection.findOne(docID).name;
+    console.log(name);
+    ProfilesInterests.collection.remove({ interest: name });
+    ClubInterests.collection.remove({ interest: name });
+    Interests.collection.remove(docID);
+  },
+});
+
+export { updateProfileMethod, addClubMethod, updateProfileRoleMethod, addInterestMethod, removeInterestMethod, updateClubMethod };

@@ -84,7 +84,8 @@ class Search extends React.Component {
   /** Render the page once subscriptions have been received. */
   renderPage() {
     /** Grabs all interests and allows it to be options in the dropdown */
-    const allInterests = _.pluck(Interests.collection.find().fetch(), 'name');
+    const interestList = _.pluck(ClubInterests.collection.find().fetch(), 'interest');
+    const allInterests = _.uniq(interestList);
     const formSchema = makeSchema(allInterests);
     const bridge = new SimpleSchema2Bridge(formSchema);
     /** Grabs individual clubs */

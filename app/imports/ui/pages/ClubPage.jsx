@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Image, Container, Header, Button, Label, Card, Divider, Loader } from 'semantic-ui-react';
+import { Image, Container, Header, Label, Card, Divider, Loader } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
@@ -85,7 +85,10 @@ class ClubPage extends React.Component {
   }
 
   renderPage() {
-    const clubName = this.props.doc.name;
+    const doc = Clubs.collection.findOne(this.props.documentId);
+    console.log(`docId: ${this.props.documentId}`);
+    console.log(doc);
+    const clubName = doc.name;
     // const emails = getMemberEmails(clubName);
     const adminEmails = getAdminEmails(clubName);
     // const memberData = emails.map(email => getMemberData(email));
@@ -93,7 +96,7 @@ class ClubPage extends React.Component {
     const club = getClubData(clubName);
     const interests = getClubInterests(clubName);
     return (
-      <div>
+      <div id="club-page">
         <div className="club-admin-margin">
           <Container textAlign='center'>
             <Divider />
@@ -136,13 +139,14 @@ class ClubPage extends React.Component {
 }
 
 ClubPage.propTypes = {
-  doc: PropTypes.object,
+  documentId: PropTypes.string.isRequired,
   ready: PropTypes.bool.isRequired,
 };
 
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
 export default withTracker(({ match }) => {
   const documentId = match.params._id;
+  console.log(documentId);
   // Ensure that minimongo is populated with all collections prior to running render().
   const sub1 = Meteor.subscribe(Clubs.userPublicationName);
   const sub2 = Meteor.subscribe(ProfilesClubs.userPublicationName);
@@ -150,9 +154,8 @@ export default withTracker(({ match }) => {
   const sub4 = Meteor.subscribe(ProfilesInterests.userPublicationName);
   const sub5 = Meteor.subscribe(Profiles.userPublicationName);
   const sub6 = Meteor.subscribe(ClubAdmin.userPublicationName);
-  const doc = Clubs.collection.findOne(documentId);
   return {
-    doc,
+    documentId,
     ready: sub1.ready() && sub2.ready() && sub3.ready() && sub4.ready() && sub5.ready() && sub6.ready(),
   };
 })(ClubPage);

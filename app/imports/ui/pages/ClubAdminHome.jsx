@@ -39,11 +39,13 @@ const MakeCard = (props) => (
         <span>{props.profile.email}</span>
       </Card.Meta>
     </Card.Content>
-    <Card.Content extra>
-      <Header as='h5'>Clubs</Header>
-      {_.map(props.profile.clubs, (club, index) => <Label className="user-home-page-label" key={index} as={NavLink}
-        activeClassName="active" exact to={`/club/${getClubId(club)}`}>{club}</Label>)}
-    </Card.Content>
+    {props.profile.clubs.length > 0 &&
+      <Card.Content extra>
+        <Header as='h5'>Clubs</Header>
+        {_.map(props.profile.clubs, (club, index) => <Label className="user-home-page-label" key={index} as={NavLink}
+          activeClassName="active" exact to={`/club/${getClubId(club)}`}>{club}</Label>)}
+      </Card.Content>
+    }
     <Card.Content extra>
       <Header as='h5'>Admin</Header>
       {_.map(props.profile.adminClubs, (club, index) => <Label className="user-home-page-label" key={index} as={NavLink}
@@ -86,7 +88,7 @@ class ClubAdminHome extends React.Component {
     const profileData = getProfileData(profileEmail);
     // console.log(profileData);
     return (
-      <Container>
+      <Container id="club-admin-home-page">
         <MakeCard profile={profileData}/>
       </Container>
     );

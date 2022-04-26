@@ -17,6 +17,7 @@ class UsersCollection {
       uhID: { type: Number, index: true, unique: true },
       picture: { type: String },
       role: { type: String },
+      status: { type: String },
     }, { tracker: Tracker });
     // Ensure collection documents obey schema.
     this.collection.attachSchema(this.schema);

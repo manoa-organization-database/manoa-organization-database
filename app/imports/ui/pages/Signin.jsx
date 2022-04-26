@@ -1,8 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { _ } from 'meteor/underscore';
 import { Link, Redirect } from 'react-router-dom';
 import { Meteor } from 'meteor/meteor';
 import { Container, Form, Grid, Header, Message, Segment } from 'semantic-ui-react';
+import { Profiles } from '../../api/profiles/Profiles';
+
+function getStatus(email) {
+  const status = _.pluck(Profiles.collection.find({ profile: email }).fetch(), 'status');
+  let ret;
+  if (status === 'active') {
+    ret = true;
+  } else if (status === 'inactive') {
+    ret = false;
+  }
+  return ret;
+}
 
 /**
  * Signin page overrides the form’s submit event and call Meteor’s loginWithPassword().
@@ -25,7 +38,7 @@ export default class Signin extends React.Component {
   submit = () => {
     const { email, password } = this.state;
     Meteor.loginWithPassword(email, password, (err) => {
-      if (err) {
+      if (err || getStatus() === false) {
         this.setState({ error: err.reason });
       } else {
         this.setState({ error: '', redirectToReferer: true });

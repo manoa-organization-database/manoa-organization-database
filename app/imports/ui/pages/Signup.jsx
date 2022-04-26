@@ -27,7 +27,7 @@ class Signup extends React.Component {
       if (err) {
         this.setState({ error: err.reason });
       } else {
-        Profiles.collection.insert({ firstName, lastName, email, uhID, picture, role: 'user' }, (err2) => {
+        Profiles.collection.insert({ firstName, lastName, email, uhID, picture, role: 'user', status: 'active' }, (err2) => {
           if (err2) {
             this.setState({ error: err2.reason });
           } else {

@@ -6,6 +6,7 @@
       "email": "john@foo.com",
       "uhID": "23456789",
       "role": "user",
+      "status": "inactive",
       "interests": [
         "Sports",
         "Photography"
@@ -44,6 +45,7 @@
       "email": "clubadmin@foo.com",
       "uhID": "87654321",
       "role": "club-admin",
+      "status": "active",
       "interests": [
         "Mockup",
         "Clubs"

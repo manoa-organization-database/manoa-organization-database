@@ -15,6 +15,9 @@ class ClubsCollection {
       homepage: { type: String },
       description: { type: String },
       picture: { type: String },
+      stars: { type: Number },
+      totalRatings: { type: Number },
+      timesRated: { type: Number },
     }, { tracker: Tracker });
     // Ensure collection documents obey schema.
     this.collection.attachSchema(this.schema);

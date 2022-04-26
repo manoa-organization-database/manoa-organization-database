@@ -68,7 +68,8 @@
         "Mockup",
         "Clubs"
       ],
-      "picture": "https://www.logolynx.com/images/logolynx/aa/aa2c83b718d1f5f077c0297ae4f401dd.jpeg"
+      "picture": "https://www.logolynx.com/images/logolynx/aa/aa2c83b718d1f5f077c0297ae4f401dd.jpeg",
+      "stars": 5
     },
     {
       "name": "Photography Club",
@@ -78,7 +79,8 @@
         "Photography",
         "Clubs"
       ],
-      "picture": "https://www.logolynx.com/images/logolynx/aa/aa2c83b718d1f5f077c0297ae4f401dd.jpeg"
+      "picture": "https://www.logolynx.com/images/logolynx/aa/aa2c83b718d1f5f077c0297ae4f401dd.jpeg",
+      "stars": 5
     },
     {
       "name": "Sports Club",
@@ -88,7 +90,8 @@
         "Sports",
         "Clubs"
       ],
-      "picture": "https://www.logolynx.com/images/logolynx/aa/aa2c83b718d1f5f077c0297ae4f401dd.jpeg"
+      "picture": "https://www.logolynx.com/images/logolynx/aa/aa2c83b718d1f5f077c0297ae4f401dd.jpeg",
+      "stars": 5
     }
   ]
 }

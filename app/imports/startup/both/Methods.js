@@ -114,10 +114,4 @@ Meteor.methods({
   },
 });
 
-Meteor.methods({
-  'Rating.add'({ club, rating }) {
-
-  },
-});
-
 export { updateProfileMethod, addClubMethod, updateProfileRoleMethod, addInterestMethod, updateClubMethod };

@@ -10,6 +10,8 @@ import { userHomePage } from './userhome.page';
 // import { addProjectPage } from './addproject.page';
 // import { filterPage } from './filter.page';
 import { navBar } from './navbar.component';
+import { editUserPage } from './edituser.page';
+import { databasePage } from './database.page';
 
 /* global fixture:false, test:false */
 
@@ -44,24 +46,21 @@ test('Test that signup page, then logout works', async (testController) => {
   // New user has successfully logged in, so now let's logout.
   await navBar.logout(testController);
   await signoutPage.isDisplayed(testController);
-});
+}); */
 
 test('Test that profiles page displays', async (testController) => {
-  await navBar.gotoProfilesPage(testController);
+  await navBar.gotoSigninPage(testController);
+  await signinPage.signin(testController, credentials.email, credentials.password);
   await userHomePage.isDisplayed(testController);
   await userHomePage.hasProfile(testController);
+  await navBar.logout(testController);
+  await signoutPage.isDisplayed(testController);
 });
-
+/*
 test('Test that interests page displays', async (testController) => {
   await navBar.gotoInterestsPage(testController);
   await interestsPage.isDisplayed(testController);
   await interestsPage.hasDefaultInterests(testController);
-});
-
-test('Test that projects page displays', async (testController) => {
-  await navBar.gotoProjectsPage(testController);
-  await projectsPage.isDisplayed(testController);
-  await projectsPage.hasDefaultProjects(testController);
 });
 
 */
@@ -71,9 +70,15 @@ test('Test that user profile page display and profile modification works', async
   await navBar.gotoSigninPage(testController);
   await signinPage.signin(testController, credentials.email, credentials.password);
   await userHomePage.isDisplayed(testController);
-  await userHomePage.updateProfile(testController, credentials.firstName);
+  await editUserPage.updateProfile(testController, credentials.firstName);
   await navBar.ensureLogout(testController);
 });
+
+/* test('Test that projects page displays', async (testController) => {
+  await navBar.gotoProjectsPage(testController);
+  await databasePage.isDisplayed(testController);
+  await databasePage.hasDefaultClubs(testController);
+}); */
 
 /* test('Test that addClub page works', async (testController) => {
   await navBar.ensureLogout(testController);

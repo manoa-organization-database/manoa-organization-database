@@ -4,6 +4,7 @@ import { Container, Loader, Card, Image, Label } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
+import { NavLink } from 'react-router-dom';
 import { ProfilesClubs } from '../../api/profiles/ProfilesClubs';
 import { Clubs } from '../../api/clubs/Clubs';
 import { Profiles } from '../../api/profiles/Profiles';
@@ -22,7 +23,7 @@ function getClubData(name) {
 
 /** Component for layout out a club Card. */
 const MakeCard = (props) => (
-  <Card>
+  <Card as={NavLink} id={`${props.club.name}Card`} exact to={`/club/${props.club._id}`}>
     <Card.Content>
       <Image floated='left' avatar src={props.club.picture}/>
       <Card.Header style={{ marginTop: '0px' }}>{props.club.name}</Card.Header>

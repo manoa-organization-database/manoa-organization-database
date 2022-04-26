@@ -12,7 +12,7 @@ class EditUserPage {
   }
 
   /** Sets the first name field to a new value, then checks that the update succeeded. */
-  async setFirstName(testController, firstName) {
+  /* async setFirstName(testController, firstName) {
     // Delete text from first name field.
     await testController.selectText('#firstName').pressKey('delete');
     // Type in new first name.
@@ -23,7 +23,7 @@ class EditUserPage {
     await testController.click(Selector('.swal-button--confirm'));
     // Check that the field is updated.
     await testController.expect(Selector('#firstName').value).eql(firstName);
-  }
+  } */
 
   /** Checks this page is displayed, then changes firstName field, checks update succeeded, then restores value. */
   // Should be able to use setFirstName without generating warnings with first release after 1.9.4. (Fixed in pull/5584).

@@ -62,7 +62,7 @@ class InterestsAdmin extends React.Component {
             </Table.Row>
           </Table.Header>
           <Table.Body>
-            {this.props.interests.map((interest) => <InterestCell key={interest._id} interest={interest} Interests={Interests}/>)}
+            {this.props.interests.map((interest) => <InterestCell key={interest._id} interest={interest}/>)}
           </Table.Body>
         </Table>
       </Container>

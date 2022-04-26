@@ -1,12 +1,15 @@
 import React from 'react';
 import { Icon, Table, Button } from 'semantic-ui-react';
+import { Meteor } from 'meteor/meteor';
 import PropTypes from 'prop-types';
+import { removeInterestMethod } from '../../startup/both/Methods';
 
 /** Renders a single Interest cell in the InterestAdmin table. See pages/InterestsAdmin.jsx. */
 class InterestCell extends React.Component {
   removeItem(docID) {
     console.log(`the interest to delete is ${docID}`);
-    this.props.Interests.collection.remove(docID);
+    Meteor.call(removeInterestMethod, docID);
+    console.log('exit');
   }
 
   render() {
@@ -25,7 +28,6 @@ InterestCell.propTypes = {
     name: PropTypes.string,
     _id: PropTypes.string,
   }).isRequired,
-  Interests: PropTypes.object.isRequired,
 };
 
 export default InterestCell;

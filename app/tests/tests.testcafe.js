@@ -12,6 +12,7 @@ import { userHomePage } from './userhome.page';
 import { navBar } from './navbar.component';
 import { editUserPage } from './edituser.page';
 import { databasePage } from './database.page';
+import { searchPage } from './search.page';
 
 /* global fixture:false, test:false */
 
@@ -74,11 +75,25 @@ test('Test that user profile page display and profile modification works', async
   await navBar.ensureLogout(testController);
 });
 
-/* test('Test that projects page displays', async (testController) => {
-  await navBar.gotoProjectsPage(testController);
+test('Test that clubs database page displays', async (testController) => {
+  await navBar.ensureLogout(testController);
+  await navBar.gotoSigninPage(testController);
+  await signinPage.signin(testController, credentials.email, credentials.password);
+  await navBar.gotoDatabasePage(testController);
   await databasePage.isDisplayed(testController);
   await databasePage.hasDefaultClubs(testController);
-}); */
+  await navBar.ensureLogout(testController);
+});
+
+test('Test that search by interest works', async (testController) => {
+  await navBar.ensureLogout(testController);
+  await navBar.gotoSigninPage(testController);
+  await signinPage.signin(testController, credentials.email, credentials.password);
+  await navBar.gotoInterestsPage(testController);
+  await searchPage.isDisplayed(testController);
+  await searchPage.filter(testController);
+  await navBar.ensureLogout(testController);
+});
 
 /* test('Test that addClub page works', async (testController) => {
   await navBar.ensureLogout(testController);

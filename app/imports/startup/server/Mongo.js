@@ -8,6 +8,7 @@ import { ProfilesInterests } from '../../api/profiles/ProfilesInterests';
 import { ClubInterests } from '../../api/clubs/ClubInterests';
 import { Interests } from '../../api/interests/Interests';
 import { ClubAdmin } from '../../api/clubs/ClubAdmin';
+import { Ratings } from '../../api/ratings/Ratings'
 
 /* eslint-disable no-console */
 
@@ -50,6 +51,11 @@ function addClubs({ name, homepage, description, interests, picture }) {
   interests.map(interest => ClubInterests.collection.insert({ club: name, interest }));
   // Make sure interests are defined in the Interests collection if they weren't already.
   interests.map(interest => addInterest(interest));
+}
+
+function addRatings({ club, rating }) {
+  Ratings.collection.insert({ club, rating });
+
 }
 
 /** Initialize DB if it appears to be empty (i.e. no users defined.) */

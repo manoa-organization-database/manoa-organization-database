@@ -2,13 +2,7 @@ import { landingPage } from './landing.page';
 import { signinPage } from './signin.page';
 import { signoutPage } from './signout.page';
 import { signupPage } from './signup.page';
-// import { profilesPage } from './profiles.page';
 import { userHomePage } from './userhome.page';
-// import { projectsPage } from './projects.page';
-// import { interestsPage } from './interests.page';
-// import { homePage } from './home.page';
-// import { addProjectPage } from './addproject.page';
-// import { filterPage } from './filter.page';
 import { navBar } from './navbar.component';
 import { editUserPage } from './edituser.page';
 import { databasePage } from './database.page';
@@ -16,7 +10,8 @@ import { searchPage } from './search.page';
 import { clubPage } from './club.page';
 import { editClubPage } from './editclub.page';
 import { interestsAdminPage } from './interestsadmin.page';
-import { interestCell } from './interestcell.component';
+// import { interestCell } from './interestcell.component';
+import { changeUserStatus } from './changeuserstatus.page';
 
 /* global fixture:false, test:false */
 
@@ -142,6 +137,9 @@ test('Test that setting a user to a different role works', async (testController
   await navBar.gotoSigninPage(testController);
   await signinPage.signin(testController, adminCredentials.email, adminCredentials.password);
   await navBar.gotoAdminEditUser(testController);
+  await changeUserStatus.isDisplayed(testController);
+  await changeUserStatus.changeRole(testController, credentials.email);
+  await navBar.ensureLogout(testController);
 });
 
 /* test('Test that addClub page works', async (testController) => {

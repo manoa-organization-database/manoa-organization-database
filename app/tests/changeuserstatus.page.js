@@ -12,16 +12,16 @@ class ChangeUserStatus {
   }
 
   /** Checks that the user role can be selected. */
-  async filter(testController, userEmail) {
+  async changeRole(testController, userEmail) {
     await this.isDisplayed(testController);
     await testController.typeText('#user-email', userEmail);
     // Select visualization and submit
-    const roleSelector = Selector('#role-select');
-    const visualizationOption = roleSelector.find('#option').withExactText('user');
+    // const roleSelector = Selector('#role-select');
+    /* const visualizationOption = roleSelector.find('#option').withExactText('user');
     await testController.click(roleSelector());
     await testController.click(visualizationOption);
     await testController.click(roleSelector);
-    await testController.click('#role-page-submit');
+    await testController.click('#role-page-submit'); */
   }
 }
 

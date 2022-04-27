@@ -38,7 +38,7 @@ class Landing extends React.Component {
           <Header style={{ color: 'white' }} as='h3' textAlign='center'>Search for clubs based on interests,
             and get notifications when clubs related to your interest are created.</Header>
           <Container>
-            <Image src="/images/browse-clubs-page-mockup.png" bordered/>
+            <Image src="/images/interest-search.png" bordered/>
           </Container>
           <Divider horizontal hidden section />
         </div>
@@ -49,7 +49,10 @@ class Landing extends React.Component {
           <Header as="h3" style={{ color: '#024731' }} textAlign="center">Admins may grant club officers club admin powers,
             and can add and remove new interests for club admins and users to use.</Header>
           <Container>
-            <Image src="/images/interests-filter.png" bordered alt="Admin home page"/>
+            <Image src="/images/user-status.png" bordered alt="User role change page"/>
+          </Container>
+          <Container>
+            <Image src="/images/interest-admin-page.png" bordered alt="Interest admin page"/>
           </Container>
           <Divider horizontal hidden section/>
         </div>

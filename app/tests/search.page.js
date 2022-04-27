@@ -16,7 +16,7 @@ class SearchPage {
     await this.isDisplayed(testController);
     // Select visualization and submit
     const interestsSelector = Selector('#interests');
-    const visualizationOption = interestsSelector.find('#Visualization');
+    const visualizationOption = interestsSelector.find('#Mockup');
     await testController.click(interestsSelector);
     await testController.click(visualizationOption);
     await testController.click(interestsSelector);

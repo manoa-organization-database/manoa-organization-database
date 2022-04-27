@@ -16,6 +16,11 @@ class DatabasePage {
     const cardCount = Selector('.ui .card').count;
     await testController.expect(cardCount).gte(3);
   }
+
+  async clickClub(testController) {
+    const clubCard = Selector('.ui .card .header').withExactText('Mockup Club');
+    await testController.click(clubCard);
+  }
 }
 
 export const databasePage = new DatabasePage();

@@ -16,6 +16,16 @@ class UserHomePage {
     const cardCount = Selector('.ui .card').count;
     await testController.expect(cardCount).gte(1);
   }
+
+  async clickClub(testController) {
+    const clubLabel = Selector('.user-home-page-label').withExactText('Mockup Club');
+    await testController.click(clubLabel());
+  }
+
+  async clickAdminClub(testController) {
+    const clubAdminLabel = Selector('.user-home-page-label').withExactText('Mockup Club');
+    await testController.click(clubAdminLabel());
+  }
 }
 
 export const userHomePage = new UserHomePage();

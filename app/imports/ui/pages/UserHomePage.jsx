@@ -55,16 +55,16 @@ const MakeCard = (props) => (
               to={`/clubadmin/${getClubId(club)}`}>{club}</Label>)}
         </Card.Content>
     }
-    <Card.Content extra>
-      <Header as='h5'>Interests</Header>
-      {_.map(props.profile.interests, (interest, index) => <Label className="user-home-page-label" key={index}>{interest}</Label>)}
-    </Card.Content>
+    {props.profile.Interests.length > 0 &&
+      <Card.Content extra>
+        <Header as='h5'>Interests</Header>
+        {_.map(props.profile.interests, (interest, index) => <Label className="user-home-page-label"
+          key={index}>{interest}</Label>)}
+      </Card.Content>
+    }
     <Card.Content extra>
       <Button color='blue' as={NavLink} activeClassName="active" exact to="/edit-user" id="user-edit-button">
         Edit
-      </Button>
-      <Button color='red'>
-        Delete
       </Button>
     </Card.Content>
   </Card>

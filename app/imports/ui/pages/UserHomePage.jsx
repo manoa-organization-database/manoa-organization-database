@@ -55,7 +55,7 @@ const MakeCard = (props) => (
               to={`/clubadmin/${getClubId(club)}`}>{club}</Label>)}
         </Card.Content>
     }
-    {props.profile.Interests.length > 0 &&
+    {props.profile.interests.length > 0 &&
       <Card.Content extra>
         <Header as='h5'>Interests</Header>
         {_.map(props.profile.interests, (interest, index) => <Label className="user-home-page-label"

@@ -80,7 +80,7 @@ class EditUser extends React.Component {
                 <MultiSelectField name='interests' showInlineError={true} placeholder={'Interests'}/>
                 <MultiSelectField name='clubs' showInlineError={true} placeholder={'Clubs'}/>
               </Form.Group>
-              <SubmitField id='edit-user-submit' value='Update'/>
+              <SubmitField id='edit-page-submit' value='Update'/>
             </Segment>
           </AutoForm>
         </Grid.Column>

@@ -92,9 +92,12 @@ class UserHomePage extends React.Component {
     const profileData = getProfileData(profileEmail);
     // console.log(profileData);
     return (
-      <Container id="user-home-page">
-        <MakeCard profile={profileData}/>
-      </Container>
+      <div className="manoa-background-1">
+        <Container id="user-home-page">
+          <MakeCard profile={profileData}/>
+        </Container>
+      </div>
+
     );
   }
 }

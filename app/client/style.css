@@ -16,6 +16,12 @@
   padding-top: 20px;
 }
 
+.manoa-background-1 {
+  background: url(https://manoa.hawaii.edu/wp/wp-content/uploads/2021/05/warrior-recreation-center.jpg) no-repeat center center fixed;
+  background-size: cover;
+  filter: brightness(75%);
+}
+
 .reset-margins {
   margin-top: 0;
   margin-bottom: 0;

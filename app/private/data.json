@@ -1,11 +1,52 @@
 {
-  "profiles": [
+  "defaultProfiles": [
+    {
+      "firstName": "John",
+      "lastName": "Doe",
+      "email": "john@foo.com",
+      "uhID": "23456789",
+      "role": "user",
+      "password": "foo",
+      "interests": [
+        "Sports",
+        "Photography"
+      ],
+      "clubs":[
+        "Mockup Club"
+      ],
+      "clubAdmin":[
+
+      ],
+      "picture": "https://manoa.hawaii.edu/speakers/wp-content/uploads/logo-1.png"
+    },
+    {
+      "firstName": "ADMIN",
+      "lastName": "Doe",
+      "email": "admin@foo.com",
+      "uhID": "12345678",
+      "role": "admin",
+      "password": "foo",
+      "interests": [
+        "Cooking",
+        "Coding"
+      ],
+      "clubs":[
+        "Mockup Club",
+        "Photography Club",
+        "Sports Club"
+      ],
+      "clubAdmin":[
+
+      ],
+      "picture": "https://manoa.hawaii.edu/speakers/wp-content/uploads/logo-1.png"
+    },
     {
       "firstName": "Club",
-      "lastName": "Doe",
-      "email": "clubdoe@foo.com",
-      "uhID": "99999998",
+      "lastName": "Admin",
+      "email": "clubadmin@foo.com",
+      "uhID": "87654321",
       "role": "club-admin",
+      "password": "foo",
       "interests": [
         "Mockup",
         "Clubs"
@@ -21,13 +62,33 @@
       "picture": "https://manoa.hawaii.edu/speakers/wp-content/uploads/logo-1.png"
     }
   ],
-  "clubs": [
+  "defaultClubs": [
     {
-      "name": "Nap Club",
+      "name": "Mockup Club",
       "homepage": "www.google.com",
-      "description": "Do you like napping? Then this is the club for you.",
+      "description": "Do you like making mockups of clubs? Then this is the club for you. The Mockup Club focuses on teaching members how to create their own mockups of clubs. Activites include coming up with clubs ideas and writing their own club descriptions such as this one. Pray you don't break everything. Contact a club admin for details.",
       "interests": [
-        "Napping",
+        "Mockup",
+        "Clubs"
+      ],
+      "picture": "https://www.logolynx.com/images/logolynx/aa/aa2c83b718d1f5f077c0297ae4f401dd.jpeg"
+    },
+    {
+      "name": "Photography Club",
+      "homepage": "www.google.com",
+      "description": "Do you like taking pictures? Then this is the club for you.",
+      "interests": [
+        "Photography",
+        "Clubs"
+      ],
+      "picture": "https://www.logolynx.com/images/logolynx/aa/aa2c83b718d1f5f077c0297ae4f401dd.jpeg"
+    },
+    {
+      "name": "Sports Club",
+      "homepage": "www.google.com",
+      "description": "Do you like sports? Then this is the club for you.",
+      "interests": [
+        "Sports",
         "Clubs"
       ],
       "picture": "https://www.logolynx.com/images/logolynx/aa/aa2c83b718d1f5f077c0297ae4f401dd.jpeg"

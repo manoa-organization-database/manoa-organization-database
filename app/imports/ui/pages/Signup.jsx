@@ -5,6 +5,13 @@ import { Container, Form, Grid, Header, Message, Segment } from 'semantic-ui-rea
 import { Accounts } from 'meteor/accounts-base';
 import { Profiles } from '../../api/profiles/Profiles';
 
+function truncateUHID(num) {
+  if (num.length > 8) {
+    return num.substr(0, 8);
+  }
+  return num;
+}
+
 /**
  * Signup component is similar to signin component, but we create a new user instead.
  */
@@ -27,7 +34,8 @@ class Signup extends React.Component {
       if (err) {
         this.setState({ error: err.reason });
       } else {
-        Profiles.collection.insert({ firstName, lastName, email, uhID, picture, role: 'user' }, (err2) => {
+        const truncatedUHID = truncateUHID(uhID);
+        Profiles.collection.insert({ firstName, lastName, email, truncatedUHID, picture, role: 'user' }, (err2) => {
           if (err2) {
             this.setState({ error: err2.reason });
           } else {

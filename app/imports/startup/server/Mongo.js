@@ -12,8 +12,8 @@ import { ClubAdmin } from '../../api/clubs/ClubAdmin';
 /* eslint-disable no-console */
 
 /** Define a user in the Meteor accounts package. This enables login. Username is the email address. */
-function createUser(email, role) {
-  const userID = Accounts.createUser({ username: email, email, password: 'foo' });
+function createUser(email, role, password) {
+  const userID = Accounts.createUser({ username: email, email, password });
   if (role === 'user') {
     Roles.addUsersToRoles(userID, 'user');
   } else if (role === 'admin') {
@@ -29,10 +29,10 @@ function addInterest(interest) {
 }
 
 /** Defines a new user and associated profile. Error if user already exists. */
-function addProfile({ firstName, lastName, email, uhID, picture, interests, clubs, clubAdmin, role }) {
+function addProfile({ firstName, lastName, email, uhID, picture, interests, clubs, clubAdmin, role, password }) {
   console.log(`Defining profile ${email}`);
   // Define the user in the Meteor accounts package.
-  createUser(email, role);
+  createUser(email, role, password);
   // Create the profile.
   Profiles.collection.insert({ firstName, lastName, email, uhID, picture, role });
   // Add interests and clubs.
@@ -63,7 +63,6 @@ if (Meteor.users.find().count() === 0) {
     Meteor.settings.defaultProfiles.map(profile => addProfile(profile));
     console.log('Creating the default clubs');
     Meteor.settings.defaultClubs.map(club => addClubs(club));
-
   } else {
     console.log('Cannot initialize the database!  Please invoke meteor with a settings file.');
   }
@@ -78,9 +77,15 @@ if (Meteor.users.find().count() === 0) {
  * User count check is to make sure we don't load the file twice, which would generate errors due to duplicate info.
  */
 if ((Meteor.settings.loadAssetsFile) && (Meteor.users.find().count() < 7)) {
+  console.log('Creating roles: user, club-admin, admin');
+  Roles.createRole('user', { unlessExists: true });
+  Roles.createRole('club-admin', { unlessExists: true });
+  Roles.createRole('admin', { unlessExists: true });
   const assetsFileName = 'data.json';
   console.log(`Loading data from private/${assetsFileName}`);
   const jsonData = JSON.parse(Assets.getText(assetsFileName));
-  jsonData.users.map(profile => addProfile(profile));
-  jsonData.clubs.map(club => addClubs(club));
+  console.log('Creating the default profiles');
+  jsonData.defaultProfiles.map(profile => addProfile(profile));
+  console.log('Creating the default clubs');
+  jsonData.defaultClubs.map(club => addClubs(club));
 }

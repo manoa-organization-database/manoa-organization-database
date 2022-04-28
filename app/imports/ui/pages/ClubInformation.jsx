@@ -30,6 +30,9 @@ const MakeCard = (props) => (
       <Card.Meta>
         <span className='date'>{props.club.title}</span>
       </Card.Meta>
+      <Card.Meta>
+        {props.club.homepage}
+      </Card.Meta>
       <Card.Description>
         {props.club.description}
       </Card.Description>

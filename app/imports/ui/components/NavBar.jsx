@@ -42,7 +42,7 @@ class NavBar extends React.Component {
             style={{ color: 'white' }}>Filter</Menu.Item>]
         ) : ''} */}
         {Roles.userIsInRole(Meteor.userId(), 'admin') ? (
-          <Menu.Item as={NavLink} id="adminMenuItem" activeClassName="active" exact to="/change-user-status" key='change-user-status'
+          <Menu.Item as={NavLink} id="adminMenuItemUser" activeClassName="active" exact to="/change-user-status" key='change-user-status'
             style={{ color: 'white' }}>Change User Status</Menu.Item>
         ) : ''}
         {Roles.userIsInRole(Meteor.userId(), 'admin') ? (

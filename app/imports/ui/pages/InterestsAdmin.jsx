@@ -42,12 +42,12 @@ class InterestsAdmin extends React.Component {
     const bridge = new SimpleSchema2Bridge(formSchema);
 
     return (
-      <Container>
+      <Container id='interest-admin-page'>
         <Header as="h2" textAlign="center">Create Interest</Header>
         <AutoForm schema={bridge} onSubmit={data => this.submit(data)}>
           <Segment>
             <Form.Group widths={'equal'}>
-              <TextField name='name' index='true' unique='true' placeholder={'Create New Interest'}/>
+              <TextField name='name' index='true' unique='true' placeholder={'Create New Interest'} id='interestField'/>
             </Form.Group>
             <SubmitField id='interests-admin-page-submit' value='Update'/>
           </Segment>
@@ -62,7 +62,7 @@ class InterestsAdmin extends React.Component {
             </Table.Row>
           </Table.Header>
           <Table.Body>
-            {this.props.interests.map((interest) => <InterestCell key={interest._id} interest={interest} Interests={Interests}/>)}
+            {this.props.interests.map((interest) => <InterestCell key={interest._id} interest={interest}/>)}
           </Table.Body>
         </Table>
       </Container>

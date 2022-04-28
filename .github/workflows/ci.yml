@@ -1,4 +1,4 @@
-name: ci-bowfolios
+name: ci-manoa-organization-database
 
 on:
   push:

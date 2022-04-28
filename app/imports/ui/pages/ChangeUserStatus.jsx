@@ -53,13 +53,14 @@ class ChangeUserStatus extends React.Component {
           <AutoForm schema={bridge} onSubmit={data => this.submit(data)}>
             <Segment>
               <Form.Group widths={'equal'}>
-                <TextField name='email' showInlineError={true} placeholder={'User Email'}/>
+                <TextField name='email' showInlineError={true} placeholder={'User Email'} id='user-email'/>
               </Form.Group>
               <Form.Group widths={'equal'}>
                 <SelectField
                   showInlineError={true}
                   name='roles'
                   label='ROLE'
+                  id='role-select'
                   allowedValues={allRoles}
                 />
               </Form.Group>

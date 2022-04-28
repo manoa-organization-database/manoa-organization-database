@@ -21,20 +21,20 @@ class NavBar {
     await testController.click('#profilesMenuItem');
   }
 
+  async gotoDatabasePage(testController) {
+    await testController.click('#databaseMenuItem');
+  }
+
   async gotoInterestsPage(testController) {
     await testController.click('#interestsMenuItem');
   }
 
-  async gotoProjectsPage(testController) {
-    await testController.click('#projectsMenuItem');
+  async gotoEditInterests(testController) {
+    await testController.click('#adminMenuItem');
   }
 
-  async gotoAddProjectPage(testController) {
-    await testController.click('#addProjectMenuItem');
-  }
-
-  async gotoFilterPage(testController) {
-    await testController.click('#filterMenuItem');
+  async gotoAdminEditUser(testController) {
+    await testController.click('#adminMenuItemUser');
   }
 
   /** Check that the specified user is currently logged in. */

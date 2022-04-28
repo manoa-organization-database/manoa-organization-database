@@ -2,7 +2,7 @@ import React from 'react';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
-import { Container, Loader, Card, Image, Label, Header, Segment } from 'semantic-ui-react';
+import { Container, Loader, Card, Segment } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
@@ -32,29 +32,20 @@ function getProfileData(email) {
 const MakeCard = (props) => (
   <Card>
     <Card.Content>
-      <Image floated='right' size='mini' src={props.profile.picture} />
-      <Card.Header>{props.profile.firstName} {props.profile.lastName}</Card.Header>
-      <Card.Meta>
-        <span className='date'>{props.profile.title}</span>
-      </Card.Meta>
+      <Card.Header>{props.club.name}</Card.Header>
       <Card.Description>
-        {props.profile.bio}
+        {props.club.description}
       </Card.Description>
-    </Card.Content>
-    <Card.Content extra>
-      {_.map(props.profile.interests,
-        (interest, index) => <Label key={index} size='tiny' color='teal'>{interest}</Label>)}
-    </Card.Content>
-    <Card.Content extra>
-      <Header as='h5'>Projects</Header>
-      {_.map(props.profile.projects, (project, index) => <Image key={index} size='mini' src={project}/>)}
     </Card.Content>
   </Card>
 );
 
 /** Properties */
 MakeCard.propTypes = {
-  profile: PropTypes.object.isRequired,
+  club: PropTypes.shape({
+    name: PropTypes.string,
+    description: PropTypes.string,
+  }).isRequired,
 };
 
 /** Renders the Profile Collection as a set of Cards. */
@@ -90,7 +81,7 @@ class Filter extends React.Component {
           </Segment>
         </AutoForm>
         <Card.Group style={{ paddingTop: '10px' }}>
-          {_.map(profileData, (profile, index) => <MakeCard key={index} profile={profile}/>)}
+          {_.map(profileData, (profile, index) => <MakeCard key={index} club={profile}/>)}
         </Card.Group>
       </Container>
     );

@@ -11,7 +11,7 @@ import Search from '../pages/Search';
 // import Home from '../pages/Home';
 import EditUser from '../pages/EditUser';
 import UserHomePage from '../pages/UserHomePage';
-import AddProject from '../pages/AddProject';
+// import AddProject from '../pages/AddProject';
 import Filter from '../pages/Filter';
 // import Interests from '../pages/Interests';
 import NotFound from '../pages/NotFound';
@@ -45,7 +45,7 @@ class App extends React.Component {
               <ClubAdminProtectedRoute path="/clubadmin/:_id" component={AdminClubPage}/>
               <ProtectedRoute path="/club/:_id" component={ClubPage}/>
               <ClubAdminProtectedRoute path="/edit-club/:_id" component={EditClub}/>
-              <ProtectedRoute path="/addproject" component={AddProject}/>
+              {/* <ProtectedRoute path="/addproject" component={AddProject}/> */}
               <ProtectedRoute path="/filter" component={Filter}/>
               <AdminProtectedRoute path="/change-user-status" component={ChangeUserStatus}/>
               <AdminProtectedRoute path="/interests-admin" component={InterestsAdmin}/>

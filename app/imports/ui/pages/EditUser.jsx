@@ -62,7 +62,7 @@ class EditUser extends React.Component {
     const profile = Profiles.collection.findOne({ email });
     const model = _.extend({}, profile, { interests, clubs });
     return (
-      <Grid id="home-page" container centered>
+      <Grid id="edit-user-page" container centered>
         <Grid.Column>
           <Header as="h2" textAlign="center">Your Profile</Header>
           <AutoForm model={model} schema={bridge} onSubmit={data => this.submit(data)}>

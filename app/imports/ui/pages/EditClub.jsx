@@ -66,7 +66,7 @@ class EditClub extends React.Component {
                 <TextField name='picture' showInlineError={true} placeholder={'URL to picture'}/>
               </Form.Group>
               <Form.Group widths={'equal'}>
-                <LongTextField name='description' showInlineError={true} placeholder={'Description'}/>
+                <LongTextField name='description' showInlineError={true} placeholder={'Description'} id='clubDescription'/>
               </Form.Group>
               <Form.Group widths={'equal'}>
                 <MultiSelectField name='interests' showInlineError={true} placeholder={'Interests'}/>

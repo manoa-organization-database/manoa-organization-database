@@ -47,22 +47,24 @@ const MakeCard = (props) => (
       </Card.Content>
     }
     {props.profile.adminClubs.length > 0 &&
+        <Card.Content extra>
+          <Header as='h5'>Admin</Header>
+          {_.map(props.profile.adminClubs,
+            (club, index) => <Label className="user-home-page-label" key={index} as={NavLink}
+              activeClassName="active" exact
+              to={`/clubadmin/${getClubId(club)}`}>{club}</Label>)}
+        </Card.Content>
+    }
+    {props.profile.Interests.length > 0 &&
       <Card.Content extra>
-        <Header as='h5'>Admin</Header>
-        {_.map(props.profile.adminClubs, (club, index) => <Label className="user-home-page-label" key={index} as={NavLink}
-          activeClassName="active" exact to={`/clubadmin/${getClubId(club)}`} >{club}</Label>)}
+        <Header as='h5'>Interests</Header>
+        {_.map(props.profile.interests, (interest, index) => <Label className="user-home-page-label"
+          key={index}>{interest}</Label>)}
       </Card.Content>
     }
     <Card.Content extra>
-      <Header as='h5'>Interests</Header>
-      {_.map(props.profile.interests, (interest, index) => <Label className="user-home-page-label" key={index}>{interest}</Label>)}
-    </Card.Content>
-    <Card.Content extra>
       <Button color='blue' as={NavLink} activeClassName="active" exact to="/edit-user" id="user-edit-button">
         Edit
-      </Button>
-      <Button color='red'>
-        Delete
       </Button>
     </Card.Content>
   </Card>

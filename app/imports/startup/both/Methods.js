@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import { Roles } from 'meteor/alanning:roles';
+import { _ } from 'meteor/underscore';
 import { Clubs } from '../../api/clubs/Clubs';
 import { ProfilesInterests } from '../../api/profiles/ProfilesInterests';
 import { ProfilesClubs } from '../../api/profiles/ProfilesClubs';
@@ -8,6 +9,7 @@ import { ClubInterests } from '../../api/clubs/ClubInterests';
 import { Profiles } from '../../api/profiles/Profiles';
 import { ClubAdmin } from '../../api/clubs/ClubAdmin';
 import { Interests } from '../../api/interests/Interests';
+import { ClubInterestsDate } from '../../api/clubs/ClubInterestsDate';
 
 /**
  * In Bowfolios, insecure mode is enabled, so it is possible to update the server's Mongo database by making
@@ -60,8 +62,14 @@ const updateClubMethod = 'Clubs.update';
 Meteor.methods({
   'Clubs.update'({ name, picture, description, interests }) {
     Clubs.collection.update({ name }, { $set: { name, description, picture } });
+    const interestData = _.filter(ClubInterests.collection.find().fetch(), (clubInterest) => clubInterest.club === name);
+    const oldInterests = _.pluck(interestData, 'interest');
     ClubInterests.collection.remove({ club: name });
     interests.map((interest) => ClubInterests.collection.insert({ club: name, interest }));
+    const newInterestData = _.filter(ClubInterests.collection.find().fetch(), (clubInterest) => clubInterest.club === name);
+    let newInterests = _.pluck(newInterestData, 'interest');
+    newInterests = _.difference(newInterests, oldInterests);
+    newInterests.map((interest) => ClubInterestsDate.collection.insert({ club: name, interest, date: new Date().toLocaleDateString() }));
   },
 });
 

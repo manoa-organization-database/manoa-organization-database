@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Container, Loader, Card, Image, Label, Header, Button } from 'semantic-ui-react';
+import { Container, Loader, Card, Image, Label, Header, Button, Feed } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
@@ -10,6 +10,7 @@ import { Clubs } from '../../api/clubs/Clubs';
 import { Profiles } from '../../api/profiles/Profiles';
 import { ProfilesClubs } from '../../api/profiles/ProfilesClubs';
 import { ClubAdmin } from '../../api/clubs/ClubAdmin';
+import { ClubInterestsDate } from '../../api/clubs/ClubInterestsDate';
 
 /** Returns the Profile and associated Clubs and Interests associated with the passed profile email. */
 function getProfileData(email) {
@@ -23,6 +24,12 @@ function getProfileData(email) {
 function getClubId(club) {
   const clubData = Clubs.collection.findOne({ name: club });
   return clubData._id;
+}
+
+function getNewInterests(email) {
+  const interests = _.pluck(ProfilesInterests.collection.find({ profile: email }).fetch(), 'interest');
+  const interestData = ClubInterestsDate.collection.find().fetch();
+  return interestData.filter((interest) => interests.indexOf(interest.interest) !== -1);
 }
 
 /** Component for layout out a Profile Card. */
@@ -67,11 +74,31 @@ const MakeCard = (props) => (
         Edit
       </Button>
     </Card.Content>
+    <Card.Content extra>
+      <Feed>
+        {_.map(props.interests, (interest, index) => <InterestFeed interests={interest} key={index}/>)}
+      </Feed>
+    </Card.Content>
   </Card>
 );
 
 MakeCard.propTypes = {
   profile: PropTypes.object.isRequired,
+  interests: PropTypes.array.isRequired,
+};
+
+/** Component for layout out an interest feed. */
+const InterestFeed = (props) => (
+  <Feed.Content>
+    <Feed.Summary>
+      {props.interests.club} has added the interest {props.interests.interest}
+      {/* <Feed.Date>{props.interests.date}</Feed.Date> */}
+    </Feed.Summary>
+  </Feed.Content>
+);
+
+InterestFeed.propTypes = {
+  interests: PropTypes.object.isRequired,
 };
 
 /** Renders the Profile Collection as a set of Cards. */
@@ -88,9 +115,10 @@ class UserHomePage extends React.Component {
     const emails = _.pluck(Profiles.collection.find().fetch(), 'email');
     const profileEmail = _.find(emails, function (email) { return email === Meteor.user().username; });
     const profileData = getProfileData(profileEmail);
+    const interests = getNewInterests(profileEmail);
     return (
       <Container id="user-home-page">
-        <MakeCard profile={profileData}/>
+        <MakeCard profile={profileData} interests={interests}/>
       </Container>
     );
   }
@@ -108,7 +136,8 @@ export default withTracker(() => {
   const sub3 = Meteor.subscribe(ProfilesClubs.userPublicationName);
   const sub4 = Meteor.subscribe(Clubs.userPublicationName);
   const sub5 = Meteor.subscribe(ClubAdmin.userPublicationName);
+  const sub6 = Meteor.subscribe(ClubInterestsDate.userPublicationName);
   return {
-    ready: sub1.ready() && sub2.ready() && sub3.ready() && sub4.ready() && sub5.ready(),
+    ready: sub1.ready() && sub2.ready() && sub3.ready() && sub4.ready() && sub5.ready() && sub6.ready(),
   };
 })(UserHomePage);

@@ -8,6 +8,7 @@ import { ProfilesInterests } from '../../api/profiles/ProfilesInterests';
 import { ClubInterests } from '../../api/clubs/ClubInterests';
 import { Interests } from '../../api/interests/Interests';
 import { ClubAdmin } from '../../api/clubs/ClubAdmin';
+import { ClubInterestsDate } from '../../api/clubs/ClubInterestsDate';
 
 /* eslint-disable no-console */
 
@@ -68,6 +69,10 @@ if (Meteor.users.find().count() === 0) {
   }
 }
 
+if (Meteor.isServer) {
+  ClubInterestsDate.collection.createIndex({ club: 1, interest: 1 }, { unique: true });
+}
+
 /**
  * If the loadAssetsFile field in settings.development.json is true, then load the data in private/data.json.
  * This approach allows you to initialize your system with large amounts of data.
@@ -76,7 +81,7 @@ if (Meteor.users.find().count() === 0) {
  * For more info on assets, see https://docs.meteor.com/api/assets.html
  * User count check is to make sure we don't load the file twice, which would generate errors due to duplicate info.
  */
-if ((Meteor.settings.loadAssetsFile) && (Meteor.users.find().count() < 7)) {
+if ((Meteor.settings.loadAssetsFile) && (Meteor.users.find().count() === 0)) {
   console.log('Creating roles: user, club-admin, admin');
   Roles.createRole('user', { unlessExists: true });
   Roles.createRole('club-admin', { unlessExists: true });

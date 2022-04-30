@@ -74,11 +74,14 @@ const MakeCard = (props) => (
         Edit
       </Button>
     </Card.Content>
-    <Card.Content extra>
-      <Feed>
-        {_.map(props.interests, (interest, index) => <InterestFeed interests={interest} key={index}/>)}
-      </Feed>
-    </Card.Content>
+    {props.interests.length > 0 &&
+      <Card.Content extra>
+        <Feed>
+          <Header as='h5'>New Interests</Header>
+          {_.map(props.interests, (interest, index) => <InterestFeed interests={interest} key={index}/>)}
+        </Feed>
+      </Card.Content>
+    }
   </Card>
 );
 

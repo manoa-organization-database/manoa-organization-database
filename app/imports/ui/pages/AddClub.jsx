@@ -13,7 +13,6 @@ import { addClubMethod } from '../../startup/both/Methods';
 import { Interests } from '../../api/interests/Interests';
 import { Profiles } from '../../api/profiles/Profiles';
 import { ProfilesInterests } from '../../api/profiles/ProfilesInterests';
-import { ProfilesProjects } from '../../api/profiles/ProfilesProjects';
 import { Clubs } from '../../api/clubs/Clubs';
 
 /** Create a schema to specify the structure of the data to appear in the form. */
@@ -93,9 +92,8 @@ export default withTracker(() => {
   const sub1 = Meteor.subscribe(Interests.userPublicationName);
   const sub2 = Meteor.subscribe(Profiles.userPublicationName);
   const sub3 = Meteor.subscribe(ProfilesInterests.userPublicationName);
-  const sub4 = Meteor.subscribe(ProfilesProjects.userPublicationName);
-  const sub5 = Meteor.subscribe(Clubs.userPublicationName);
+  const sub4 = Meteor.subscribe(Clubs.userPublicationName);
   return {
-    ready: sub1.ready() && sub2.ready() && sub3.ready() && sub4.ready() && sub5.ready(),
+    ready: sub1.ready() && sub2.ready() && sub3.ready() && sub4.ready(),
   };
 })(AddClub);

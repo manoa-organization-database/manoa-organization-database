@@ -23,7 +23,7 @@ function getClubData(name) {
 
 /** Component for layout out a club Card. */
 const MakeCard = (props) => (
-  <Card as={NavLink} id={`${props.club.name}Card`} exact to={`/club/${props.club._id}`}>
+  <Card fluid as={NavLink} id={`${props.club.name}Card`} exact to={`/club/${props.club._id}`}>
     <Card.Content>
       <Image floated='left' avatar src={props.club.picture}/>
       <Card.Header style={{ marginTop: '0px' }}>{props.club.name}</Card.Header>
@@ -69,7 +69,7 @@ class clubsPage extends React.Component {
     const clubData = clubs.map(club => getClubData(club));
     return (
       <Container id="clubs-page">
-        <Card.Group>
+        <Card.Group centered>
           {_.map(clubData, (club, index) => <MakeCard key={index} club={club}/>)}
         </Card.Group>
       </Container>

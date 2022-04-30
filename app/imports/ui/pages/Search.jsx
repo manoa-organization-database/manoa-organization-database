@@ -35,7 +35,7 @@ function getClubData(name) {
 
 /** Component for layout out a Profile Card. */
 const MakeCard = (props) => (
-  <Card as={NavLink} id={`${props.club.name}Card`} exact to={`/club/${props.club._id}`}>
+  <Card fluid as={NavLink} id={`${props.club.name}Card`} exact to={`/club/${props.club._id}`}>
     <Card.Content>
       <Card.Header>{props.club.name}</Card.Header>
       <Card.Meta>

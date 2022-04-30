@@ -12,8 +12,9 @@ import { ClubAdmin } from '../../api/clubs/ClubAdmin';
 /* eslint-disable no-console */
 
 /** Define a user in the Meteor accounts package. This enables login. Username is the email address. */
-function createUser(email, role) {
-  const userID = Accounts.createUser({ username: email, email, password: 'foo' });
+function createUser(email, role, password) {
+  console.log(`${email} : ${password}`);
+  const userID = Accounts.createUser({ username: email, email, password });
   if (role === 'user') {
     Roles.addUsersToRoles(userID, 'user');
   } else if (role === 'admin') {
@@ -29,10 +30,10 @@ function addInterest(interest) {
 }
 
 /** Defines a new user and associated profile. Error if user already exists. */
-function addProfile({ firstName, lastName, email, uhID, picture, interests, clubs, clubAdmin, role }) {
+function addProfile({ firstName, lastName, email, uhID, picture, interests, clubs, clubAdmin, role, password }) {
   console.log(`Defining profile ${email}`);
   // Define the user in the Meteor accounts package.
-  createUser(email, role);
+  createUser(email, role, password);
   // Create the profile.
   Profiles.collection.insert({ firstName, lastName, email, uhID, picture, role });
   // Add interests and clubs.
@@ -52,23 +53,6 @@ function addClubs({ name, homepage, description, interests, picture }) {
   interests.map(interest => addInterest(interest));
 }
 
-/** Initialize DB if it appears to be empty (i.e. no users defined.) */
-if (Meteor.users.find().count() === 0) {
-  if (Meteor.settings.defaultClubs && Meteor.settings.defaultProfiles) {
-    console.log('Creating roles: user, club-admin, admin');
-    Roles.createRole('user');
-    Roles.createRole('club-admin');
-    Roles.createRole('admin');
-    console.log('Creating the default profiles');
-    Meteor.settings.defaultProfiles.map(profile => addProfile(profile));
-    console.log('Creating the default clubs');
-    Meteor.settings.defaultClubs.map(club => addClubs(club));
-
-  } else {
-    console.log('Cannot initialize the database!  Please invoke meteor with a settings file.');
-  }
-}
-
 /**
  * If the loadAssetsFile field in settings.development.json is true, then load the data in private/data.json.
  * This approach allows you to initialize your system with large amounts of data.
@@ -85,6 +69,24 @@ if ((Meteor.settings.loadAssetsFile) && (Meteor.users.find().count() === 0)) {
   const assetsFileName = 'data.json';
   console.log(`Loading data from private/${assetsFileName}`);
   const jsonData = JSON.parse(Assets.getText(assetsFileName));
-  jsonData.users.map(profile => addProfile(profile));
-  jsonData.clubs.map(club => addClubs(club));
+  jsonData.defaultProfiles.map(profile => addProfile(profile));
+  jsonData.defaultClubs.map(club => addClubs(club));
 }
+
+/** Initialize DB if it appears to be empty (i.e. no users defined.) */
+/*
+if (Meteor.users.find().count() === 0) {
+  if (Meteor.settings.defaultClubs && Meteor.settings.defaultProfiles) {
+    console.log('Creating roles: user, club-admin, admin');
+    Roles.createRole('user');
+    Roles.createRole('club-admin');
+    Roles.createRole('admin');
+    console.log('Creating the default profiles');
+    Meteor.settings.defaultProfiles.map(profile => addProfile(profile));
+    console.log('Creating the default clubs');
+    Meteor.settings.defaultClubs.map(club => addClubs(club));
+  } else {
+    console.log('Cannot initialize the database!  Please invoke meteor with a settings file.');
+  }
+}
+*/

@@ -14,6 +14,7 @@ import { ClubInterestsDate } from '../../api/clubs/ClubInterestsDate';
 
 /** Define a user in the Meteor accounts package. This enables login. Username is the email address. */
 function createUser(email, role, password) {
+  console.log(`${email} : ${password}`);
   const userID = Accounts.createUser({ username: email, email, password });
   if (role === 'user') {
     Roles.addUsersToRoles(userID, 'user');
@@ -53,26 +54,6 @@ function addClubs({ name, homepage, description, interests, picture }) {
   interests.map(interest => addInterest(interest));
 }
 
-/** Initialize DB if it appears to be empty (i.e. no users defined.) */
-if (Meteor.users.find().count() === 0) {
-  if (Meteor.settings.defaultClubs && Meteor.settings.defaultProfiles) {
-    console.log('Creating roles: user, club-admin, admin');
-    Roles.createRole('user');
-    Roles.createRole('club-admin');
-    Roles.createRole('admin');
-    console.log('Creating the default profiles');
-    Meteor.settings.defaultProfiles.map(profile => addProfile(profile));
-    console.log('Creating the default clubs');
-    Meteor.settings.defaultClubs.map(club => addClubs(club));
-  } else {
-    console.log('Cannot initialize the database!  Please invoke meteor with a settings file.');
-  }
-}
-
-if (Meteor.isServer) {
-  ClubInterestsDate.collection.createIndex({ club: 1, interest: 1 }, { unique: true });
-}
-
 /**
  * If the loadAssetsFile field in settings.development.json is true, then load the data in private/data.json.
  * This approach allows you to initialize your system with large amounts of data.
@@ -93,4 +74,8 @@ if ((Meteor.settings.loadAssetsFile) && (Meteor.users.find().count() === 0)) {
   jsonData.defaultProfiles.map(profile => addProfile(profile));
   console.log('Creating the default clubs');
   jsonData.defaultClubs.map(club => addClubs(club));
+}
+
+if (Meteor.isServer) {
+  ClubInterestsDate.collection.createIndex({ club: 1, interest: 1 }, { unique: true });
 }

@@ -39,7 +39,7 @@ class AddClub extends React.Component {
       if (error) {
         swal('Error', error.message, 'error');
       } else {
-        swal('Success', 'Project added successfully', 'success').then(() => formRef.reset());
+        swal('Success', 'Club added successfully. Go to "Change User Status" to set club admins.', 'success').then(() => formRef.reset());
       }
     });
   }
@@ -65,8 +65,13 @@ class AddClub extends React.Component {
               <LongTextField id='description' name='description' placeholder='Describe the project here'/>
               <Form.Group widths={'equal'}>
                 <MultiSelectField id='interests' name='interests' showInlineError={true} placeholder={'Interests'}/>
-                <MultiSelectField id='participants' name='participants' showInlineError={true} placeholder={'Participants'}/>
               </Form.Group>
+              <div className="ui message">
+                <div className="header">
+                  NOTE: setting club admins
+                </div>
+                <p>Club admins can be selected after creating the club, go to &quot;Change User Status&quot; at the top after creating the club.</p>
+              </div>
               <SubmitField id='submit' value='Submit'/>
               <ErrorsField/>
             </Segment>

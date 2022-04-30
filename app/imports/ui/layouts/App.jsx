@@ -104,7 +104,8 @@ const ClubAdminProtectedRoute = ({ component: Component, ...rest }) => (
     render={(props) => {
       const isLogged = Meteor.userId() !== null;
       const isClubAdmin = Roles.userIsInRole(Meteor.userId(), 'club-admin');
-      return (isLogged && isClubAdmin) ?
+      const isAdmin = Roles.userIsInRole(Meteor.userId(), 'admin');
+      return (isLogged && (isClubAdmin || isAdmin)) ?
         (<Component {...props} />) :
         (<Redirect to={{ pathname: '/signin', state: { from: props.location } }}/>
         );

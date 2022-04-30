@@ -75,7 +75,7 @@ Meteor.methods({
 
 const addClubMethod = 'Clubs.add';
 
-/** Creates a new project in the Clubs collection, and also updates ProfilesClubs and ClubsInterests. */
+/** Creates a new club in the Clubs collection, and also updates ProfilesClubs and ClubsInterests. */
 Meteor.methods({
   'Clubs.add'({ name, description, picture, interests, participants, homepage }) {
     Clubs.collection.insert({ name, description, picture, homepage });

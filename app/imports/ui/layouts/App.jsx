@@ -10,6 +10,7 @@ import Landing from '../pages/Landing';
 import Search from '../pages/Search';
 import EditUser from '../pages/EditUser';
 import UserHomePage from '../pages/UserHomePage';
+import AddClub from '../pages/AddClub';
 import NotFound from '../pages/NotFound';
 import Signin from '../pages/Signin';
 import Signup from '../pages/Signup';
@@ -41,6 +42,7 @@ class App extends React.Component {
               {/* <ProtectedRoute path="/addproject" component={AddProject}/> */}
               <AdminProtectedRoute path="/change-user-status" component={ChangeUserStatus}/>
               <AdminProtectedRoute path="/interests-admin" component={InterestsAdmin}/>
+              <AdminProtectedRoute path="/add-clubs-admin" component={AddClub}/>
               <Route path="/signin" component={Signin}/>
               <Route path="/signup" component={Signup}/>
               <ProtectedRoute path="/signout" component={Signout}/>

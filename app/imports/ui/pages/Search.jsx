@@ -64,7 +64,7 @@ MakeCard.propTypes = {
   club: PropTypes.object.isRequired,
 };
 
-/** Renders the Profile Collection as a set of Cards. */
+/** Renders the Club Collection as a set of Cards. */
 class Search extends React.Component {
 
   constructor(props) {

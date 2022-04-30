@@ -86,11 +86,8 @@ class UserHomePage extends React.Component {
   renderPage() {
     /** Creates an array of all emails, then finds the logged in user's email */
     const emails = _.pluck(Profiles.collection.find().fetch(), 'email');
-    // console.log(emails);
     const profileEmail = _.find(emails, function (email) { return email === Meteor.user().username; });
-    // console.log(profileEmail);
     const profileData = getProfileData(profileEmail);
-    // console.log(profileData);
     return (
       <Container id="user-home-page">
         <MakeCard profile={profileData}/>

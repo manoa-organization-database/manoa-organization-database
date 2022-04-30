@@ -16,15 +16,31 @@ class NavBar extends React.Component {
           <Image size='mini' src="/images/logo.png"/>
           <span className='bowfolio-green' style={{ fontWeight: 800, fontSize: '24px', color: 'white' }}>MOD</span>
         </Menu.Item>
+        {/* {(this.props.currentUser && !Roles.userIsInRole(Meteor.userId(), 'club-admin')) ? (
+          <Menu.Item as={NavLink} id="profilesMenuItem" activeClassName="active" exact to="/profile" key='profile'
+            style={{ color: 'white' }}>Profile</Menu.Item>
+        ) : ''}
+        {Roles.userIsInRole(Meteor.userId(), 'club-admin') ? (
+          <Menu.Item as={NavLink} id="profilesMenuItem" activeClassName="active" exact to="/clubadminhome" key='clubadmin'
+            style={{ color: 'white' }}>Profile</Menu.Item>
+        ) : ''} */}
         {this.props.currentUser ? (
-          [<Menu.Item as={NavLink} id="profilesMenuItem" activeClassName="active" exact to="/profile" key='profile'
-            style={{ color: 'white' }}>Profile</Menu.Item>,
-          <Menu.Item as={NavLink} id="databaseMenuItem" activeClassName="active" exact to="/clubs"
-            key='clubs' style={{ color: 'white' }}>Database</Menu.Item>,
-          <Menu.Item as={NavLink} id="interestsMenuItem" activeClassName="active" exact to="/search"
-            key='search' style={{ color: 'white' }}>Search by Interest</Menu.Item>,
+          [/* <Menu.Item as={NavLink} id="homeMenuItem" activeClassName="active" exact to="/home" key='home'
+           style={{ color: 'white' }}>Home</Menu.Item>, */
+            <Menu.Item as={NavLink} id="profilesMenuItem" activeClassName="active" exact to="/profile" key='profile'
+              style={{ color: 'white' }}>Profile</Menu.Item>,
+            <Menu.Item as={NavLink} id="databaseMenuItem" activeClassName="active" exact to="/clubs"
+              key='clubs' style={{ color: 'white' }}>Database</Menu.Item>,
+            <Menu.Item as={NavLink} id="interestsMenuItem" activeClassName="active" exact to="/search"
+              key='search' style={{ color: 'white' }}>Search by Interest</Menu.Item>,
           ]
         ) : ''}
+        {/* {this.props.currentUser ? (
+          [<Menu.Item as={NavLink} id="addProjectMenuItem" activeClassName="active" exact to="/addProject" key='addP'
+            style={{ color: 'white' }}>Add Project</Menu.Item>,
+          <Menu.Item as={NavLink} id="filterMenuItem" activeClassName="active" exact to="/filter" key='filter'
+            style={{ color: 'white' }}>Filter</Menu.Item>]
+        ) : ''} */}
         {Roles.userIsInRole(Meteor.userId(), 'admin') ? (
           <Menu.Item as={NavLink} id="adminMenuItemUser" activeClassName="active" exact to="/change-user-status" key='change-user-status'
             style={{ color: 'white' }}>Change User Status</Menu.Item>
@@ -37,6 +53,13 @@ class NavBar extends React.Component {
           <Menu.Item as={NavLink} id="addClubMenuItem" activeClassName="active" exact to="/add-clubs-admin" key='add-club-admin'
             style={{ color: 'white' }}>Add Clubs</Menu.Item>
         ) : ''}
+
+        {/* {
+          Roles.userIsInRole(Meteor.userId(), 'club-admin') ? (
+            <Menu.Item as={NavLink} id="adminMenuItem" activeClassName="active" exact to="/admin" key='admin'
+              style={{ color: 'white' }}>Club Profile</Menu.Item>
+          ) : ''
+        } */}
 
         <Menu.Item position="right">
           {this.props.currentUser === '' ? (

@@ -11,6 +11,11 @@ import { ProfilesInterests } from '../../api/profiles/ProfilesInterests';
 import { Profiles } from '../../api/profiles/Profiles';
 import { ClubAdmin } from '../../api/clubs/ClubAdmin';
 
+/* function getMemberEmails(clubName) {
+  const emails = _.filter(ProfilesClubs.collection.find().fetch(), (profilesClub) => profilesClub.club === clubName);
+  return _.pluck(emails, 'profile');
+} */
+
 function getAdminEmails(clubName) {
   const emails = _.filter(ClubAdmin.collection.find().fetch(), (clubadmin) => clubadmin.club === clubName);
   console.log(emails);
@@ -46,6 +51,9 @@ const ClubCard = (props) => (
       <Card.Meta>
         <span className='email'>{props.member.email}</span>
       </Card.Meta>
+      {/* <Card.Meta>
+        <span className='role'>{props.member.role}</span>
+      </Card.Meta> */}
     </Card.Content>
     <Card.Content extra>
       <div>
@@ -70,14 +78,20 @@ ClubCard.propTypes = {
 
 /** Renders a color-blocked static ClubPage page. */
 class ClubPage extends React.Component {
+  // club = _.pluck(Clubs.collection.find().fetch(), 'Mockup Club');
+
   render() {
     return (this.props.ready) ? this.renderPage() : <Loader active>Getting data</Loader>;
   }
 
   renderPage() {
     const doc = Clubs.collection.findOne(this.props.documentId);
+    console.log(`docId: ${this.props.documentId}`);
+    console.log(doc);
     const clubName = doc.name;
+    // const emails = getMemberEmails(clubName);
     const adminEmails = getAdminEmails(clubName);
+    // const memberData = emails.map(email => getMemberData(email));
     const adminData = adminEmails.map(email => getMemberData(email));
     const club = getClubData(clubName);
     const interests = getClubInterests(clubName);
@@ -114,6 +128,7 @@ class ClubPage extends React.Component {
             <Header as="h1">Admins</Header>
             <Card.Group centered>
               {_.map(adminData, (profile, index) => <ClubCard key={index} member={profile}/>)}
+              {/* {_.map(memberData, (profile, index) => <ClubCard key={index} member={profile}/>)} */}
             </Card.Group>
             <Divider />
           </Container>
@@ -131,6 +146,7 @@ ClubPage.propTypes = {
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
 export default withTracker(({ match }) => {
   const documentId = match.params._id;
+  console.log(documentId);
   // Ensure that minimongo is populated with all collections prior to running render().
   const sub1 = Meteor.subscribe(Clubs.userPublicationName);
   const sub2 = Meteor.subscribe(ProfilesClubs.userPublicationName);

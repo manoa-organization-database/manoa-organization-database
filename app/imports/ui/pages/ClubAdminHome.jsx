@@ -46,25 +46,21 @@ const MakeCard = (props) => (
           activeClassName="active" exact to={`/club/${getClubId(club)}`}>{club}</Label>)}
       </Card.Content>
     }
-    {props.profile.adminClubs.length > 0 &&
-        <Card.Content extra>
-          <Header as='h5'>Admin</Header>
-          {_.map(props.profile.adminClubs,
-            (club, index) => <Label className="user-home-page-label" key={index} as={NavLink}
-              activeClassName="active" exact
-              to={`/clubadmin/${getClubId(club)}`}>{club}</Label>)}
-        </Card.Content>
-    }
-    {props.profile.interests.length > 0 &&
-      <Card.Content extra>
-        <Header as='h5'>Interests</Header>
-        {_.map(props.profile.interests, (interest, index) => <Label className="user-home-page-label"
-          key={index}>{interest}</Label>)}
-      </Card.Content>
-    }
     <Card.Content extra>
-      <Button color='blue' as={NavLink} activeClassName="active" exact to="/edit-user" id="user-edit-button">
+      <Header as='h5'>Admin</Header>
+      {_.map(props.profile.adminClubs, (club, index) => <Label className="user-home-page-label" key={index} as={NavLink}
+        activeClassName="active" exact to={`/clubadmin/${getClubId(club)}`} >{club}</Label>)}
+    </Card.Content>
+    <Card.Content extra>
+      <Header as='h5'>Interests</Header>
+      {_.map(props.profile.interests, (interest, index) => <Label className="user-home-page-label" key={index}>{interest}</Label>)}
+    </Card.Content>
+    <Card.Content extra>
+      <Button color='blue' as={NavLink} activeClassName="active" exact to="/edit-user" >
         Edit
+      </Button>
+      <Button color='red'>
+        Delete
       </Button>
     </Card.Content>
   </Card>
@@ -75,7 +71,7 @@ MakeCard.propTypes = {
 };
 
 /** Renders the Profile Collection as a set of Cards. */
-class UserHomePage extends React.Component {
+class ClubAdminHome extends React.Component {
 
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   render() {
@@ -92,14 +88,14 @@ class UserHomePage extends React.Component {
     const profileData = getProfileData(profileEmail);
     // console.log(profileData);
     return (
-      <Container id="user-home-page">
+      <Container id="club-admin-home-page">
         <MakeCard profile={profileData}/>
       </Container>
     );
   }
 }
 
-UserHomePage.propTypes = {
+ClubAdminHome.propTypes = {
   ready: PropTypes.bool.isRequired,
 };
 
@@ -114,4 +110,4 @@ export default withTracker(() => {
   return {
     ready: sub1.ready() && sub2.ready() && sub3.ready() && sub4.ready() && sub5.ready(),
   };
-})(UserHomePage);
+})(ClubAdminHome);

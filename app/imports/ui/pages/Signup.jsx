@@ -5,13 +5,6 @@ import { Container, Form, Grid, Header, Message, Segment } from 'semantic-ui-rea
 import { Accounts } from 'meteor/accounts-base';
 import { Profiles } from '../../api/profiles/Profiles';
 
-function truncateUHID(num) {
-  if (num.length > 8) {
-    return num.substr(0, 8);
-  }
-  return num;
-}
-
 /**
  * Signup component is similar to signin component, but we create a new user instead.
  */
@@ -19,7 +12,7 @@ class Signup extends React.Component {
   /** Initialize state fields. */
   constructor(props) {
     super(props);
-    this.state = { firstName: '', lastName: '', email: '', uhID: '', picture: '', password: '', error: '', redirectToReferer: false };
+    this.state = { firstName: '', lastName: '', email: '', uhID: '', password: '', error: '', redirectToReferer: false };
   }
 
   /** Update the form controls each time the user interacts with them. */
@@ -29,13 +22,13 @@ class Signup extends React.Component {
 
   /** Handle Signup submission. Create user account and a profile entry, then redirect to the home page.  */
   submit= () => {
-    const { firstName, lastName, email, uhID, picture, password } = this.state;
+    const { firstName, lastName, email, uhID, password } = this.state;
     Accounts.createUser({ email, username: email, password }, (err) => {
       if (err) {
         this.setState({ error: err.reason });
       } else {
-        const truncatedUHID = truncateUHID(uhID);
-        Profiles.collection.insert({ firstName, lastName, email, truncatedUHID, picture, role: 'user' }, (err2) => {
+        Profiles.collection.insert({ firstName, lastName, email, uhID,
+          picture: 'https://manoa.hawaii.edu/speakers/wp-content/uploads/logo-1.png', role: 'user' }, (err2) => {
           if (err2) {
             this.setState({ error: err2.reason });
           } else {
@@ -110,16 +103,6 @@ class Signup extends React.Component {
                   name="lastName"
                   placeholder="Enter your last name"
                   type="lastName"
-                  onChange={this.handleChange}
-                />
-                <Form.Input
-                  label="Picture URL"
-                  id="signup-form-picture"
-                  icon="picture"
-                  iconPosition="left"
-                  name="picture"
-                  placeholder="Provide a link to a picture"
-                  type="picture"
                   onChange={this.handleChange}
                 />
                 <Form.Button id="signup-form-submit" content="Submit"/>

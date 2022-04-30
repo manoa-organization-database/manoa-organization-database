@@ -27,7 +27,6 @@ class ChangeUserStatus extends React.Component {
 
   /** On submit, insert the data. */
   submit(data) {
-    console.log(data);
     Meteor.call(updateProfileRoleMethod, data, (error) => {
       if (error) {
         swal('Error', error.message, 'error');

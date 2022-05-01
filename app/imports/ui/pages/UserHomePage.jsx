@@ -92,16 +92,22 @@ MakeCard.propTypes = {
 
 /** Component for layout out an interest feed. */
 const InterestFeed = (props) => (
-  <Feed.Content>
-    <Feed.Summary>
-      {props.interests.club} has added the interest {props.interests.interest}
-      {/* <Feed.Date>{props.interests.date}</Feed.Date> */}
-    </Feed.Summary>
-  </Feed.Content>
+  <Feed.Event>
+    <Feed.Content>
+      <Feed.Date content={props.interests.date.toLocaleDateString('en-US')} />
+      <Feed.Summary>
+        {props.interests.club} has added the interest {props.interests.interest}
+      </Feed.Summary>
+    </Feed.Content>
+  </Feed.Event>
 );
 
 InterestFeed.propTypes = {
-  interests: PropTypes.object.isRequired,
+  interests: PropTypes.shape({
+    club: PropTypes.string,
+    interest: PropTypes.string,
+    date: PropTypes.instanceOf(Date),
+  }).isRequired,
 };
 
 /** Renders the Profile Collection as a set of Cards. */

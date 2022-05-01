@@ -70,7 +70,7 @@ Meteor.methods({
     const newInterests = _.pluck(newInterestData, 'interest');
     const addedInterests = _.difference(newInterests, oldInterests);
     const removedInterests = _.difference(oldInterests, newInterests);
-    addedInterests.map((interest) => ClubInterestsDate.collection.insert({ club: name, interest, date: new Date().toLocaleDateString() }));
+    addedInterests.map((interest) => ClubInterestsDate.collection.insert({ club: name, interest, date: new Date().toLocaleDateString('en-US') }));
     removedInterests.map((interest) => ClubInterestsDate.collection.remove({ $and: [{ club: name }, { interest }] }));
   },
 });
@@ -85,7 +85,7 @@ Meteor.methods({
     ClubInterests.collection.remove({ club: name });
     if (interests) {
       interests.map((interest) => ClubInterests.collection.insert({ club: name, interest }));
-      interests.map((interest) => ClubInterestsDate.collection.insert({ club: name, interest, date: new Date().toLocaleDateString() }));
+      interests.map((interest) => ClubInterestsDate.collection.insert({ club: name, interest, date: new Date() }));
     } else {
       throw new Meteor.Error('At least one interest is required.');
     }

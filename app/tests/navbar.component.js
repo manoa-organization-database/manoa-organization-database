@@ -37,6 +37,10 @@ class NavBar {
     await testController.click('#adminMenuItemUser');
   }
 
+  async gotoAddClubPage(testController) {
+    await testController.click('#addClubMenuItem');
+  }
+
   /** Check that the specified user is currently logged in. */
   async isLoggedIn(testController, username) {
     await testController.expect(Selector('#navbar-current-user').innerText).eql(username);

@@ -57,7 +57,7 @@ const MakeCard = (props) => (
         <Card.Content extra>
           <Header as='h5'>Admin</Header>
           {_.map(props.profile.adminClubs,
-            (club, index) => <Label className="user-home-page-label" key={index} as={NavLink}
+            (club, index) => <Label className="user-home-page-label" id='admin-label' key={index} as={NavLink}
               activeClassName="active" exact
               to={`/clubadmin/${getClubId(club)}`}>{club}</Label>)}
         </Card.Content>

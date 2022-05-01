@@ -23,7 +23,7 @@ class UserHomePage {
   }
 
   async clickAdminClub(testController) {
-    const clubAdminLabel = Selector('.user-home-page-label').withExactText('Mockup Club');
+    const clubAdminLabel = Selector('#admin-label').withExactText('Mockup Club');
     await testController.click(clubAdminLabel());
   }
 }

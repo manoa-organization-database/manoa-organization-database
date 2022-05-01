@@ -66,6 +66,13 @@ class ChangeUserStatus extends React.Component {
               <Form.Group widths={'equal'}>
                 <MultiSelectField name='clubs' showInlineError={true} placeholder={'Clubs'}/>
               </Form.Group>
+              <div className="ui message">
+                <div className="header">
+                  WARNING: admin roles
+                </div>
+                <p>To access a club edit page, enter your username, set role as &quot;admin&quot;, and then select the club of choice.</p>
+                <p>DO NOT SET ROLE OF AN ADMIN ACCOUNT TO ANYTHING OTHER THAN ADMIN UNLESS DEMOTING AN ADMIN.</p>
+              </div>
               <SubmitField id='role-page-submit' value='Update'/>
             </Segment>
           </AutoForm>

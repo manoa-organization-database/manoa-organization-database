@@ -12,6 +12,7 @@ import { editClubPage } from './editclub.page';
 import { interestsAdminPage } from './interestsadmin.page';
 // import { interestCell } from './interestcell.component';
 import { changeUserStatus } from './changeuserstatus.page';
+import { addClubPage } from './addclub.page';
 
 /* global fixture:false, test:false */
 
@@ -109,7 +110,7 @@ test('Test that club page can be accessed', async (testController) => {
 test('Test that club page can be edited by a club admin', async (testController) => {
   const clubDesc = 'Do you like making mockups of clubs? Then this is the club for you. ' +
     'The Mockup Club focuses on teaching members how to create their own mockups of clubs. ' +
-    "Activites include coming up with clubs ideas and writing their own club descriptions such as this one. Pray you don't break everything. " +
+    "Activities include coming up with clubs ideas and writing their own club descriptions such as this one. Pray you don't break everything. " +
     'Contact a club admin for details.';
   await navBar.ensureLogout(testController);
   await navBar.gotoSigninPage(testController);
@@ -121,7 +122,7 @@ test('Test that club page can be edited by a club admin', async (testController)
   await navBar.ensureLogout(testController);
 });
 
-test('Test that an admin user can log in, add and remove an interest', async (testController) => {
+test('Test that an admin user can log in and add an interest', async (testController) => {
   await navBar.ensureLogout(testController);
   await navBar.gotoSigninPage(testController);
   await signinPage.signin(testController, adminCredentials.email, adminCredentials.password);
@@ -142,15 +143,17 @@ test('Test that setting a user to a different role works', async (testController
   await navBar.ensureLogout(testController);
 });
 
-/* test('Test that addClub page works', async (testController) => {
+test('Test that addClub page works', async (testController) => {
   await navBar.ensureLogout(testController);
   await navBar.gotoSigninPage(testController);
-  await signinPage.signin(testController, credentials.username, credentials.password);
-  await navBar.gotoAddProjectPage(testController);
-  await addProjectPage.isDisplayed(testController);
-  await addProjectPage.addProject(testController);
+  await signinPage.signin(testController, adminCredentials.email, adminCredentials.password);
+  await navBar.gotoAddClubPage(testController);
+  await addClubPage.isDisplayed(testController);
+  await addClubPage.addClub(testController);
+  await navBar.ensureLogout(testController);
 });
 
+/*
 test('Test that filter page works', async (testController) => {
   await navBar.ensureLogout(testController);
   await navBar.gotoSigninPage(testController);

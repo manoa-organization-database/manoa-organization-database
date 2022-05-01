@@ -16,7 +16,7 @@ import Signin from '../pages/Signin';
 import Signup from '../pages/Signup';
 import Signout from '../pages/Signout';
 import ChangeUserStatus from '../pages/ChangeUserStatus';
-import ClubInformation from '../pages/ClubInformation';
+import ClubDatabase from '../pages/ClubDatabase';
 import AdminClubPage from '../pages/AdminClubPage';
 import ClubPage from '../pages/ClubPage';
 import EditClub from '../pages/EditClub';
@@ -34,7 +34,7 @@ class App extends React.Component {
               <Route exact path="/" component={Landing}/>
               <ProtectedRoute path="/edit-user" component={EditUser}/>
               <ProtectedRoute path="/profile" component={UserHomePage}/>
-              <ProtectedRoute path="/clubs" component={ClubInformation}/>
+              <ProtectedRoute path="/clubs" component={ClubDatabase}/>
               <ProtectedRoute path="/search" component={Search}/>
               <ClubAdminProtectedRoute path="/clubadmin/:_id" component={AdminClubPage}/>
               <ProtectedRoute path="/club/:_id" component={ClubPage}/>

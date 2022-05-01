@@ -2,12 +2,11 @@ import React from 'react';
 import SimpleSchema2Bridge from 'uniforms-bridge-simple-schema-2';
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
-import { Container, Loader, Card, Segment, Header, Label, Image } from 'semantic-ui-react';
+import { Container, Loader, Card, Segment, Header } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
 import { AutoForm, SubmitField } from 'uniforms-semantic';
-import { NavLink } from 'react-router-dom';
 import { Interests } from '../../api/interests/Interests';
 import { ProfilesInterests } from '../../api/profiles/ProfilesInterests';
 import { Clubs } from '../../api/clubs/Clubs';
@@ -15,6 +14,7 @@ import { Profiles } from '../../api/profiles/Profiles';
 import MultiSelectField from '../forms/controllers/MultiSelectField';
 import { ClubInterests } from '../../api/clubs/ClubInterests';
 import { ClubAdmin } from '../../api/clubs/ClubAdmin';
+import ClubCard from '../components/ClubCard';
 
 /** Create a schema to specify the structure of the data to appear in the form. */
 const makeSchema = (allInterests) => new SimpleSchema({
@@ -22,6 +22,7 @@ const makeSchema = (allInterests) => new SimpleSchema({
   'interests.$': { type: String, allowedValues: allInterests },
 });
 
+/** Get all relevant club data to input into the ClubCard component. */
 function getClubData(name) {
   const data = Clubs.collection.findOne({ name });
   const website = _.pluck(Clubs.collection.find({ club: name }).fetch(), 'homepage');
@@ -32,37 +33,6 @@ function getClubData(name) {
   const interests = _.pluck(ClubInterests.collection.find({ club: name }).fetch(), 'interest');
   return _.extend({ }, data, description, { website, interests, adminList });
 }
-
-/** Component for layout out a Profile Card. */
-const MakeCard = (props) => (
-  <Card fluid as={NavLink} id={`${props.club.name}Card`} exact to={`/club/${props.club._id}`}>
-    <Card.Content>
-      <Card.Header>{props.club.name}</Card.Header>
-      <Card.Meta>
-        {props.club.homepage}
-      </Card.Meta>
-      <Card.Description>
-        {props.club.description}
-      </Card.Description>
-    </Card.Content>
-    <Card.Content extra>
-      {_.map(props.club.interests,
-        (interest, index) => <Label key={index} size='tiny' color='teal'>{interest}</Label>)}
-    </Card.Content>
-    <Card.Content extra>
-      {_.map(props.club.adminList, (list, index) => (
-        <Container key={index}>
-          <Image circular size='mini' src={ list[1] }/>
-          <Label size='tiny' color='green'>{ list[0] }</Label>
-        </Container>))}
-    </Card.Content>
-  </Card>
-);
-
-/** Properties */
-MakeCard.propTypes = {
-  club: PropTypes.object.isRequired,
-};
 
 /** Renders the Club Collection as a set of Cards. */
 class Search extends React.Component {
@@ -101,7 +71,7 @@ class Search extends React.Component {
           </Segment>
         </AutoForm>
         <Card.Group style={{ paddingTop: '10px' }}>
-          {_.map(clubData, (club, index) => <MakeCard key={index} club={club}/>)}
+          {_.map(clubData, (club, index) => <ClubCard key={index} club={club}/>)}
         </Card.Group>
       </Container>
     );

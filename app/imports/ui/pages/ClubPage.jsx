@@ -38,6 +38,8 @@ function getClubInterests(clubName) {
   return _.pluck(interests, 'interest');
 }
 
+// pull rating from club entry
+
 const ClubCard = (props) => (
   <Card>
     <Image src={props.member.picture} wrapped ui={false} />

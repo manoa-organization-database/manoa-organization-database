@@ -15,6 +15,8 @@ class ClubsCollection {
       homepage: { type: String },
       description: { type: String },
       picture: { type: String },
+      // rating number based on https://github.com/bsogata/rating-demo
+      rating: { type: Number },
     }, { tracker: Tracker });
     // Ensure collection documents obey schema.
     this.collection.attachSchema(this.schema);

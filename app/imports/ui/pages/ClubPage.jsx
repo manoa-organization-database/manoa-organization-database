@@ -13,7 +13,7 @@ import { ClubAdmin } from '../../api/clubs/ClubAdmin';
 
 function getAdminEmails(clubName) {
   const emails = _.filter(ClubAdmin.collection.find().fetch(), (clubadmin) => clubadmin.club === clubName);
-  console.log(emails);
+  // console.log(emails);
   return _.pluck(emails, 'admin');
 }
 
@@ -97,6 +97,7 @@ class ClubPage extends React.Component {
           <Container textAlign='center'>
             <Divider />
             <Header as="h3">{club.description}</Header>
+            <Label href={club.homepage} className="user-home-page-label">Click here to access the homepage</Label>
             <Divider />
           </Container>
         </div>

@@ -18,6 +18,7 @@ import { updateClubMethod } from '../../startup/both/Methods';
 const makeSchema = (allInterests) => new SimpleSchema({
   name: { type: String, label: 'Name', optional: true },
   picture: { type: String, label: 'Picture URL', optional: true },
+  homepage: { type: String, label: 'Homepage URL', optional: true },
   description: { type: String, label: 'Description', optional: true },
   interests: { type: Array, label: 'Interests', optional: true },
   'interests.$': { type: String, allowedValues: allInterests },
@@ -64,6 +65,9 @@ class EditClub extends React.Component {
               </Form.Group>
               <Form.Group widths={'equal'}>
                 <TextField name='picture' showInlineError={true} placeholder={'URL to picture'}/>
+              </Form.Group>
+              <Form.Group widths={'equal'}>
+                <TextField name='homepage' showInlineError={true} placeholder={'URL to homepage'}/>
               </Form.Group>
               <Form.Group widths={'equal'}>
                 <LongTextField name='description' showInlineError={true} placeholder={'Description'} id='clubDescription'/>

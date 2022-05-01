@@ -60,8 +60,8 @@ const updateClubMethod = 'Clubs.update';
  * updated situation specified by the user.
  */
 Meteor.methods({
-  'Clubs.update'({ name, picture, description, interests }) {
-    Clubs.collection.update({ name }, { $set: { name, description, picture } });
+  'Clubs.update'({ name, picture, homepage, description, interests }) {
+    Clubs.collection.update({ name }, { $set: { name, description, picture, homepage } });
     const interestData = _.filter(ClubInterests.collection.find().fetch(), (clubInterest) => clubInterest.club === name);
     const oldInterests = _.pluck(interestData, 'interest');
     ClubInterests.collection.remove({ club: name });

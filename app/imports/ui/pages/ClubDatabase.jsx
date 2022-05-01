@@ -1,17 +1,17 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Container, Loader, Card, Image, Label } from 'semantic-ui-react';
+import { Container, Loader, Card } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
-import { NavLink } from 'react-router-dom';
 import { ProfilesClubs } from '../../api/profiles/ProfilesClubs';
 import { Clubs } from '../../api/clubs/Clubs';
 import { Profiles } from '../../api/profiles/Profiles';
 import { ClubInterests } from '../../api/clubs/ClubInterests';
 import { ClubAdmin } from '../../api/clubs/ClubAdmin';
+import ClubCard from '../components/ClubCard';
 
-/** Gets the club data as well as Profiles and Interests associated with the passed club name. */
+/** Get all relevant club data to input into the ClubCard component. */
 function getClubData(name) {
   const data = Clubs.collection.findOne({ name });
   const interests = _.pluck(ClubInterests.collection.find({ club: name }).fetch(), 'interest');
@@ -21,42 +21,8 @@ function getClubData(name) {
   return _.extend({ }, data, { interests, adminList });
 }
 
-/** Component for layout out a club Card. */
-const MakeCard = (props) => (
-  <Card fluid as={NavLink} id={`${props.club.name}Card`} exact to={`/club/${props.club._id}`}>
-    <Card.Content>
-      <Image floated='left' avatar src={props.club.picture}/>
-      <Card.Header style={{ marginTop: '0px' }}>{props.club.name}</Card.Header>
-      <Card.Meta>
-        <span className='date'>{props.club.title}</span>
-      </Card.Meta>
-      <Card.Meta>
-        {props.club.homepage}
-      </Card.Meta>
-      <Card.Description>
-        {props.club.description}
-      </Card.Description>
-    </Card.Content>
-    <Card.Content extra>
-      {_.map(props.club.interests,
-        (interest, index) => <Label key={index} size='tiny' color='teal'>{interest}</Label>)}
-    </Card.Content>
-    <Card.Content extra>
-      {_.map(props.club.adminList, (list, index) => (
-        <Container key={index}>
-          <Image circular size='mini' src={ list[1] }/>
-          <Label size='tiny' color='green'>{ list[0] }</Label>
-        </Container>))}
-    </Card.Content>
-  </Card>
-);
-
-MakeCard.propTypes = {
-  club: PropTypes.object.isRequired,
-};
-
 /** Renders the club Collection as a set of Cards. */
-class clubsPage extends React.Component {
+class ClubDatabase extends React.Component {
 
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   render() {
@@ -69,15 +35,15 @@ class clubsPage extends React.Component {
     const clubData = clubs.map(club => getClubData(club));
     return (
       <Container id="clubs-page">
-        <Card.Group centered>
-          {_.map(clubData, (club, index) => <MakeCard key={index} club={club}/>)}
+        <Card.Group>
+          {_.map(clubData, (club, index) => <ClubCard key={index} club={club}/>)}
         </Card.Group>
       </Container>
     );
   }
 }
 
-clubsPage.propTypes = {
+ClubDatabase.propTypes = {
   ready: PropTypes.bool.isRequired,
 };
 
@@ -92,4 +58,4 @@ export default withTracker(() => {
   return {
     ready: sub1.ready() && sub2.ready() && sub3.ready() && sub4.ready() && sub5.ready(),
   };
-})(clubsPage);
+})(ClubDatabase);

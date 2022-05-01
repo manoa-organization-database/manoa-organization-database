@@ -10,7 +10,6 @@ import { searchPage } from './search.page';
 import { clubPage } from './club.page';
 import { editClubPage } from './editclub.page';
 import { interestsAdminPage } from './interestsadmin.page';
-// import { interestCell } from './interestcell.component';
 import { changeUserStatus } from './changeuserstatus.page';
 import { addClubPage } from './addclub.page';
 
@@ -129,11 +128,10 @@ test('Test that an admin user can log in and add an interest', async (testContro
   await navBar.gotoEditInterests(testController);
   await interestsAdminPage.isDisplayed(testController);
   await interestsAdminPage.addInterest(testController);
-  // await interestCell.checkCell(testController);
   await navBar.ensureLogout(testController);
 });
 
-test('Test that setting a user to a different role works', async (testController) => {
+test('Test that the page for setting a user to a different role works', async (testController) => {
   await navBar.ensureLogout(testController);
   await navBar.gotoSigninPage(testController);
   await signinPage.signin(testController, adminCredentials.email, adminCredentials.password);
@@ -152,13 +150,3 @@ test('Test that addClub page works', async (testController) => {
   await addClubPage.addClub(testController);
   await navBar.ensureLogout(testController);
 });
-
-/*
-test('Test that filter page works', async (testController) => {
-  await navBar.ensureLogout(testController);
-  await navBar.gotoSigninPage(testController);
-  await signinPage.signin(testController, credentials.username, credentials.password);
-  await navBar.gotoFilterPage(testController);
-  await filterPage.isDisplayed(testController);
-  await filterPage.filter(testController);
-}); */

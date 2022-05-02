@@ -38,7 +38,7 @@ function getClubInterests(clubName) {
   return _.pluck(interests, 'interest');
 }
 
-const ClubCard = (props) => (
+const MakeCard = (props) => (
   <Card>
     <Image src={props.member.picture} wrapped ui={false} />
     <Card.Content>
@@ -49,15 +49,16 @@ const ClubCard = (props) => (
     </Card.Content>
     <Card.Content extra>
       <div>
-        <p>Interests:</p>
-        {_.map(props.member.interests, (interest, index) => <Label key={index} className="club-admin-label">{interest}</Label>)}
+        <p>Interests:
+          {_.map(props.member.interests, (interest, index) => <Label key={index} className="club-admin-label">{interest}</Label>)}
+        </p>
       </div>
     </Card.Content>
   </Card>
 );
 
 // Require a document to be passed to this component.
-ClubCard.propTypes = {
+MakeCard.propTypes = {
   member: PropTypes.shape({
     firstName: PropTypes.string,
     lastName: PropTypes.string,
@@ -114,7 +115,7 @@ class ClubPage extends React.Component {
           <Container textAlign="center">
             <Header as="h1">Admins</Header>
             <Card.Group centered>
-              {_.map(adminData, (profile, index) => <ClubCard key={index} member={profile}/>)}
+              {_.map(adminData, (profile, index) => <MakeCard key={index} member={profile}/>)}
             </Card.Group>
             <Divider />
           </Container>

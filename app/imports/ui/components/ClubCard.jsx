@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, Image, Label, Container } from 'semantic-ui-react';
+import { _ } from 'meteor/underscore';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 

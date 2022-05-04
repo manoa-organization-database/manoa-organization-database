@@ -42,7 +42,7 @@ class ChangeUserStatus extends React.Component {
   }
 
   renderPage() {
-    const allClubs = _.pluck(Clubs.collection.find().fetch(), 'name');
+    const allClubs = _.pluck(Clubs.collection.find().fetch(), 'name').sort((a, b) => a.localeCompare(b));;
     const formSchema = makeSchema(allClubs);
     const bridge = new SimpleSchema2Bridge(formSchema);
     return (

@@ -16,7 +16,7 @@ class InterestCell extends React.Component {
     return (
       <Table.Row>
         <Table.Cell>{this.props.interest.name}</Table.Cell>
-        <Table.Cell onClick={() => this.removeItem(this.props.interest._id)}><Button icon><Icon name="trash"/></Button></Table.Cell>
+        <Table.Cell onClick={() => this.removeItem(this.props.interest._id)}><Button icon color={'red'}><Icon name="trash"/></Button></Table.Cell>
       </Table.Row>
     );
   }

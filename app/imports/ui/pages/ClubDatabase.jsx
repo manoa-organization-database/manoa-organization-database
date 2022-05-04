@@ -31,7 +31,7 @@ class ClubDatabase extends React.Component {
 
   /** Render the page once subscriptions have been received. */
   renderPage() {
-    const clubs = _.pluck(Clubs.collection.find().fetch(), 'name');
+    const clubs = _.pluck(Clubs.collection.find().fetch(), 'name').sort((a, b) => a.localeCompare(b));
     const clubData = clubs.map(club => getClubData(club));
     return (
       <Container id="clubs-page">

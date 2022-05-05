@@ -98,7 +98,7 @@ class ClubPage extends React.Component {
           <Container textAlign='center'>
             <Divider />
             <Header as="h3">{club.description}</Header>
-            <Label href={club.homepage} className="user-home-page-label">Click here to access the homepage</Label>
+            <Label href={club.homepage} className="user-home-page-label" target="_blank">Click here to access the homepage</Label>
             <Divider />
           </Container>
         </div>

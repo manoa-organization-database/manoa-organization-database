@@ -46,7 +46,7 @@ class AddClub extends React.Component {
   /** Render the form. Use Uniforms: https://github.com/vazco/uniforms */
   render() {
     let fRef = null;
-    const allInterests = _.pluck(Interests.collection.find().fetch(), 'name');
+    const allInterests = _.pluck(Interests.collection.find().fetch(), 'name').sort((a, b) => a.localeCompare(b));
     const allParticipants = _.pluck(Profiles.collection.find().fetch(), 'email');
     const formSchema = makeSchema(allInterests, allParticipants);
     const bridge = new SimpleSchema2Bridge(formSchema);

@@ -55,12 +55,13 @@ class Search extends React.Component {
   renderPage() {
     /** Grabs all interests and allows it to be options in the dropdown */
     const interestList = _.pluck(ClubInterests.collection.find().fetch(), 'interest');
-    const allInterests = _.uniq(interestList);
+    const allInterests = _.uniq(interestList).sort((a, b) => a.localeCompare(b));
     const formSchema = makeSchema(allInterests);
     const bridge = new SimpleSchema2Bridge(formSchema);
     /** Grabs individual clubs */
     const clubs = _.pluck(ClubInterests.collection.find({ interest: { $in: this.state.interests } }).fetch(), 'club');
-    const clubData = _.uniq(clubs).map(club => getClubData(club));
+    const alphabetizedClubs = clubs.sort((a, b) => a.localeCompare(b));
+    const clubData = _.uniq(alphabetizedClubs).map(club => getClubData(club));
     return (
       <Container id="filter-page">
         <Header as='h1' textAlign='center' dividing style={{ padding: 20 }}>Search for Clubs by Interest</Header>

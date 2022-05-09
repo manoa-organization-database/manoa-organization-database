@@ -53,6 +53,10 @@
     "prefer-destructuring": "off",
     "prefer-promise-reject-errors": "off"
   },
+  "env": {
+   "browser": true,
+   "node": true
+  },
   "globals": {
     "Assets": true // Meteor disallows importing of Assets, see https://docs.meteor.com/api/assets.html
   }

@@ -38,7 +38,7 @@ class EditUser extends React.Component {
       if (error) {
         swal('Error', error.message, 'error');
       } else {
-        swal('Success', 'Profile updated successfully', 'success');
+        swal('Success', 'Profile updated successfully', 'success').then(function () { window.location.href = '/#/profile'; });
       }
     });
   }

@@ -43,6 +43,7 @@ class ClubDatabase extends React.Component {
   }
 }
 
+/** This page requires the subscriptions to be ready. */
 ClubDatabase.propTypes = {
   ready: PropTypes.bool.isRequired,
 };

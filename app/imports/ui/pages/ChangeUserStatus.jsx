@@ -82,6 +82,7 @@ class ChangeUserStatus extends React.Component {
   }
 }
 
+/** This page requires the subscriptions to be ready. */
 ChangeUserStatus.propTypes = {
   ready: PropTypes.bool.isRequired,
 };

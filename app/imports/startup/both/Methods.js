@@ -12,7 +12,7 @@ import { Interests } from '../../api/interests/Interests';
 import { ClubInterestsDate } from '../../api/clubs/ClubInterestsDate';
 
 /**
- * In Bowfolios, insecure mode is enabled, so it is possible to update the server's Mongo database by making
+ * In MOD, insecure mode is enabled, so it is possible to update the server's Mongo database by making
  * changes to the client MiniMongo DB.
  *
  * However, updating the database via client-side calls can be inconvenient for two reasons:
@@ -117,6 +117,9 @@ Meteor.methods({
   },
 });
 
+/**
+ * The server-side Interest.add Meteor Method is called by the client-side InterestsAdmin page after pushing the submit button. Its purpose is to update the Interests collection to reflect the updated situation specified by the user (admin-level).
+ */
 const addInterestMethod = 'Interest.add';
 
 Meteor.methods({
@@ -125,6 +128,11 @@ Meteor.methods({
   },
 });
 
+/**
+ * The server-side Interest.remove Meteor Method is called by the client-side Home page after pushing the trash icon.
+ * Its purpose is to update the ClubInterests, ProfilesInterests, and Interests collections to reflect the
+ * updated situation specified by the user (admin level).
+ */
 const removeInterestMethod = 'Interest.remove';
 
 Meteor.methods({

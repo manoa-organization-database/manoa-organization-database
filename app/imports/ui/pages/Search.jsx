@@ -42,6 +42,8 @@ class Search extends React.Component {
     this.state = { interests: [] };
   }
 
+  /** On submit, change the internal state of the Search page object to include those interests,
+   * which reactively updates the page to include those clubs with specified interests. */
   submit(data) {
     this.setState({ interests: data.interests || [] });
   }
@@ -79,7 +81,7 @@ class Search extends React.Component {
   }
 }
 
-/** Require an array of Stuff documents in the props. */
+/** Requires the subscriptions to be ready. */
 Search.propTypes = {
   ready: PropTypes.bool.isRequired,
 };

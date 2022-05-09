@@ -31,7 +31,7 @@ class InterestsAdmin extends React.Component {
     });
   }
 
-  // If the subscription(s) have been received, render the page, otherwise show a loading icon.
+  /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   render() {
     return (this.props.ready) ? this.renderPage() : <Loader active>Getting data</Loader>;
   }
@@ -70,13 +70,13 @@ class InterestsAdmin extends React.Component {
   }
 }
 
-// Require an array of Stuff documents in the props.
+// Require an array of Interests in the props.
 InterestsAdmin.propTypes = {
   interests: PropTypes.array.isRequired,
   ready: PropTypes.bool.isRequired,
 };
 
-// withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker
+/** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
 export default withTracker(() => {
   // Get access to Interests documents.
   const subscription = Meteor.subscribe(Interests.userPublicationName);

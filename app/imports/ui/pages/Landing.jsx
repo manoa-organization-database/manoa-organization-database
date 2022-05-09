@@ -56,9 +56,7 @@ class Landing extends React.Component {
           </Container>
           <Divider horizontal hidden section/>
         </div>
-
       </div>
-
     );
   }
 }

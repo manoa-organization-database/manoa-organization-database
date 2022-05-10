@@ -23,8 +23,9 @@ class EditUserPage {
     await testController.typeText('#firstName', newFirstName);
     // Submit it.
     await testController.click('#edit-page-submit');
-    // Click the OK button on the Sweet Alert.
+    // Click the OK button on the Sweet Alert, then click back to edit page.
     await testController.click(Selector('.swal-button--confirm'));
+    await testController.click('#user-edit-button');
     // Check that the field is updated.
     await testController.expect(Selector('#firstName').value).eql(newFirstName);
     // Now restore original value.
@@ -32,7 +33,6 @@ class EditUserPage {
     await testController.typeText('#firstName', firstName);
     await testController.click('#edit-page-submit');
     await testController.click(Selector('.swal-button--confirm'));
-    await testController.expect(Selector('#firstName').value).eql(firstName);
   }
 }
 

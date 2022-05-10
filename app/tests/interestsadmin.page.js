@@ -21,6 +21,7 @@ class InterestsAdminPage {
     // Click the OK button on the Sweet Alert.
     await testController.click(Selector('.swal-button--confirm'));
     // test selecting td (w/out # or . before it)
+    await testController.click(Selector('.ui-red.button').withExactText(fakeInterest));
   }
 }
 

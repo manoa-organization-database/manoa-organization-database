@@ -22,8 +22,9 @@ class EditClubPage {
     await testController.typeText('#clubDescription', newDesc);
     // Submit it.
     await testController.click('#home-page-submit');
-    // Click the OK button on the Sweet Alert.
+    // Click the OK button on the Sweet Alert, then click back to edit page.
     await testController.click(Selector('.swal-button--confirm'));
+    await testController.click('.club-admin-button');
     // Check that the field is updated.
     await testController.expect(Selector('#clubDescription').value).eql(newDesc);
     // Now restore original value.
@@ -31,7 +32,6 @@ class EditClubPage {
     await testController.typeText('#clubDescription', clubDescription);
     await testController.click('#home-page-submit');
     await testController.click(Selector('.swal-button--confirm'));
-    await testController.expect(Selector('#clubDescription').value).eql(clubDescription);
   }
 }
 

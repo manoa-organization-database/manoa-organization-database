@@ -33,7 +33,7 @@ class EditClub extends React.Component {
       if (error) {
         swal('Error', error.message, 'error');
       } else {
-        swal('Success', 'Club updated successfully', 'success');
+        swal('Success', 'Club updated successfully', 'success').then(function () { window.location.href = `/#/clubadmin/${data._id}`; });
       }
     });
   }

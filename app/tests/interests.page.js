@@ -16,6 +16,7 @@ class InterestsPage {
     const cardCount = Selector('.ui .card').count;
     await testController.expect(cardCount).gte(9);
   }
+
 }
 
 export const interestsPage = new InterestsPage();

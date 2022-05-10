@@ -21,11 +21,13 @@ function getProfileData(email) {
   return _.extend({}, data, { interests, clubs, adminClubs });
 }
 
+/** Get Club document ID from the club name (unique). */
 function getClubId(club) {
   const clubData = Clubs.collection.findOne({ name: club });
   return clubData._id;
 }
 
+/** Get notifications of any clubs that have updated to include one or more of this user's specified interests. */
 function getNewInterests(email) {
   const interests = _.pluck(ProfilesInterests.collection.find({ profile: email }).fetch(), 'interest');
   const interestData = ClubInterestsDate.collection.find().fetch();
@@ -90,7 +92,7 @@ MakeCard.propTypes = {
   interests: PropTypes.array.isRequired,
 };
 
-/** Component for layout out an interest feed. */
+/** Component for layout out an InterestFeed (notifications). */
 const InterestFeed = (props) => (
   <Feed.Event>
     <Feed.Content>

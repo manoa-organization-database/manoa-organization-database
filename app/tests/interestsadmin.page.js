@@ -20,6 +20,7 @@ class InterestsAdminPage {
     await testController.click('#interests-admin-page-submit');
     // Click the OK button on the Sweet Alert.
     await testController.click(Selector('.swal-button--confirm'));
+    // test selecting td (w/out # or . before it)
   }
 }
 

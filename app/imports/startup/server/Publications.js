@@ -32,8 +32,8 @@ Meteor.publish(ClubAdmin.userPublicationName, () => ClubAdmin.collection.find())
 /** Define a publication to publish this collection. */
 Meteor.publish(ClubInterestsDate.userPublicationName, () => ClubInterestsDate.collection.find());
 
-// alanning:roles publication
-// Recommended code to publish roles for each user.
+/** alanning:roles publication
+Recommended code to publish roles for each user. */
 Meteor.publish(null, function () {
   if (this.userId) {
     return Meteor.roleAssignment.find({ 'user._id': this.userId });

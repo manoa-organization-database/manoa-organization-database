@@ -11,65 +11,43 @@ import { ClubInterests } from '../../api/clubs/ClubInterests';
 import { ProfilesInterests } from '../../api/profiles/ProfilesInterests';
 import { Profiles } from '../../api/profiles/Profiles';
 import { ClubAdmin } from '../../api/clubs/ClubAdmin';
+import ClubAdminCard from '../components/ClubAdminCard';
 
+/** Get the clubadmin emails for this specific organization. */
 function getAdminEmails(clubName) {
   const emails = _.filter(ClubAdmin.collection.find().fetch(), (clubadmin) => clubadmin.club === clubName);
   return _.pluck(emails, 'admin');
 }
 
+/** Get the interests corresponding to the profile entered. */
 function getMemberInterests(profileName) {
   const interests = _.filter(ProfilesInterests.collection.find().fetch(), (profilesInterest) => profilesInterest.profile === profileName);
   return _.pluck(interests, 'interest');
 }
 
+/** Get the get relevant MEMBER profile data using corresponding email (unique). */
 function getMemberData(email) {
   const profiles = _.find(Profiles.collection.find().fetch(), (member) => member.email === email);
   const interests = getMemberInterests(email);
   return _.extend({ }, profiles, { interests });
 }
 
+/** Get the corresponding CLUB profile data using the club's name (unique). */
 function getClubData(name) {
   const data = Clubs.collection.findOne({ name });
   return _.extend({ }, data);
 }
 
+/** Get the interests corresponding to this specific organization. */
 function getClubInterests(clubName) {
   const interests = _.filter(ClubInterests.collection.find().fetch(), (clubInterest) => clubInterest.club === clubName);
   return _.pluck(interests, 'interest');
 }
 
-const ClubCard = (props) => (
-  <Card>
-    <Image src={props.member.picture} wrapped ui={false} />
-    <Card.Content>
-      <Card.Header>{props.member.firstName} {props.member.lastName}</Card.Header>
-      <Card.Meta>
-        <span className='email'>{props.member.email}</span>
-      </Card.Meta>
-    </Card.Content>
-    <Card.Content extra>
-      <div>
-        <p>Interests:</p>
-        {_.map(props.member.interests, (interest, index) => <Label key={index} className="club-admin-label">{interest}</Label>)}
-      </div>
-    </Card.Content>
-  </Card>
-);
-
-// Require a document to be passed to this component.
-ClubCard.propTypes = {
-  member: PropTypes.shape({
-    firstName: PropTypes.string,
-    lastName: PropTypes.string,
-    email: PropTypes.string,
-    picture: PropTypes.string,
-    role: PropTypes.string,
-    interests: PropTypes.array,
-  }).isRequired,
-};
-
 /** Renders a color-blocked static AdminClubPage page. */
 class AdminClubPage extends React.Component {
+
+  /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   render() {
     return (this.props.ready) ? this.renderPage() : <Loader active>Getting data</Loader>;
   }
@@ -119,7 +97,7 @@ class AdminClubPage extends React.Component {
           <Container textAlign="center">
             <Header as="h1">Admins</Header>
             <Card.Group centered>
-              {_.map(adminData, (profile, index) => <ClubCard key={index} member={profile}/>)}
+              {_.map(adminData, (profile, index) => <ClubAdminCard key={index} member={profile}/>)}
             </Card.Group>
             <Divider />
           </Container>
@@ -129,6 +107,7 @@ class AdminClubPage extends React.Component {
   }
 }
 
+/** This page requires the subscriptions to be ready and an existing club document to be passed. */
 AdminClubPage.propTypes = {
   doc: PropTypes.object,
   ready: PropTypes.bool.isRequired,

@@ -118,7 +118,8 @@ Meteor.methods({
 });
 
 /**
- * The server-side Interest.add Meteor Method is called by the client-side InterestsAdmin page after pushing the submit button. Its purpose is to update the Interests collection to reflect the updated situation specified by the user (admin-level).
+ * The server-side Interest.add Meteor Method is called by the client-side InterestsAdmin page after pushing the submit button.
+ * Its purpose is to update the Interests collection to reflect the updated situation specified by the user (admin-level).
  */
 const addInterestMethod = 'Interest.add';
 
@@ -139,10 +140,10 @@ Meteor.methods({
   // eslint-disable-next-line meteor/audit-argument-checks
   'Interest.remove'(docID) {
     const name = Interests.collection.findOne(docID).name;
-    console.log(name);
     ProfilesInterests.collection.remove({ interest: name });
     ClubInterests.collection.remove({ interest: name });
     Interests.collection.remove(docID);
+    console.log(`${name} removed`);
   },
 });
 

@@ -20,6 +20,7 @@ class SearchPage {
     await testController.click(interestsSelector);
     await testController.click(visualizationOption);
     await testController.click(interestsSelector);
+    await testController.click('h1');
     await testController.click('#submit');
     // Check that only one card is displayed.
     const cardCount = Selector('.ui .card').count;

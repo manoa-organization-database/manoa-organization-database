@@ -121,7 +121,7 @@ test('Test that club page can be edited by a club admin', async (testController)
   await navBar.ensureLogout(testController);
 });
 
-test('Test that an admin user can log in and add an interest', async (testController) => {
+test('Test that an admin user can log in, add and remove an interest', async (testController) => {
   await navBar.ensureLogout(testController);
   await navBar.gotoSigninPage(testController);
   await signinPage.signin(testController, adminCredentials.email, adminCredentials.password);

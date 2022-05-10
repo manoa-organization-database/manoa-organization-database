@@ -11,7 +11,7 @@ class InterestsAdminPage {
     await testController.expect(this.pageSelector.exists).ok();
   }
 
-  /** Add a new interest value, and check if it is present in the table. */
+  /** Add a new interest value, and remove it right after. */
   async addInterest(testController) {
     // Type in new interest.
     const fakeInterest = `interest-${new Date().getTime()}`;
@@ -20,8 +20,8 @@ class InterestsAdminPage {
     await testController.click('#interests-admin-page-submit');
     // Click the OK button on the Sweet Alert.
     await testController.click(Selector('.swal-button--confirm'));
-    // test selecting td (w/out # or . before it)
-    await testController.click(Selector('.ui-red.button').withExactText(fakeInterest));
+    // remove interest
+    await testController.click(Selector('td').withExactText(fakeInterest).sibling('td'));
   }
 }
 

@@ -32,7 +32,7 @@ class AddClubPage {
     await testController.click(hpcOption);
     await testController.click(aiOption);
     await testController.click(interestsSelector);
-
+    await testController.click('h2');
     await testController.click('#submit');
     await testController.click(Selector('.swal-button--confirm'));
   }

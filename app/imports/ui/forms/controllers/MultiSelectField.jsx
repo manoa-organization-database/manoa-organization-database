@@ -42,7 +42,7 @@ const renderDropdown = ({ allowedValues, disabled, placeholder, onChange, transf
   }));
   return (
     <Dropdown id={id} fluid={true} multiple={true} placeholder={placeholder} selection={true} disabled={disabled}
-      options={options} onChange={(event, data) => onChange(data.value)} value={value}/>
+      options={options} onChange={(event, data) => onChange(data.value)} value={value} search={true} clearable={true}/>
   );
 };
 
